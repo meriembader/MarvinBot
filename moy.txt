@@ -1,0 +1,30 @@
+
+Applications côté client (CSA) 16,348  | 49,044
+Architecture n-tiers .NET	18.7 | 56.1
+Architecture Orientée Service "SOA" 19.7 | 59.1
+Communication, Culture et Citoyenneté F4 11.25 | 33.75
+Integration Web	11.2 | 16.8
+JEE specifications and applications 15.7 | 47.1	
+Projet intégration développement	15.35 | 122.8
+Projet RO-complexité	12.5 | 12.5
+SEM 14.1 |  21.15
+Théorie des graphes 12.4 | 18.6
+Programmation liniare 11.8 | 17.7
+
+Total : 455,094 | 15.16
+
+//Zaydoun jamoulla
+Applications côté client (CSA) 12.948  | 38.844
+Architecture n-tiers .NET	9.75 | 29.25
+Architecture Orientée Service "SOA" 18 | 54
+Communication, Culture et Citoyenneté F4 11.47 | 34.425
+Integration Web	11.7 | 17.55
+JEE specifications and applications 9 | 27
+Projet intégration développement	15.08 | 120.64
+Projet RO-complexité	12.7 | 12.7
+SEM 12.9 |  19.35
+Théorie des graphes 13 | 19.5
+Programmation liniare 10 | 15
+
+Total : 388,259? | 12.94
+
