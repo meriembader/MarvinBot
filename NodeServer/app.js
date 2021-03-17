@@ -1,8 +1,16 @@
-var express = require('express');
+const express = require('express');
+const bodyParser= require('body-parser')
+const app = express();
 
-var app = express();
-var server = app.listen(3000, () => {
-    console.log('server is running on port', server.address().port);
-   });
+app.use(bodyParser.urlencoded({ extended: true }))
+app.listen(3000, function() {
+    console.log('listening on 3000')
+  })
 
-app.use(express.static(__dirname));
+  app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html')})
+
+    
+    app.post('/quotes', (req, res) => {
+        console.log(req.body)
+      })
