@@ -1,62 +1,40 @@
-const express = require('express');
-const bodyParser= require('body-parser')
-const mongoose = require('mongoose')
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
 const app = express();
-const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://127.0.0.1:27017/MarvinBot'
 
-/*const dbName = 'MarvinBot'
-let user
+var corsOptions = {
+  origin: "http://localhost:3001"
+};
 
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    if (err) return console.log(err)
-  
-    // Storing a reference to the database so you can use it later
-    db = client.db(dbName)
-    console.log(`Connected MongoDB: ${url}`)
-    console.log(`Database: ${dbName}`)
-  })*/
+app.use(cors(corsOptions));
 
+app.use(bodyParser.json());
 
-  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    if (err) return console.log(err)
-  .then(client => {
-    // ...
-    const db = client.db('MarvinBot')
-    const userCollection = db.collection('user')
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    // ...
+const db = require("./models");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   })
-
-
-  mongoose.connect(url, { useNewUrlParser: true })
-
-  const db = mongoose.connection
-db.once('open', _ => {
-  console.log('Database connected:', url)
-})
-
-db.on('error', err => {
-  console.error('connection error:', err)
-})
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.listen(3000, function() {
-    console.log('listening on 3000')
+  .then(() => {
+    console.log("Connected to the database!");
   })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
 
-  app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')})
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to our bot server." });
+});
 
-    
-  /*  app.post('/quotes', (req, res) => {
-        console.log(req.body)
-      })*/
- 
-      app.post('/user', (req, res) => {
-        userCollection.insertOne(req.body)
-          .then(result => {
-            console.log(result)
-          })
-          .catch(error => console.error(error))
-      }
+// port, listen for requests
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
