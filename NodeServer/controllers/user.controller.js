@@ -3,7 +3,7 @@ const user = db.users;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.title) {
+    if (!req.body.name) {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
     }
@@ -35,7 +35,7 @@ exports.findAll = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
   
-    Tutorial.find(condition)
+    user.find(condition)
       .then(data => {
         res.send(data);
       })

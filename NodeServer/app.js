@@ -1,9 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("./routes/user.routes");
-const app = express();
 
+const app = express();
+require("./routes/user.routes")(app);
 var corsOptions = {
   origin: "http://localhost:3001"
 };
@@ -37,4 +37,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+
 });
+
