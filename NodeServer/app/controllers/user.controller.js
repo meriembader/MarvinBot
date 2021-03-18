@@ -8,7 +8,7 @@ exports.create = (req, res) => {
       return;
     }
 
-    const user = new user({
+    const user = new User({
         name: req.body.name,
         surname: req.body.surname,
         email: req.body.email,
