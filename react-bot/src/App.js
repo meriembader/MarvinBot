@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import ChatBot from 'react-simple-chatbot';
 
 function App() {
   return (
