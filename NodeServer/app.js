@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
-/*********************************Chat************ */
+/*********************************Chat************ 
 
 require('dotenv').config()
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
@@ -23,6 +23,8 @@ io.on('connection', function(socket){
 });
 
 const apiai = require('apiai')(marvin-vpax);
+//const apiai = require('apiai')(APIAI_TOKEN);
+
 
 // Web UI
 app.get('/', (req, res) => {
