@@ -113,9 +113,21 @@ io.on('connection', function(socket) {
       console.log(error);
     });
 
-    apiaiReq.end();
 
+
+  function synthVoice(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.text = text;
+    synth.speak(utterance);
+  }
+  socket.on('bot reply', function(replyText) {
+    synthVoice(replyText);
   });
+  
+  apiaiReq.end();
 });
+});
+
 
 module.exports = app;

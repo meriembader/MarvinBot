@@ -2,6 +2,13 @@
 
 const socket = io();
 
+
+
+
+
+
+
+
 const outputYou = document.querySelector('.output-you');
 const outputBot = document.querySelector('.output-bot');
 
