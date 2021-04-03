@@ -1,7 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import  { useState } from 'react';
 
-export default function Login() {
+
+async function Login(credentials) {
+  return fetch('http://localhost:3001/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+ }
+ 
+export default function Login1({ setToken }) {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const token = await Login({
+      email,
+      password
+    });
+    setToken(token);
+  }
+  
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -44,7 +69,7 @@ export default function Login() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -55,7 +80,7 @@ export default function Login() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      placeholder="Email"onChange={e => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -69,7 +94,7 @@ export default function Login() {
                     <input
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
+                      placeholder="Password" onChange={e => setPassword(e.target.value)}
                     />
                   </div>
                   <div>
@@ -88,7 +113,7 @@ export default function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                     >
                       Sign In
                     </button>
