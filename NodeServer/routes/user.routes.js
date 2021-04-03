@@ -30,7 +30,8 @@ addUser: router.post('/', function(req, res, next) {
     name: req.body.name,
     surname: req.body.surname,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role
   }).save(
     (err, newuser) => {
       if (err)
@@ -96,12 +97,13 @@ router.post('/register', function (req, res) {
 
   bcrypt.hash(req.body.password, null, null, function (err, hash) {
     if (err)
-      res.send(err)
+      res.send(err)   
       new user ( {
       password: hash,
       email: req.body.email,
-      surname: req.body.surname,
-      name: req.body.name
+      surname: req.body.surname,  
+      name: req.body.name,
+      role: req.body.role   
     }).save(
       (err, newuser) => {
         if (err)
