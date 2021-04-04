@@ -13,7 +13,7 @@ export default function Profile() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+                "url('https://www.ortholive.com/wp-content/uploads/2020/08/bigstock-Doctor-With-Medical-Healthcare-213017662-600x400.jpg')",
             }}
           >
             <span
@@ -50,7 +50,7 @@ export default function Profile() {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require("assets/img/team-2-800x800.jpg").default}
+                        src={require("assets/img/patients.jpg").default}
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                       />
                     </div>
@@ -61,7 +61,7 @@ export default function Profile() {
                         className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
-                        Connect
+                        Testing
                       </button>
                     </div>
                   </div>
@@ -69,26 +69,26 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
+                          3
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Friends
+                          Tests
                         </span>
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
+                          1
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Photos
+                          Positive
                         </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
+                          2
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Comments
+                          Negative
                         </span>
                       </div>
                     </div>
@@ -96,37 +96,34 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Jenna Stones
+                    Kaies ben said
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                    Los Angeles, California
+                    Ariana, Tunis
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    Solution Manager - Creative Tim Officer
+                    Retired - 71 years old
                   </div>
                   <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    University of Computer Science
+                    <i className="fas fa-doctor mr-2 text-lg text-blueGray-400"></i>
+                    Consulted by the doctor : Mohamed el Gharbi
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
+                      High cardio rate 121 and 39.5° of temperature...
+                      Last covid-19 test done before 3 days in pasteur hospital with positive result 
                       </p>
                       <a
                         href="#pablo"
                         className="font-normal text-lightBlue-500"
                         onClick={(e) => e.preventDefault()}
                       >
-                        Show more
+                        Show more details
                       </a>
                     </div>
                   </div>

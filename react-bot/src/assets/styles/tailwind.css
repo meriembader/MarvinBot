@@ -1851,7 +1851,7 @@ select {
 }
 
 .max-w-100-px {
-  max-width: 100px;
+  max-width: 85px;
 }
 
 .max-w-120-px {
@@ -2916,7 +2916,7 @@ select {
   }
 
   .lg\:-ml-16 {
-    margin-left: -4rem;
+    margin-left: -3rem;
   }
 
   .lg\:-mt-64 {
