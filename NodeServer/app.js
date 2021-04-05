@@ -103,7 +103,7 @@ io.on('connection', function(socket) {
       sessionId: APIAI_SESSION_ID
     });
 
-    apiaiReq.on('response', (response) => {
+    apiaiReq.on('response', (response) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
       let aiText = response.result.fulfillment.speech;
       console.log('Bot reply: ' + aiText);
       socket.emit('bot reply', aiText);
