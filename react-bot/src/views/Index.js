@@ -113,8 +113,8 @@ Lowering Costs. Improving Health.                  </h1>
                         <i className="fas fa-stethoscope"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                        Diagnoses
-                      </h6>
+                        Diagnoses     
+                      </h6>   
                       <p className="mb-4 text-blueGray-500">
                         After finishing collecting data, Marvin provides diagnoses and offers you various solutions and actionable steps to take.
                       </p>
