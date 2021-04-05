@@ -10,11 +10,11 @@ const data = require('../mylogreg.json');
 const trainingData = data.map(item => ({
   output: item.X_train
 }));
-network.train(trainingData, {
+network.train(train      ingData, {
   iterations: 2000
-});*/
+})
 
-/*
+
 app.get('/predict',function(req,res){
 	console.log(req.query);
 res.render('index');
