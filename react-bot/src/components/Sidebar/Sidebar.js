@@ -231,6 +231,17 @@ export default function Sidebar() {
                   Profile Page
                 </Link>
               </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  to="/forum"
+                >
+                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  Forum Page
+                </Link>
+              </li>
+
             </ul>
 
             {/* Divider */}
