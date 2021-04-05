@@ -3,6 +3,23 @@ const mongoose=require('mongoose');
 const saltRounds = 10;
 
 //pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+
+//pour définir le schema :p//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+//pour définir le schema :p
+
+//pour définir le schema :p
+//pour définir le schema :p//pour définir le schema :p
+
 var Schema = mongoose.Schema;
 var forum = new Schema ( 
   {
