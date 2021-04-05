@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+       #Info, #InfoTemp, #text, #temp, #textTemp, #reset {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div>Server Status: </div>
+    <div id="Sstatus">Not Connected</div>
+    <div>Device Status: </div>
+    <div id="Dstatus">Not Connected</div>
+    <br>
+    <div>Please put your finger firmly on the device sensor and then click Start </div>
+    <br>
+    <button onclick="start_measure()">Start Heart Measurements</button>
+    <br> <br>
+    <div id="Info">Getting Measurments please wait for 4 seconds</div>
+    <br>
+    <div id="textHeart"></div>
+    <br>
+    <button id="temp" onclick="start_temp()">Start Temp Measurements</button>
+    <br> <br>
+    <div id="InfoTemp">Getting Measurments please wait for 4 seconds</div>
+    <br>
+    <div id="textTemp"></div>
+    <br>
+    <button id="reset" onclick="reset()">Reset</button>
+    <script src="socket.js"></script>
+    <script>
+        const socket = io("http://localhost:5000", {
+            query: {
+                    "id": "browser"
+                    }
+        });
+        socket.on("connect", () => {
+            document.getElementById("Sstatus").innerHTML = "Connected"
+            console.log(socket.id)
+        });
+
+        socket.on("status", (arg) => {
+        document.getElementById("Dstatus").innerHTML = arg
+        });
+        socket.on("reply_heart_front", (arg) => {
+            document.getElementById("textHeart").innerHTML = "Your Heart Rate is: "+arg.HeartRate+" BPM, Your SpO2 level is: "+arg.SpO2+" %";
+            document.getElementById("textHeart").style.display="block";
+            document.getElementById("temp").style.display="block";
+        });
+
+        socket.on("reply_temp_front", (arg) => {
+            document.getElementById("textTemp").innerHTML = "Your Body Temp is: "+arg.Temp+" °C";
+            document.getElementById("textTemp").style.display="block";
+            document.getElementById("reset").style.display="block";
+        });
+
+        function start_measure() {
+          document.getElementById("Info").style.display = "block";
+          socket.emit("measure", null);
+        }
+
+        function start_temp() {
+          document.getElementById("InfoTemp").style.display = "block";
+          socket.emit("measureTemp", null);
+        }
+
+        function reset() {
+            document.getElementById("Info").style.display = "none";
+            document.getElementById("InfoTemp").style.display = "none";
+            document.getElementById("textHeart").style.display="none";
+            document.getElementById("temp").style.display="none";
+            document.getElementById("textTemp").style.display="none";
+            document.getElementById("reset").style.display="none";
+        }
+
+
+        </script>
+</body>
+</html>
