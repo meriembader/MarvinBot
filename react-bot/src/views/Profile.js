@@ -88,7 +88,7 @@ export default function Profile() {
                           2
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Negative
+                          Negative. --
                         </span>
                       </div>
                     </div>
@@ -119,12 +119,12 @@ export default function Profile() {
                       Last covid-19 test done before 3 days in pasteur hospital with positive result 
                       </p>
                       <a
-                        href="#pablo"    
+                        href="#pablo"
                         className="font-normal text-lightBlue-500"
                         onClick={(e) => e.preventDefault()}
                       >
                         Show more details
-                      </a>       
+                      </a>
                     </div>
                   </div>
                 </div>

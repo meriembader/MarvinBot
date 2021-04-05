@@ -4,6 +4,29 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+const data = require('../mylogreg.json');
+
+/*
+const trainingData = data.map(item => ({
+  output: item.X_train
+}));
+network.train(train      ingData, {
+  iterations: 2000
+})
+
+
+app.get('/predict',function(req,res){
+	console.log(req.query);
+res.render('index');
+})*//*
+const trainingData = data.map(item => ({
+  output: item.X_train
+}));
+network.train(train      ingData, {
+  iterations: 2000
+})
+
+
 
 
 /*********************************Chat************ */
@@ -24,7 +47,7 @@ var mongoose = require('mongoose');
 var configDB = require('./config/db.config.json');
 
 var userRouter = require('./routes/user.routes');
-
+var forumRouter = require('./routes/forum.routes');
 
 
 
@@ -40,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/user', userRouter);
-
+app.use('/forum', forumRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -91,7 +114,7 @@ const apiai = require('apiai')(Token);
 // Web UI
 app.get('/', (req, res) => {
   res.sendFile('index.html');
-});
+});  
 
 io.on('connection', function(socket) {
   socket.on('chat message', (text) => {
@@ -113,9 +136,21 @@ io.on('connection', function(socket) {
       console.log(error);
     });
 
-    apiaiReq.end();
 
+
+  function synthVoice(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.text = text;
+    synth.speak(utterance);
+  }
+  socket.on('bot reply', function(replyText) {
+    synthVoice(replyText);
   });
+  
+  apiaiReq.end();
 });
+});
+
 
 module.exports = app;
