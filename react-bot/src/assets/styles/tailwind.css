@@ -1576,7 +1576,7 @@ select {
 }
 
 .text-lg {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   line-height: 1.75rem;
 }
 
@@ -1903,7 +1903,7 @@ select {
 }
 
 .opacity-75 {
-  opacity: 0.75;
+  opacity: 0.2;
 }
 
 .opacity-80 {
@@ -2346,7 +2346,7 @@ select {
 
 .text-white {
   --tw-text-opacity: 1;
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  color: black;
 }
 
 .text-pink-400 {
