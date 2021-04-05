@@ -27,7 +27,7 @@ const PagesDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        Self Diagnostic Menu
       </a>
       <div
         ref={popoverDropdownRef}
@@ -65,7 +65,7 @@ const PagesDropdown = () => {
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
-          Tables
+          Doctors
         </Link>
         <Link
           to="/admin/maps"
@@ -113,7 +113,7 @@ const PagesDropdown = () => {
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
-          Landing
+          Labs
         </Link>
         <Link
           to="/profile"
