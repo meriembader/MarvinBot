@@ -49,7 +49,7 @@ var configDB = require('./config/db.config.json');
 var userRouter = require('./routes/user.routes');
 var forumRouter = require('./routes/forum.routes');
 var chatRouter = require('./routes/chat.routes');
-
+var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -65,6 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', userRouter);
 app.use('/forum', forumRouter);
 app.use('/chat', chatRouter);
+app.use('/diagnostique', diagnostiqueRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
