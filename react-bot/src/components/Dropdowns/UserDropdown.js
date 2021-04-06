@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { createPopper } from "@popperjs/core";
 
 const UserDropdown = () => {
@@ -31,7 +32,7 @@ const UserDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/team-1-800x800.jpg").default}
+              src={require("assets/img/patients.jpg").default}
             />
           </span>
         </div>
@@ -50,26 +51,35 @@ const UserDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Action
+           <Link
+          to="/profile"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        >
+          Patient Vue
+        </Link>
+          
         </a>
         <a
+
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
           onClick={(e) => e.preventDefault()}
         >
-          Another action
-        </a>
-        <a
-          href="#pablo"
+           <Link
+          to="/admin/settings"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
         >
-          Something else here
+          Account Settings
+        </Link>
+          
         </a>
+       
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
         <a
           href="#pablo"
@@ -78,7 +88,15 @@ const UserDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Seprated link
+            <Link
+          to="/"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        >
+          Logout
+        </Link>
+          
         </a>
       </div>
     </>

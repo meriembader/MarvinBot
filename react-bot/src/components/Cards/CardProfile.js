@@ -12,7 +12,7 @@ export default function CardProfile() {
               <div className="relative">
                 <img
                   alt="..."
-                  src={require("assets/img/rafaa.jpg").default}
+                  src={require("assets/img/patients.jpg").default}
                   className="shadow-md rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-100-px"
                 />
               </div>
@@ -46,11 +46,11 @@ export default function CardProfile() {
             </h3>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-              Los Angeles, California
+              Ariana, Tunis
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">
               <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-              Super admin - foxward project
+              Super Admin - foxward project
             </div>
            
           </div>
