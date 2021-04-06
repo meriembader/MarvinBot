@@ -2169,7 +2169,7 @@ select {
 }
 
 .absolute {
-  position: center;
+  position: absolute;
 }
 
 .relative {
