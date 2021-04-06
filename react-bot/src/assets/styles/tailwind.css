@@ -1851,7 +1851,7 @@ select {
 }
 
 .max-w-100-px {
-  max-width: 85px;
+  max-width: 125px;
 }
 
 .max-w-120-px {
@@ -2169,7 +2169,7 @@ select {
 }
 
 .absolute {
-  position: absolute;
+  position: center;
 }
 
 .relative {
