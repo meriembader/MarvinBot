@@ -22,8 +22,6 @@ router.get('/', function(req, res, next) {
   )
 });
 
-
-
 /* POST API user */
 addUser: router.post('/', function(req, res, next) {
   new user({
