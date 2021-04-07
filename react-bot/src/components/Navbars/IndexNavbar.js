@@ -33,7 +33,7 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-           
+
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <IndexDropdown />
@@ -50,21 +50,21 @@ export default function Navbar(props) {
               </li>
 
 
-           
+
 
               <li className="flex items-center">
-                <button 
-                
+                <button
+
                   className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                   type="button"
                 >
-               
-                  
-               <Link
-          to="/auth/login"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-             <i class="fas fa-sign-in-alt" ></i> Login
+
+
+                  <Link
+                    to="/auth/login"
+                    className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >
+                    <i class="fas fa-sign-in-alt" ></i> Login
         </Link>
                 </button>
               </li>
