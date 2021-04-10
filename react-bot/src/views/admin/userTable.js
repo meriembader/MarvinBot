@@ -3,7 +3,7 @@ import React from "react";
 
 import CardTable from "components/Cards/CardTable.js";
 
-export default function userTables() {
+export default function Tables() {
   return (
     <>
       <div className="flex flex-wrap mt-4">

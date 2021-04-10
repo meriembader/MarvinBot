@@ -9,6 +9,7 @@
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
     "autoprefixer": "10.2.5",
+    "axios": "^0.21.0",
     "chart.js": "2.9.4",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
@@ -16,9 +17,12 @@
     "postcss": "8.2.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-redux": "^7.2.3",
     "react-router": "5.2.0",
-    "react-router-dom": "5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "tailwindcss": "2.0.4"
   },
   "scripts": {
@@ -46,5 +50,8 @@
   },
   "optionalDependencies": {
     "typescript": "4.2.3"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.9"
   }
 }
