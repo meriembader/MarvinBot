@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
-const data = require('../mylogreg.json');
+const data = require('..//IA_Model/mylogreg.json');
 
 /*
 const trainingData = data.map(item => ({

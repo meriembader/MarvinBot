@@ -32,6 +32,7 @@ var chat = new Schema (
   },
    
   );
+  
 // hash chat password before saving into database
   module.exports = mongoose.model('chat', chat);
 
