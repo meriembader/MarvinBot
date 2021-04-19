@@ -15,8 +15,8 @@ async  function Register(credentials) {
     .then(data => data.json())
 }
 export default function Register1() {
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
+
+  const [username, setusername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [role, setRole] = useState();
@@ -24,7 +24,7 @@ export default function Register1() {
   const handleSubmit = async e => {
     e.preventDefault();
     const token = await Register({
-     name,surname,email, 
+  username,email, 
       password,role
     });
     
@@ -43,31 +43,19 @@ export default function Register1() {
                   <strong> sign up </strong>
                 </div>
                 <form onSubmit={handleSubmit}>
-                  <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Name" onChange={e => setName(e.target.value)}
-                    />
-                  </div>
+                 
 
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Surname
+                      username
                     </label>
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Surname" onChange={e => setSurname(e.target.value)}
+                      placeholder="username" onChange={e => setusername(e.target.value)}
                     />
                   </div>
 
