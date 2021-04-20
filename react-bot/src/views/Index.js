@@ -384,15 +384,7 @@ Lowering Costs. Improving Health.                  </h1>
             x="0"
             y="0"
           >
-            <polygon
-              className="text-blueGray-200 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
-
-      </section>
-      <Footer />
+          
     </>
   );
 }
