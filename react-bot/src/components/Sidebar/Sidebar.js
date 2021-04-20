@@ -146,7 +146,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Forum
+                  Doctors
                 </Link>
               </li>
 

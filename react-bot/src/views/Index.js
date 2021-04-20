@@ -390,8 +390,6 @@ Lowering Costs. Improving Health.                  </h1>
             ></polygon>
           </svg>
         </div>
-
-      
       </section>
       <Footer />
     </>
