@@ -5,7 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
 const data = require('../mylogreg.json');
+var cors = require('cors');
 
+app.use(express.json());
+app.use(cors());
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
