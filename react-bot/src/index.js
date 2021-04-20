@@ -29,6 +29,7 @@ ReactDOM.render(
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
       <Route path="/VC" exact component={VirtualConsultation} />
+
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
