@@ -59,7 +59,7 @@ var chatRouter = require('./routes/chat.routes');
 var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
 var authRouter = require('./routes/auth.routes');
-
+var hospitalRouter = require('./routes/hospital.routes');
 
 
 
@@ -75,6 +75,7 @@ app.use('/forum', forumRouter);
 app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
+app.use('/hospital', hospitalRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
