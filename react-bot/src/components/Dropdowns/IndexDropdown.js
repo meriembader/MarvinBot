@@ -63,6 +63,20 @@ const IndexDropdown = () => {
         >
           Dashboard
         </Link>
+
+        <Link
+          to="/VC"
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        >
+          Online Consultation
+        </Link>
+<Link
+          to="/forum"
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        >
+          Forum
+        </Link>
+
        
       </div>
     </>
