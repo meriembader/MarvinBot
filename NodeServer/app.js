@@ -7,7 +7,9 @@ var app = express();
 const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
+var cors = require('cors');
 
+app.use(express.json());
 
 /*
 const trainingData = data.map(item => ({

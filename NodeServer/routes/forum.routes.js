@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var forum = require('../models/forum.model');
 
+var app = express();
+
+
+
 /* GET API forum listing. */
 router.get('/', function(req, res, next) {
   forum.find(
@@ -23,7 +27,7 @@ router.get('/', function(req, res, next) {
 
 
 /* POST API forum */
- router.post('/', function(req, res, next) {
+ router.post('/addForum', function(req, res, next) {
   new forum({
     title: req.body.title,
     description: req.body.description,
@@ -41,7 +45,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* PUT API forum */
-router.put('/:id', function(req, res, next) {
+router.put('update/:id', function(req, res, next) {
     forum.findByIdAndUpdate(
       req.params.id,
       req.body,
