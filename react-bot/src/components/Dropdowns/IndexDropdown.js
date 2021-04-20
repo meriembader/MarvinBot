@@ -27,7 +27,7 @@ const IndexDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        Self Diagnostic Menu
       </a>
       <div
         ref={popoverDropdownRef}
@@ -107,6 +107,25 @@ const IndexDropdown = () => {
         >
           Profile
         </Link>
+
+        <Link
+          to="/forum"
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        >
+          Forum
+        </Link>
+
+        <Link
+          to="/VC"
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        >
+          Online Consultation
+        </Link>
+
+              
+        
+   
+
       </div>
     </>
   );
