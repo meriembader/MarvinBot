@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 
 
 app.use(express.json());
-
+app.use(cors());
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
