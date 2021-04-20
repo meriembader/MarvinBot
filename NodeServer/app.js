@@ -2,23 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var app = express();
-const data = require('../mylogreg.json');
-const cors = require("cors");
-const bodyParser = require("body-parser");
-
-app.use(express.json());
-app.use(cors());
-/*
-const trainingData = data.map(item => ({
-  output: item.X_train
-}));
-network.train(trainingData, {
-  iterations: 2000
-})*/
-/*
-
+v
 app.get('/predict',function(req,res){
 	console.log(req.query);
 res.render('index');
