@@ -107,8 +107,6 @@ const IndexDropdown = () => {
         >
           Profile
         </Link>
-
-
       </div>
     </>
   );
