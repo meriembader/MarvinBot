@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
 
 /* POST API hospital */
- router.post('/addhospital', function(req, res, next) {
+ router.post('/', function(req, res, next) {
   new hospital({
     name: req.body.name,
     address: req.body.address,
