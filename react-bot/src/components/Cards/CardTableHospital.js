@@ -5,19 +5,19 @@ import Popup from "components/Popup";
 // components
 
 
-export default function CardTableChat({ color }) {
+export default function CardTableHospital({ color }) {
   
-  const [ChatList, setChatList] = useState([]);
+  const [HospitalList, setHospitalList] = useState([]);
 
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/chat").then((response) => {
-      setChatList(response.data);
+    Axios.get("http://localhost:3001/hospital").then((response) => {
+      setHospitalList(response.data);
       console.log(response.data);
     });
   }, []);
-  const deleteChat = (id)=> {
-    Axios.delete(`http://localhost:3001/chat/${id}`);
+  const deleteHospital = (id)=> {
+    Axios.delete(`http://localhost:3001/hospital/${id}`);
     window.location.reload();
   };
 
@@ -25,7 +25,6 @@ export default function CardTableChat({ color }) {
   
   return (
     <>
-    
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -41,7 +40,7 @@ export default function CardTableChat({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Chat list
+                Hospital list
               </h3>
             </div>
           </div>
@@ -53,16 +52,13 @@ export default function CardTableChat({ color }) {
 <thead>
   <tr>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    question1
+      name
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    question2
+    address
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    question3
-    </th>
-    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    question4
+    status
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
@@ -77,7 +73,7 @@ export default function CardTableChat({ color }) {
 
 
 
-  {ChatList.map((val, index) => {
+  {HospitalList.map((val, index) => {
     return (
       <tr>
 
@@ -96,7 +92,7 @@ export default function CardTableChat({ color }) {
 
             <div key={index}>
 
-              <h3>{val.question1}</h3>
+              <h3>{val.name}</h3>
             </div>
           </span>
 
@@ -106,26 +102,20 @@ export default function CardTableChat({ color }) {
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.question2}</h3>
+            <h3>{val.address}</h3>
           </div>
         </td>
 
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.question3}</h3>
+            <h3>{val.status}</h3>
           </div>
         </td>
      
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          <div key={index}>
-
-            <h3>{val.question4}</h3>
-          </div>
-        </td>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
           <button
-          onClick={()=>deleteChat(val._id)}
+          onClick={()=>deleteHospital(val._id)}
             className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
             text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
             rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
@@ -145,10 +135,10 @@ export default function CardTableChat({ color }) {
   );
 }
 
-CardTableChat.defaultProps = {
+CardTableHospital.defaultProps = {
   color: "light",
 };
 
-CardTableChat.propTypes = {
+CardTableHospital.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

@@ -2,9 +2,9 @@ import React from "react";
 
 
 
-import CardTableHospital from "components/Cards/CardTableHospital";
+import CardTableChat from "components/Cards/CardTableChat";
 
-export default function TablesHospital() {
+export default function TablesChat() {
   return (
     <>
  
@@ -16,7 +16,7 @@ export default function TablesHospital() {
       
 
         <div className="w-full mb-12 px-4">
-          <CardTableHospital />
+          <CardTableChat />
         </div>
 
       </div>
