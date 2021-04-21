@@ -8,7 +8,7 @@ import CardDiscussion from "components/Cards/CardDiscussion";
 import CardOpinion from "components/Cards/CardOpinion";
 import CardTableHospital from "components/Cards/CardTableHospital";
 
-export default function Tables() {
+export default function TablesHospital() {
   return (
     <>
  
@@ -17,11 +17,12 @@ export default function Tables() {
 
      
 
+      
+
         <div className="w-full mb-12 px-4">
-          <CardTable />
+          <CardTableHospital />
         </div>
 
-       
       </div>
     </>
   );
