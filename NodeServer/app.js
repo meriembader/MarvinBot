@@ -3,36 +3,39 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var app = express();
+const app = express();
 const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const pynode = require('@fridgerator/pynode');
 
+const pynode = require('@fridgerator/pynode');
+const _ = require('lodash');
 app.use(express.json());
 app.use(cors());
-
-
-
 
 pynode.startInterpreter();
 
 pynode.appendSysPath('./');
-pynode.appendSysPath('./some/other/folder/with/python/modules');
-pynode.openFile('test');
+pynode.openFile('model');
 
+let regressionModel = {};
 
-
-
-
-
-
-
-
-
-
-
-
+app.get('/api/covid_predict', (req, res) => {
+  new Promise((resolve, reject) => {
+      try {
+        if (_.isEmpty(regressionModel)) {
+          console.log('calling python');
+          regressionModel = pynode.call('build_regression_model');
+        }
+        resolve(regressionModel);
+      } catch(err) {
+        console.log(err);
+        reject('failed to load covid variables');
+      }
+  })
+  .then(response => res.send(response))
+  .catch(err => res.err(err));
+});
 
 
 /*
