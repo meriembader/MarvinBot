@@ -47,15 +47,5 @@ export default function CardStats({
   );
 }
 
-CardStats.defaultProps = {
- 
-  statTitle: "1 Opinion",
-  
-  
-  statPercentColor: "text-emerald-500",
-  
-  statIconName: "far fa-chart-bar",
-  statIconColor: "bg-red-500",
-};
 
 

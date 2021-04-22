@@ -7,10 +7,34 @@ var app = express();
 const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const pynode = require('@fridgerator/pynode');
 
 app.use(express.json());
 app.use(cors());
+
+
+
+
+pynode.startInterpreter();
+
+pynode.appendSysPath('./');
+pynode.appendSysPath('./some/other/folder/with/python/modules');
+pynode.openFile('test');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
@@ -59,7 +83,7 @@ var chatRouter = require('./routes/chat.routes');
 var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
 var authRouter = require('./routes/auth.routes');
-
+var hospitalRouter = require('./routes/hospital.routes');
 
 
 
@@ -75,6 +99,7 @@ app.use('/forum', forumRouter);
 app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
+app.use('/hospital', hospitalRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
