@@ -8,7 +8,7 @@ const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const pynode = require('@fridgerator/pynode');
+const pynode = require('@fridgerator/pynode')
 const _ = require('lodash');
 app.use(express.json());
 app.use(cors());
