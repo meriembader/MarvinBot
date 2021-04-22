@@ -7,10 +7,34 @@ var app = express();
 const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const pynode = require('@fridgerator/pynode');
 
 app.use(express.json());
 app.use(cors());
+
+
+
+
+pynode.startInterpreter();
+
+pynode.appendSysPath('./');
+pynode.appendSysPath('./some/other/folder/with/python/modules');
+pynode.openFile('test');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
