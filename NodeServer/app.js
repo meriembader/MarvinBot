@@ -190,40 +190,6 @@ io.on('connection', function(socket) {
 });
 });
 
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      new Role({
-        name: "patient"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
 
-        console.log("added 'patient' to roles collection");
-      });
-
-      new Role({
-        name: "doctor"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'doctor' to roles collection");
-      });
-
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
-}
 
 module.exports = app;
