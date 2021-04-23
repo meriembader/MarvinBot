@@ -7,9 +7,9 @@ import Axios from 'axios';
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import comments from "./../assets/img/comments.jpg";
-import CardTableHospital from "components/Cards/CardTableHospital";
+import CardTableChats from "components/Cards/CardTableChats";
 import Popup from '../components/Popup';
-export default function Hospital() {
+export default function Chats() {
     const [openPopup, setOpenPopup]= useState(false);
    
     
@@ -76,7 +76,7 @@ export default function Hospital() {
                                         <i class="fas fa-plus-square"></i>
                                        
                                     </button>
-                                    <h6 className="text-xl font-semibold">Add Hospital</h6>
+                                    <h6 className="text-xl font-semibold">Add Chat</h6>
 
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ export default function Hospital() {
 
 
                             <div className="w-full mb-12 px-4">
-                                <CardTableHospital />
+                                <CardTableChats />
                             </div>
 
                             
