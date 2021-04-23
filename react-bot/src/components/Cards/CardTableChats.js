@@ -5,27 +5,26 @@ import Popup from "components/Popup";
 // components
 
 
-export default function CardTableChatQ({ color }) {
+export default function CardTableChats({ color }) {
   
   const [ChatList, setChatList] = useState([]);
 
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/chat").then((response) => {
+    Axios.get("http://localhost:3001/Chat").then((response) => {
       setChatList(response.data);
       console.log(response.data);
     });
   }, []);
   const deleteChat = (id)=> {
-    Axios.delete(`http://localhost:3001/chat/${id}`);
+    Axios.delete(`http://localhost:3001/Chat/${id}`);
     window.location.reload();
   };
 
 
   
-  return (  
+  return (
     <>
-    
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -53,7 +52,7 @@ export default function CardTableChatQ({ color }) {
 <thead>
   <tr>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    question1
+      question1 
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
     question2
@@ -65,10 +64,7 @@ export default function CardTableChatQ({ color }) {
     question4
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-
-    </th>
-    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-
+Actions
     </th>
   </tr>
 </thead>
@@ -96,11 +92,12 @@ export default function CardTableChatQ({ color }) {
 
             <div key={index}>
 
-              <h3>{val.question1}</h3>
+              <h3>{val.qurstion1}</h3>
             </div>
           </span>
 
         </th>
+
 
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
@@ -115,13 +112,14 @@ export default function CardTableChatQ({ color }) {
             <h3>{val.question3}</h3>
           </div>
         </td>
-     
+        
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
             <h3>{val.question4}</h3>
           </div>
         </td>
+     
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
           <button
           onClick={()=>deleteChat(val._id)}
@@ -144,10 +142,10 @@ export default function CardTableChatQ({ color }) {
   );
 }
 
-CardTableChatQ.defaultProps = {
+CardTableChats.defaultProps = {
   color: "light",
 };
 
-CardTableChatQ.propTypes = {
+CardTableChats.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
