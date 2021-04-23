@@ -13,3 +13,4 @@ exports.allAccess = (req, res) => {
   exports.doctorBoard = (req, res) => {
     res.status(200).send("doctor Content.");
   };
+  
