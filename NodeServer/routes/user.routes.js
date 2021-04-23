@@ -196,7 +196,7 @@ router.post('/forgotpassword', async(req, res) => {
 
   if (!errors.isEmpty()) {
     const firstError = errors.array().map(error => error.msg)[0];
-    return res.status(422).json({
+     res.status(422).json({
       errors: firstError
     });
   }else {
@@ -206,7 +206,7 @@ router.post('/forgotpassword', async(req, res) => {
       },
       (err, user) => {
         if (err || !user) {
-          return res.status(400).json({
+           res.status(400).json({
             error: 'User with that email does not exist'
           });
         }
@@ -227,36 +227,32 @@ router.post('/forgotpassword', async(req, res) => {
                    <a href="http://localhost:3001">INDEX PAGE</a>
                 `
         };
-        sgMail.send(emailData)
+             sgMail.send(emailData)
        
                 .then(sent => {
-                   console.log('SIGNUP EMAIL SENT', sent)
+               /*    console.log('SIGNUP EMAIL SENT', sent)
                   res.statusCode = 200;
                             res.setHeader('Content-Type', 'application/json');
-                            console.log ("hihih");
-                  return res.send({
+                            console.log ("hihih");*/
+                   res.send({
 
                     message: `Email has been sent to  ${email}. Follow the instruction to activate your account`
                   });
                 })
-                .catch(err => {
-                  // console.log('SIGNUP EMAIL SENT ERROR', err)
-                  return res.send({ message: err.message});
+                .catch((error) => {
+                  console.error(error)
+                })
                 
-                  //console.log("header");
-                   // return res.json({message: err.message});
-
-                });
                
 
-       return user.updateOne(
+        return user.updateOne(
           {
             resetPasswordLink: token
           },
           (err, success) => {
             if (err) {
               console.log('RESET PASSWORD LINK ERROR', err);
-              return res.status(400).send({
+              res.status(400).send({
                 error:
                   'Database connection error on user password forgot request'
               });
@@ -265,13 +261,13 @@ router.post('/forgotpassword', async(req, res) => {
                 .send(emailData)
                 .then(sent => {
                   console.log('SIGNUP EMAIL SENT', sent)
-                  return res.send({
+                   res.send({
                     message: `Email has been sent to ${email}. Follow the instruction to activate your account`
                   });
                 })
                 .catch(err => {
                   // console.log('SIGNUP EMAIL SENT ERROR', err)
-                  return res.send({
+                   res.send({
                     message: err.message
                   });
                 });
