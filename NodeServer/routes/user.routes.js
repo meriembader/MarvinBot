@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user = require('../models/user.model');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
-
+var jwt = require('jsonwebtoken')
 var authent = require('./auth');
 const config = require("../config/auth.config");
 const db = require("../models");
@@ -74,13 +72,14 @@ router.delete('/:id', function(req, res, next) {
     }
   )
 });
+/* Login API*/
 
+/* Login API*/
 /* Login API*/
 router.post('/login', function (req, res) {
   user.findOne({
     username: req.body.username
   })
-    .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -107,24 +106,93 @@ router.post('/login', function (req, res) {
         expiresIn: 86400 // 24 hours
       });
 
-      var authorities = [];
-
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
+  
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-        roles: authorities,
+        role: user.role,
         accessToken: token
       });
     });
 });
+
+/* Login API
+router.post('/login', function (req, res) {
+  const {email, password} = req.body;
+  user.findOne(req.body.email, function (err, rows) {
+
+    if (err) {
+      res.send(err);
+    }
+    else {
+      if (bcrypt.compareSync(req.body.password, rows[0].password)) {
+        //console.log('User found', user);
+        const token = jwt.sign(
+          {id: user._id},
+          process.env.JWT_SECRET);
+      res.json({
+          token,
+          user: {
+              id: user._id,
+              username: user.username,
+              email: user.email,
+              password: user.password,
+              role: user.role,
+          }
+      })
+      }
+    
+      res.status(200).send({
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        accessToken: token
+      })
+    }
+  });
+
+
+});*/
+/*
+router.post('/ffflogin', async (req, res) => {
+  try {
+      const {email, password} = req.body;
+      //validate
+      if (!email || !password) {
+          return res.status(400).json({msg: "Not all fields have been entered"});
+      }
+      const user = await user.findOne({email: email});
+      if (!user) {
+          return res.status(400).json({msg: "No account with this email has been founded"});
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(400).json({msg: "Invalid credentials"});
+      }
+      //Using token for login
+      const token = jwt.sign(
+          {id: user._id},
+          process.env.JWT_SECRET);
+      res.json({
+          token,
+          user: {
+              id: user._id,
+              username: user.username,
+              email: user.email,
+              password: user.password,
+              role: user.role,
+          }
+      })
+  } catch (err) {
+      res.status(500).json({error: err.message});
+  }
+});*/
+
 /* Register API */
 
 
-//signup
 router.post('/register', async (req, res) => {
   try {
     
@@ -162,89 +230,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-/*
-router.post('/register', function (req, res) {
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
-  });
 
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles }
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          user.roles = roles.map(role => role._id);
-          user.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        user.roles = [role._id];
-        user.save(err => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
-    }
-  });
-});
-*/
 /***************************************************hahahahaaha ********** */
 
-
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
-
-  app.get("/api/test/all", controller.allAccess);
-
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
-
-  app.get(
-    "/api/test/doctor",
-    [authJwt.verifyToken, authJwt.isDoctor],
-    controller.doctorBoard
-  );
-
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-};
 module.exports = router;
