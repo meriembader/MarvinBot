@@ -7,7 +7,17 @@ var authent = require('./auth');
 const config = require("../config/auth.config");
 const db = require("../models");
 const { authJwt } = require("../middlewares");
+var app = express();
+const _ =require('lodash');
 const controller = require("../controllers/user.controller");
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey("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");
+const { validationResult } = require('express-validator');
+const  check  = require('check');
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+;
 const User = db.user;
 const Role = db.role;
 
@@ -72,9 +82,8 @@ router.delete('/:id', function(req, res, next) {
     }
   )
 });
-/* Login API*/
 
-/* Login API*/
+
 /* Login API*/
 router.post('/login', function (req, res) {
   user.findOne({
@@ -117,78 +126,7 @@ router.post('/login', function (req, res) {
     });
 });
 
-/* Login API
-router.post('/login', function (req, res) {
-  const {email, password} = req.body;
-  user.findOne(req.body.email, function (err, rows) {
 
-    if (err) {
-      res.send(err);
-    }
-    else {
-      if (bcrypt.compareSync(req.body.password, rows[0].password)) {
-        //console.log('User found', user);
-        const token = jwt.sign(
-          {id: user._id},
-          process.env.JWT_SECRET);
-      res.json({
-          token,
-          user: {
-              id: user._id,
-              username: user.username,
-              email: user.email,
-              password: user.password,
-              role: user.role,
-          }
-      })
-      }
-    
-      res.status(200).send({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        accessToken: token
-      })
-    }
-  });
-
-
-});*/
-/*
-router.post('/ffflogin', async (req, res) => {
-  try {
-      const {email, password} = req.body;
-      //validate
-      if (!email || !password) {
-          return res.status(400).json({msg: "Not all fields have been entered"});
-      }
-      const user = await user.findOne({email: email});
-      if (!user) {
-          return res.status(400).json({msg: "No account with this email has been founded"});
-      }
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-          return res.status(400).json({msg: "Invalid credentials"});
-      }
-      //Using token for login
-      const token = jwt.sign(
-          {id: user._id},
-          process.env.JWT_SECRET);
-      res.json({
-          token,
-          user: {
-              id: user._id,
-              username: user.username,
-              email: user.email,
-              password: user.password,
-              role: user.role,
-          }
-      })
-  } catch (err) {
-      res.status(500).json({error: err.message});
-  }
-});*/
 
 /* Register API */
 
@@ -229,8 +167,182 @@ router.post('/register', async (req, res) => {
       console.log("hi there");
   }
 });
+/*
+router.post('/mail',async(req, res) => {
+const msg = {
+  to: 'meriembader8@gmail.com', // Change to your recipient
+  from: 'meriem.bader1@esprit.tn', // Change to your verified sender
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+})*/
+/* forgot password */
 
 
-/***************************************************hahahahaaha ********** */
+
+
+router.post('/forgotpassword', async(req, res) => {
+  const { email } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+    return res.status(422).json({
+      errors: firstError
+    });
+  }else {
+    user.findOne(
+      {
+        email
+      },
+      (err, user) => {
+        if (err || !user) {
+          return res.status(400).json({
+            error: 'User with that email does not exist'
+          });
+        }
+
+            var token = jwt.sign({ id: user.id }, "0123456789", {
+        expiresIn: 31536000  // 24 hours
+      });
+
+        const emailData = {
+          from: "meriem.bader1@esprit.tn",
+          to: email,
+          subject: `Password Reset link`,
+          html: `
+                    <h1>Please use the following link to reset your password</h1>
+                    <a href="http://localhost:3001/reset-password/${token}">Reset your password</a>
+                    <hr />
+                    <p>This email may contain sensetive information</p>
+                   <a href="http://localhost:3001">INDEX PAGE</a>
+                `
+        };
+        sgMail.send(emailData)
+       
+                .then(sent => {
+                   console.log('SIGNUP EMAIL SENT', sent)
+                  res.statusCode = 200;
+                            res.setHeader('Content-Type', 'application/json');
+                            console.log ("hihih");
+                  return res.send({
+
+                    message: `Email has been sent to  ${email}. Follow the instruction to activate your account`
+                  });
+                })
+                .catch(err => {
+                  // console.log('SIGNUP EMAIL SENT ERROR', err)
+                  return res.send({ message: err.message});
+                
+                  //console.log("header");
+                   // return res.json({message: err.message});
+
+                });
+               
+
+       return user.updateOne(
+          {
+            resetPasswordLink: token
+          },
+          (err, success) => {
+            if (err) {
+              console.log('RESET PASSWORD LINK ERROR', err);
+              return res.status(400).send({
+                error:
+                  'Database connection error on user password forgot request'
+              });
+            } else {
+              sgMail
+                .send(emailData)
+                .then(sent => {
+                  console.log('SIGNUP EMAIL SENT', sent)
+                  return res.send({
+                    message: `Email has been sent to ${email}. Follow the instruction to activate your account`
+                  });
+                })
+                .catch(err => {
+                  // console.log('SIGNUP EMAIL SENT ERROR', err)
+                  return res.send({
+                    message: err.message
+                  });
+                });
+            }
+          }
+        );
+      }
+    );
+  }
+})
+
+router.post('/resetpassword',async (req, res) => {
+  const { resetPasswordLink, newPassword } = req.body;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+    return res.status(422).json({
+      errors: firstError
+    });
+  } else {
+    if (resetPasswordLink) {
+      jwt.verify(resetPasswordLink, config.secret, function(
+        err,
+        decoded
+      ) {
+        if (err) {
+          return res.status(400).json({
+            error: 'Expired link. Try again'
+          });
+        }
+
+       user.findOne(
+          {
+            resetPasswordLink
+          },
+          (err, user) => {
+            if (err || !user) {
+              return res.status(400).json({
+                error: 'Something went wrong. Try later'
+              });
+            }
+
+            const salt = bcrypt.genSalt();
+            const passwordHash = bcrypt.hashSync(newPassword,8);
+
+            const updatedFields = {
+              password: passwordHash,
+              resetPasswordLink: ''
+
+            };
+
+            user = _.extend(user, updatedFields);
+
+            user.save((err, result) => {
+              if (err) {
+                return res.status(400).json({
+                  error: 'Error resetting user password'
+                });
+              }
+              res.json({
+                message: `Great! Now you can login with your new password`
+              });
+            });
+          }
+        );
+
+      });
+    }
+  }
+});
 
 module.exports = router;

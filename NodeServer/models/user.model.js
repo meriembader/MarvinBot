@@ -7,6 +7,10 @@ const User = mongoose.model(
     email: String,
     password: String,
     role: String,
+      resetPasswordLink: {
+        data: String,
+        default: ''
+    },
   })
 );
 
