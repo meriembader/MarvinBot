@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -17,7 +18,7 @@ import json
 
 #from sklearn.externals import joblib
 import joblib
-df = pd.read_csv("C:/Users/Meriem/Desktop/predictor/covid.csv")
+df = pd.read_csv("C:/Users/ali/Desktop/MarvinBot/IA_Model/covid.csv")
 
 pd.pandas.set_option('display.max_columns',None)
 #display("Peeking into Data", df)
@@ -182,7 +183,12 @@ y_pred = model.predict(X_test)
 from sklearn.metrics import accuracy_score
 round(accuracy_score(y_test,y_pred)*350,2)
 
-Xnew = [[1,1,1,1,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0]]
+#Xnew = [[1,1,1,1,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0]]
+
+Xnew=sys.argv[1]
+Xnew= np.fromstring( Xnew, dtype=np.float,sep=',' )
+#print (Xnew)       
+Xnew = Xnew.reshape(1, -1)
 # make a prediction
 ynew = model.predict(Xnew)
 print("X=%s, Predicted=%s" % (Xnew[0], ynew[0]))

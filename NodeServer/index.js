@@ -1,7 +1,8 @@
 'use strict';
-
+const pd = require("node-pandas");
 const cors = require('cors');
 const socket = require("socket.io");
+const {PythonShell} =require('python-shell');
 
 require('dotenv').config()
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
@@ -42,7 +43,26 @@ const io = socket(server, {
 
 var users = new Object();
 
+//////////////model_integration///////////////////:
 
+var Xnew = '1,1,1,1,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0';
+
+let options = {
+  mode: 'text',
+  //pythonOptions: ['-u'], // get print results in real-time
+  pythonPath: 'C:/Users/ali/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
+  args: [Xnew] //An argument which can be accessed in the script using sys.argv[1]
+};
+
+PythonShell.run('model.py', options, function (err, result){
+  if (err) throw err;
+  // result is an array consisting of messages collected 
+  //during execution of script.
+  console.log('result: ', result.toString());
+ 
+});
+
+////////////////////////////////////////
 
 io.on('connection', function(socket) {
   socket.on('chat message', (text) => {
