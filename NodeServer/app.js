@@ -8,8 +8,6 @@ const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-//const pynode = require('@fridgerator/pynode')
-//const _ = require('lodash');
 app.use(express.json());
 app.use(cors());
 
@@ -37,29 +35,21 @@ var diagnostiqueRouter = require('./routes/diagnostique.routes');
 var authRouter = require('./routes/auth.routes');
 var hospitalRouter = require('./routes/hospital.routes');
 
-
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
-
 app.use('/user', userRouter);
 app.use('/forum', forumRouter);
 app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
 app.use('/hospital', hospitalRouter);
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+
 
 const connect = mongoose.connect(
   configDB.mongo.uri,
-  {
+  {     
     useNewUrlParser: true ,
     useUnifiedTopology: true
   }
@@ -122,7 +112,5 @@ io.on('connection', function(socket) {
   apiaiReq.end();
 });
 });
-
-
 
 module.exports = app;
