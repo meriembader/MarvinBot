@@ -12,56 +12,6 @@ const bodyParser = require("body-parser");
 //const _ = require('lodash');
 app.use(express.json());
 app.use(cors());
-/*
-pynode.startInterpreter();
-
-pynode.appendSysPath('./');
-pynode.openFile('model');
-
-let regressionModel = {};
-
-app.get('/api/covid_predict', (req, res) => {
-  new Promise((resolve, reject) => {
-      try {
-        if (_.isEmpty(regressionModel)) {
-          console.log('calling python');
-          regressionModel = pynode.call('build_regression_model');
-        }
-        resolve(regressionModel);
-      } catch(err) {
-        console.log(err);
-        reject('failed to load covid variables');
-      }
-  })
-  .then(response => res.send(response))
-  .catch(err => res.err(err));
-});
-
-*/
-/*
-const trainingData = data.map(item => ({
-  output: item.X_train
-}));
-network.train(trainingData, {
-  iterations: 2000
-})*/
-/*
-
-app.get('/predict',function(req,res){
-	console.log(req.query);
-res.render('index');
-})*//*
-const trainingData = data.map(item => ({
-  output: item.X_train
-}));
-network.train(train      ingData, {
-  iterations: 2000
-})
-
-
-
-
-/*********************************Chat************ */
 
 const db = require("./models");
 const Role = db.role;
@@ -71,7 +21,6 @@ const Token= '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwg
 require('dotenv').config()
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
 const APIAI_SESSION_ID = process.env.APIAI_SESSION_ID;
-
 
 
 /* *************************EndChat******************* */
@@ -108,18 +57,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-
 const connect = mongoose.connect(
   configDB.mongo.uri,
   {
@@ -149,10 +86,6 @@ const apiai = require('apiai')(Token);
 //const apiai = require('apiai')(APIAI_TOKEN);
 
 
-// Web UI
-app.get('/', (req, res) => {
-  res.sendFile('index.html');
-});  
 
 io.on('connection', function(socket) {
   socket.on('chat message', (text) => {
