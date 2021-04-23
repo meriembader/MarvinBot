@@ -8,11 +8,11 @@ const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const pynode = require('@fridgerator/pynode')
-const _ = require('lodash');
+//const pynode = require('@fridgerator/pynode')
+//const _ = require('lodash');
 app.use(express.json());
 app.use(cors());
-
+/*
 pynode.startInterpreter();
 
 pynode.appendSysPath('./');
@@ -37,7 +37,7 @@ app.get('/api/covid_predict', (req, res) => {
   .catch(err => res.err(err));
 });
 
-
+*/
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
