@@ -17,10 +17,47 @@ const  check  = require('check');
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-;
+const paginate = require('express-paginate');
+app.use(paginate.middleware(10, 50));
+
 const User = db.user;
 const Role = db.role;
 
+
+
+app.get('/user', async (req, res, next) => {
+ 
+
+  try {
+ 
+    const [ results, itemCount ] = await Promise.all([
+      user.find({}).limit(req.query.limit).skip(req.skip).lean().exec(),
+      user.count({})
+    ]);
+ 
+    const pageCount = Math.ceil(itemCount / req.query.limit);
+ 
+    if (req.accepts('json')) {
+      // inspired by Stripe's API response for list objects
+      res.json({
+        object: 'list',
+        has_more: paginate.hasNextPages(req)(pageCount),
+        data: results
+      });
+    } else {
+      res.render('user', {
+        user: results,
+        pageCount,
+        itemCount,
+        pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)
+      });
+    }
+ 
+  } catch (err) {
+    next(err);
+  }
+ 
+});
 
 /* GET API user listing. */
 router.get('/', function(req, res, next) {
