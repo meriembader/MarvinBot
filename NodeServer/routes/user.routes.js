@@ -13,14 +13,17 @@ const controller = require("../controllers/user.controller");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey("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");
 const { validationResult } = require('express-validator');
+const changepassword = require ('../models/ChangePassword');
 const  check  = require('check');
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-;
+/********************************************** */
+const { validator} = require('validator') ;
+const sendEmail = require( '../utils/SendMail');
+
 const User = db.user;
 const Role = db.role;
-
 
 /* GET API user listing. */
 router.get('/', function(req, res, next) {
@@ -187,97 +190,89 @@ sgMail
 })*/
 /* forgot password */
 
+router.put('/ChangePassword/:userId', async (req, res, next) => {
+  try {
+      const userUpdatePwd = user.findById(req.params.id);
+      const {old_password, new_password, confirm_new_password} = req.body;
+     //validate
+     if (!old_password
+         || !new_password
+         || !confirm_new_password
+         ) {
+         return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
+     }
+     if (old_password === new_password) {
+         return res.status(400).json({msg: "Old password and new password have the same value."}); //bad request
+     }
+     if (new_password !== confirm_new_password) {
+         return res.status(400).json({msg: "new password and confirm new password must be equals."}); //bad request
+     }
 
+     const salt = await bcrypt.genSalt();
+     const passwordHash = await bcrypt.hash(new_password, salt);
+     console.log(passwordHash);
+     console.log("hihi");
+     console.log(new_password);
+    console.log('pfffffffffffffffff');
+     const changepassword1 = new changepassword({
+         new_password: passwordHash,
+         userId: req.params.id,
+     });
+     console.log("hihih");
+     console.log(new_password);
+     const updated = await changepassword1.save();
+     res.json(updated);
+     console.log('password has been updated');
 
+ }  catch(e) {
+  console.log('Catch an error: ', e)
+}
 
-router.post('/forgotpassword', async(req, res) => {
-  const { email } = req.body;
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    const firstError = errors.array().map(error => error.msg)[0];
-     res.status(422).json({
-      errors: firstError
-    });
-  }else {
-    user.findOne(
-      {
-        email
-      },
-      (err, user) => {
-        if (err || !user) {
-           res.status(400).json({
-            error: 'User with that email does not exist'
-          });
-        }
-
-            var token = jwt.sign({ id: user.id }, "0123456789", {
-        expiresIn: 31536000  // 24 hours
-      });
-
-        const emailData = {
-          from: "meriem.bader1@esprit.tn",
-          to: email,
-          subject: `Password Reset link`,
-          html: `
-                    <h1>Please use the following link to reset your password</h1>
-                    <a href="http://localhost:3001/reset-password/${token}">Reset your password</a>
-                    <hr />
-                    <p>This email may contain sensetive information</p>
-                   <a href="http://localhost:3001">INDEX PAGE</a>
-                `
-        };
-             sgMail.send(emailData)
-       
-                .then(sent => {
-               /*    console.log('SIGNUP EMAIL SENT', sent)
-                  res.statusCode = 200;
-                            res.setHeader('Content-Type', 'application/json');
-                            console.log ("hihih");*/
-                   res.send({
-
-                    message: `Email has been sent to  ${email}. Follow the instruction to activate your account`
-                  });
-                })
-                .catch((error) => {
-                  console.error(error)
-                })
-                
-               
-
-        return user.updateOne(
-          {
-            resetPasswordLink: token
-          },
-          (err, success) => {
-            if (err) {
-              console.log('RESET PASSWORD LINK ERROR', err);
-              res.status(400).send({
-                error:
-                  'Database connection error on user password forgot request'
-              });
-            } else {
-              sgMail
-                .send(emailData)
-                .then(sent => {
-                  console.log('SIGNUP EMAIL SENT', sent)
-                   res.send({
-                    message: `Email has been sent to ${email}. Follow the instruction to activate your account`
-                  });
-                })
-                .catch(err => {
-                  // console.log('SIGNUP EMAIL SENT ERROR', err)
-                   res.send({
-                    message: err.message
-                  });
-                });
-            }
-          }
-        );
-      }
-    );
-  }
+const userUpd = await user.findByIdAndUpdate(req.params.id);
+     //const passwordSet = await changepassword.findOne({userId: req.params.id});
+     console.log(userUpd);
+     //console.log(passwordSet);
+     userUpd.password = new_password;
+     await userUpd.save();
 })
+
+
+router.post('/forgotpassword', async(req, res, next) => {
+  try {
+    const { email } = req.body;
+    //const User = db.user;
+    const errors = validationResult(req);
+    const test = await user.findOne({ where: { email } });
+    if (!email) {
+      return res.status(400).send({ error: 'Email is required' });
+    }
+    if (!errors.isEmpty()) { //ok
+      return res.status(400).send({ error: 'emplttyyyy' });
+    }
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+   
+    var token = jwt.sign({ id: user.id }, "0123456789", {
+      expiresIn: 31536000  // 24 hours
+    });
+    const link = `${req.protocol}://localhost:3001/reset_password/${token}`;
+    await sendEmail(
+      email,
+      'meriem.bader1@esprit.tn',
+      'Best To Do password reset',
+      `
+      <div>Click the link below to reset your password</div><br/>
+      <div>${link}</div>
+      `
+    );
+  return res.status(200).send({ message: 'Password reset link has been successfully sent to your inbox' });
+  } catch (e) {
+    return next(new Error(e));
+  }
+}
+)
+// this is the function i try to send an email ( forgot password ) look what it bo nhh 
 
 router.post('/resetpassword',async (req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
@@ -340,5 +335,7 @@ router.post('/resetpassword',async (req, res) => {
     }
   }
 });
+
+
 
 module.exports = router;
