@@ -187,7 +187,45 @@ sgMail
 })*/
 /* forgot password */
 
+router.put('/ChangePassword/:userId', async (req, res, next) => {
+  try {
+      const userUpdatePwd = user.findById(req.params.id);
+      const {old_password, new_password, confirm_new_password} = req.body;
+     //validate
+     if (!old_password
+         || !new_password
+         || !confirm_new_password
+         ) {
+         return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
+     }
+     if (old_password === new_password) {
+         return res.status(400).json({msg: "Old password and new password have the same value."}); //bad request
+     }
+     if (new_password !== confirm_new_password) {
+         return res.status(400).json({msg: "new password and confirm new password must be equals."}); //bad request
+     }
+     const salt = await bcrypt.genSalt();
+     const passwordHash = await bcrypt.hash(new_password, salt);
+     console.log(passwordHash);
+     const changepassword1 = new changepassword({
+         new_password: passwordHash,
+         userId: req.params.id,
+         //roles: "604a31dd598a833ca2f2bb81"
+     });
+     const updated = await changepassword1.save();
+     res.json(updated);
+     console.log('password has been updated');
 
+ } catch (err) {
+     res.status(500).json({error: err.message});
+ }
+     const userUpd = await user.findByIdAndUpdate(req.params.id);
+     //const passwordSet = await changepassword.findOne({userId: req.params.id});
+     console.log(userUpd);
+     //console.log(passwordSet);
+     userUpd.password = new_password;
+     await userUpd.save();
+})
 
 
 router.post('/forgotpassword', async(req, res) => {
@@ -340,5 +378,7 @@ router.post('/resetpassword',async (req, res) => {
     }
   }
 });
+
+
 
 module.exports = router;

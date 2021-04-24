@@ -23,6 +23,7 @@ var forumRouter = require('./routes/forum.routes');
 var chatRouter = require('./routes/chat.routes');
 var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
+
 var authRouter = require('./routes/auth.routes');
 var hospitalRouter = require('./routes/hospital.routes');
 
