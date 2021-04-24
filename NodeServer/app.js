@@ -10,11 +10,8 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
-
 const db = require("./models");
 const Role = db.role;
-
-
 var mongoose = require('mongoose');
 var configDB = require('./config/db.config.json');
 
@@ -22,10 +19,10 @@ var userRouter = require('./routes/user.routes');
 var forumRouter = require('./routes/forum.routes');
 var chatRouter = require('./routes/chat.routes');
 var diagnostiqueRouter = require('./routes/diagnostique.routes');
-
-
 var authRouter = require('./routes/auth.routes');
 var hospitalRouter = require('./routes/hospital.routes');
+var ContactRouter = require('./routes/contact.routes');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,7 +34,7 @@ app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
 app.use('/hospital', hospitalRouter);
-
+app.use('/contact', ContactRouter);
 
 const connect = mongoose.connect(
   configDB.mongo.uri,
