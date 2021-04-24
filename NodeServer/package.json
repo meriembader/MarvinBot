@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/client": "^7.4.2",
     "@sendgrid/mail": "^7.4.2",
     "Validator": "^1.1.2",
     "apiai": "^4.0.3",
@@ -36,7 +37,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "python-shell": "^3.0.0",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
