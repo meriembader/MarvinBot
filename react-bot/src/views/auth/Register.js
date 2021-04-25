@@ -1,10 +1,10 @@
 import React from "react";
-import  { useState } from 'react';
+import { useState } from 'react';
 
 
 
 
-async  function Register(credentials) {
+async function Register(credentials) {
   return fetch('http://localhost:3001/user/register', {
     method: 'POST',
     headers: {
@@ -24,10 +24,12 @@ export default function Register1() {
   const handleSubmit = async e => {
     e.preventDefault();
     const token = await Register({
-  username,email, 
-      password,role
+      username,
+      email,
+      password,
+      role
     });
-    
+
   }
 
   return (
@@ -43,7 +45,7 @@ export default function Register1() {
                   <strong> sign up </strong>
                 </div>
                 <form onSubmit={handleSubmit}>
-                 
+
 
                   <div className="relative w-full mb-3">
                     <label
@@ -95,16 +97,17 @@ export default function Register1() {
                       Role
                       </label>
                     <select
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="role" onChange={e => setRole(e.target.value)}
-                      >
-                        <option selected value="Patient">Patient</option>
-                        <option value="Doctor">Doctor</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Super Admin">Super Admin</option>
-                      </select>
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="role" onChange={e => setRole(e.target.value)}
+                      defaultValue="Patient"
+                    >
+                      <option value="Patient">Patient</option>
+                      <option value="Doctor">Doctor</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Super Admin">Super Admin</option>
+                    </select>
 
-                    
+
                   </div>
 
                   <div>
@@ -140,8 +143,8 @@ export default function Register1() {
             </div>
           </div>
         </div>
-  
-  
+
+
       </div>
     </>
   );

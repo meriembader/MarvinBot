@@ -1,28 +1,38 @@
-import React from "react";
-import {GoogleMap} from "react-google-maps";
-import withGoogleMap from "react-google-maps/lib/withGoogleMap";
-import withScriptjs from "react-google-maps/lib/withScriptjs";
+import React from 'react'
+import GoogleMapReact from 'google-map-react'
+import { Icon } from '@iconify/react'
+import locationIcon from '@iconify/icons-mdi/map-marker'
 
-function MapExample() {
-    return (
-        <GoogleMap defaultZoom={10} 
-        defaultCenter={{ lat: 35.769260, lng: 10.819970 }}/>
-            )
-}
+import './map.css'
+//const TN = [36.81897, 10.16579];
+const LocationPin = ({ text }) => (
+  <div className="pin">
+    <Icon icon={locationIcon} className="pin-icon" />
+    <p className="pin-text">{text}</p>
+  </div>
+)
+console.log('AIzaSyCxg9uuzEQ5Lzv-0QT0THxI_t3FOw2Zg9Q')
 
-const MapWrapped = withScriptjs(withGoogleMap(Map));
+const Map = ({ location, zoomLevel }) => (
+  <div className="map">
+    <h2 className="map-h2"> See the nearst hospitals </h2>
 
-export default function Map() {
-    return (
-      <div style={{ width: "100vw", height: "100vh" }}>
-        <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
-            process.env.REACT_APP_GOOGLE_KEY
-          }`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+    <div className="google-map">
+    <GoogleMapReact
+  bootstrapURLKeys={{ key: 'AIzaSyCxg9uuzEQ5Lzv-0QT0THxI_t3FOw2Zg9Q' }}
+  defaultCenter={location}
+  defaultZoom={10}
+
+  yesIWantToUseGoogleMapApiInternals
+>
+<LocationPin
+          lat={location.lat}
+          lng={location.lng}
+          text={location.address}
         />
-      </div>
-    );
-        }
+</GoogleMapReact>
+    </div>
+  </div>
+)
+
+export default Map

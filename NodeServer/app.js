@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
-const data = require('../mylogreg.json');
+// const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
