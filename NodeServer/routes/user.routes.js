@@ -16,6 +16,7 @@ const { validationResult } = require('express-validator');
 const changepassword = require ('../models/ChangePassword');
 const  check  = require('check');
 var http = require('http');
+const auth = require('../middlewares/auth');
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 /********************************************** */
@@ -127,6 +128,23 @@ router.post('/login', function (req, res) {
         accessToken: token
       });
     });
+});
+//valid token
+router.post("/tokenIsValidUser", async (req, res) => {
+  try {
+      const token = req.header("x-auth-token");
+      if (!token) return res.json(false);
+
+
+      const verified = jwt.verify(token, process.env.JWT_SECRET);
+      if (!verified) return res.json(false);
+      const user = await User.findById(verified.id);
+      if (!user) return res.json(false);
+
+      return res.json(true);
+  } catch (err) {
+      res.status(500).json({error: err.message});
+  }
 });
 
 
@@ -335,6 +353,53 @@ router.post('/resetpassword',async (req, res) => {
     }
   }
 });
+
+router.get('/count',(req,res)=>{
+
+  user.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+
+ })
+
+
+})
+/*router.put('/user-profile/:id', async(req, res, next) => {
+  const url = req.protocol + '://' + req.get('host')
+    console.log(url);
+
+  const userProfil = new userProfil({
+      _id: new mongoose.Types.ObjectId(),
+      username: req.body.username,
+      email: req.body.email,
+      userId: req.params.id
+  });
+  userProfil.save().then(result => {
+      res.status(201).json({
+          message: "Admin Updated Successfully!",
+         userCreated: {
+              _id: result._id,
+              
+          }
+      })
+  }).catch(err => {
+      console.log(err);
+      res.status(500).json({
+          error: err
+      });
+  });
+  const userToUpdate = await user.findByIdAndUpdate(req.params.id);
+
+  await userToUpdate.save();
+ 
+})
+*/
+
 
 
 
