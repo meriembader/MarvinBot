@@ -1,32 +1,59 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import  { useState } from 'react';
+import  React, { useState, useContext, useEffect  } from 'react';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 
-async function Login(credentials) {
-  return fetch('http://localhost:3001/user/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
- }
- 
-export default function Login1({ setToken }) {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = await Login({
-      username,
-      password
-    });
-    setToken(token);
-  }
-  
+export default function Login() {
+
+	let [username, setUsername] = useState();
+    let [password, setPassword] = useState();
+    let [checked, setChecked] = useState();
+
+
+
+    const history = useHistory();
+
+    useEffect(() => {
+		const checkRememberMe = async () => {
+			let usernameStorage = localStorage.getItem("username");
+			let passwordStorage = localStorage.getItem("password");
+			let checkboxStorage = localStorage.getItem("checkbox");
+
+			if (usernameStorage !== "" && passwordStorage !== "" && checkboxStorage !== "") {
+				setUsername(usernameStorage);
+				setPassword(passwordStorage);
+				setChecked(checkboxStorage);
+			}
+
+		}
+		checkRememberMe();
+	}, []);
+
+	const submit = async (e) => {
+        e.preventDefault();
+        try {
+        const loginUser = {
+            username,
+            password
+        };
+			
+      			  const loginRes = await Axios.post(
+      		      "http://localhost:3001/user/login",
+      		      loginUser
+    		    );
+   			   
+				
+					if (checked && username !== "" && password !== "") {
+						localStorage.username = username;
+						localStorage.password = password;
+						localStorage.checkbox = checked;
+					}
+    } catch (err) {
+        console.log(" tayyy!")
+    }
+    };
+
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -39,7 +66,7 @@ export default function Login1({ setToken }) {
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                   <strong>sign in </strong>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit = {submit}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -50,7 +77,7 @@ export default function Login1({ setToken }) {
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="usrname"onChange={e => setUsername(e.target.value)}
+                      placeholder="username"onChange={(e) =>  setUsername(e.target.value)}
                     />
                   </div>
 
@@ -64,15 +91,16 @@ export default function Login1({ setToken }) {
                     <input
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password" onChange={e => setPassword(e.target.value)}
+                      placeholder="Password"onChange={(e) =>  setPassword(e.target.value)}
                     />
                   </div>
                   <div>
+                  
                     <label className="inline-flex items-center cursor-pointer">
                       <input
                         id="customCheckLogin"
-                        type="checkbox"
-                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                        type="checkbox" checked={checked}
+                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" onChange={(e) => setChecked(e.target.checked)}
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         Remember Me
@@ -88,10 +116,13 @@ export default function Login1({ setToken }) {
                       Sign In
                     </button>
                   </div>
+                  <span className="noAcc">Don't have an account ?</span> <a href = "/user/register" className = "authRef" style = {{color: 'white'}}>Register</a>
                 </form>
               </div>
             </div>
             <div className="flex flex-wrap mt-6 relative">
+
+              
               <div className="w-1/2">
                 <a
                   href="#pablo"
@@ -102,9 +133,7 @@ export default function Login1({ setToken }) {
                 </a>
               </div>
               <div className="w-1/2 text-right">
-                <Link to="/auth/register" className="text-blueGray-200">
-                  <small>Create new account</small>
-                </Link>
+
               </div>
             </div>
           </div>
