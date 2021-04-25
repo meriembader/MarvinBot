@@ -7,7 +7,7 @@ import Axios from 'axios';
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import comments from "./../assets/img/comments.jpg";
-import CardTable from "components/Cards/CardTable";
+import CardTablehHospital from "components/Cards/CardTableHospital";
 import Popup from '../components/Popup';
 export default function User() {
     const [openPopup, setOpenPopup]= useState(false);

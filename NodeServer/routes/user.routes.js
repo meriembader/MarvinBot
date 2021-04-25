@@ -1,16 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../models/user.model');
-var bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken')
 var authent = require('./auth');
 const config = require("../config/auth.config");
 const db = require("../models");
 const { authJwt } = require("../middlewares");
+var app = express();
+const _ =require('lodash');
 const controller = require("../controllers/user.controller");
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey("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");
+const { validationResult } = require('express-validator');
+const changepassword = require ('../models/ChangePassword');
+const  check  = require('check');
+var http = require('http');
+const auth = require('../middlewares/auth');
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+/********************************************** */
+const { validator} = require('validator') ;
+const sendEmail = require( '../utils/SendMail');
+
 const User = db.user;
 const Role = db.role;
-
 
 /* GET API user listing. */
 router.get('/', function(req, res, next) {
@@ -73,12 +87,12 @@ router.delete('/:id', function(req, res, next) {
   )
 });
 
+
 /* Login API*/
 router.post('/login', function (req, res) {
   user.findOne({
     username: req.body.username
   })
-    .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -105,105 +119,288 @@ router.post('/login', function (req, res) {
         expiresIn: 86400 // 24 hours
       });
 
-      var authorities = [];
-
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
+  
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-        roles: authorities,
+        role: user.role,
         accessToken: token
       });
     });
 });
+//valid token
+router.post("/tokenIsValidUser", async (req, res) => {
+  try {
+      const token = req.header("x-auth-token");
+      if (!token) return res.json(false);
+
+
+      const verified = jwt.verify(token, process.env.JWT_SECRET);
+      if (!verified) return res.json(false);
+      const user = await User.findById(verified.id);
+      if (!user) return res.json(false);
+
+      return res.json(true);
+  } catch (err) {
+      res.status(500).json({error: err.message});
+  }
+});
+
+
+
 /* Register API */
 
 
-router.post('/register', function (req, res) {
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
-  });
+router.post('/register', async (req, res) => {
+  try {
+    
+      const {username, email, password, role} = req.body;
+      //validate
+      if (!username
+          || !email
+          || !password
+          || !role
+        ) {
+          return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
+      }
+      if (password.length < 5) {
+          return res.status(400).json({msg: "The password needs to be at least 5 characters long."}); //bad request
+      }
+      const existingUser = await user.findOne({email: email});
+      if (existingUser) {
+          return res.status(400).json({msg: "An account with this email already exists"});
+      }
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(password, salt);
+      console.log(passwordHash);
+      const newuser = new user({
+        username,
+        email, 
+        password: passwordHash,
+        role
+      });
+      const savedUser = await newuser.save();
+      res.json(savedUser);
 
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
+  } catch (err) {
+      res.status(500).json({error: err.message});
+      console.log("hi there");
+  }
+});
+/*
+router.post('/mail',async(req, res) => {
+const msg = {
+  to: 'meriembader8@gmail.com', // Change to your recipient
+  from: 'meriem.bader1@esprit.tn', // Change to your verified sender
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+})*/
+/* forgot password */
+
+router.put('/ChangePassword/:userId', async (req, res, next) => {
+  try {
+      const userUpdatePwd = user.findById(req.params.id);
+      const {old_password, new_password, confirm_new_password} = req.body;
+     //validate
+     if (!old_password
+         || !new_password
+         || !confirm_new_password
+         ) {
+         return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
+     }
+     if (old_password === new_password) {
+         return res.status(400).json({msg: "Old password and new password have the same value."}); //bad request
+     }
+     if (new_password !== confirm_new_password) {
+         return res.status(400).json({msg: "new password and confirm new password must be equals."}); //bad request
+     }
+
+     const salt = await bcrypt.genSalt();
+     const passwordHash = await bcrypt.hash(new_password, salt);
+     console.log(passwordHash);
+     console.log("hihi");
+     console.log(new_password);
+    console.log('pfffffffffffffffff');
+     const changepassword1 = new changepassword({
+         new_password: passwordHash,
+         userId: req.params.id,
+     });
+     console.log("hihih");
+     console.log(new_password);
+     const updated = await changepassword1.save();
+     res.json(updated);
+     console.log('password has been updated');
+
+ }  catch(e) {
+  console.log('Catch an error: ', e)
+}
+
+const userUpd = await user.findByIdAndUpdate(req.params.id);
+     //const passwordSet = await changepassword.findOne({userId: req.params.id});
+     console.log(userUpd);
+     //console.log(passwordSet);
+     userUpd.password = new_password;
+     await userUpd.save();
+})
+
+
+router.post('/forgotpassword', async(req, res, next) => {
+  try {
+    const { email } = req.body;
+    //const User = db.user;
+    const errors = validationResult(req);
+    const test = await user.findOne({ where: { email } });
+    if (!email) {
+      return res.status(400).send({ error: 'Email is required' });
     }
+    if (!errors.isEmpty()) { //ok
+      return res.status(400).send({ error: 'emplttyyyy' });
+    }
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+   
+    var token = jwt.sign({ id: user.id }, "0123456789", {
+      expiresIn: 31536000  // 24 hours
+    });
+    const link = `${req.protocol}://localhost:3001/reset_password/${token}`;
+    await sendEmail(
+      email,
+      'meriem.bader1@esprit.tn',
+      'Best To Do password reset',
+      `
+      <div>Click the link below to reset your password</div><br/>
+      <div>${link}</div>
+      `
+    );
+  return res.status(200).send({ message: 'Password reset link has been successfully sent to your inbox' });
+  } catch (e) {
+    return next(new Error(e));
+  }
+}
+)
+// this is the function i try to send an email ( forgot password ) look what it bo nhh 
 
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles }
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
+router.post('/resetpassword',async (req, res) => {
+  const { resetPasswordLink, newPassword } = req.body;
 
-          user.roles = roles.map(role => role._id);
-          user.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
+  const errors = validationResult(req);
 
-            res.send({ message: "User was registered successfully!" });
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+    return res.status(422).json({
+      errors: firstError
+    });
+  } else {
+    if (resetPasswordLink) {
+      jwt.verify(resetPasswordLink, config.secret, function(
+        err,
+        decoded
+      ) {
+        if (err) {
+          return res.status(400).json({
+            error: 'Expired link. Try again'
           });
         }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
 
-        user.roles = [role._id];
-        user.save(err => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
+       user.findOne(
+          {
+            resetPasswordLink
+          },
+          (err, user) => {
+            if (err || !user) {
+              return res.status(400).json({
+                error: 'Something went wrong. Try later'
+              });
+            }
+
+            const salt = bcrypt.genSalt();
+            const passwordHash = bcrypt.hashSync(newPassword,8);
+
+            const updatedFields = {
+              password: passwordHash,
+              resetPasswordLink: ''
+
+            };
+
+            user = _.extend(user, updatedFields);
+
+            user.save((err, result) => {
+              if (err) {
+                return res.status(400).json({
+                  error: 'Error resetting user password'
+                });
+              }
+              res.json({
+                message: `Great! Now you can login with your new password`
+              });
+            });
           }
+        );
 
-          res.send({ message: "User was registered successfully!" });
-        });
       });
     }
-  });
+  }
 });
 
-/***************************************************hahahahaaha ********** */
+router.get('/count',(req,res)=>{
+
+  user.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+
+ })
 
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
+})
+/*router.put('/user-profile/:id', async(req, res, next) => {
+  const url = req.protocol + '://' + req.get('host')
+    console.log(url);
+
+  const userProfil = new userProfil({
+      _id: new mongoose.Types.ObjectId(),
+      username: req.body.username,
+      email: req.body.email,
+      userId: req.params.id
   });
+  userProfil.save().then(result => {
+      res.status(201).json({
+          message: "Admin Updated Successfully!",
+         userCreated: {
+              _id: result._id,
+              
+          }
+      })
+  }).catch(err => {
+      console.log(err);
+      res.status(500).json({
+          error: err
+      });
+  });
+  const userToUpdate = await user.findByIdAndUpdate(req.params.id);
 
-  app.get("/api/test/all", controller.allAccess);
+  await userToUpdate.save();
+ 
+})
+*/
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
-  app.get(
-    "/api/test/doctor",
-    [authJwt.verifyToken, authJwt.isDoctor],
-    controller.doctorBoard
-  );
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-};
+
 module.exports = router;
