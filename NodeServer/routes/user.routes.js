@@ -269,33 +269,64 @@ app.post('/send', async (req, res) => {
 
 
 router.post('/forgotpassword', async(req, res) => {
-  const {email}= req.body;
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+  const { email } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+     res.status(422).json({
+      errors: firstError
+    });
+  }else {
+    user.findOne(
+      {
+        email
+      },
+      (err, user) => {
+        if (err || !user) {
+           res.status(400).json({
+            error: 'User with that email does not exist'
+          });
+        }
+
+            var token = jwt.sign({ id: user.id }, "0123456789", {
+        expiresIn: 31536000  // 24 hours
+      });
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
     auth: {
-      user: 'eldora.schaefer93@ethereal.email', // generated ethereal user
-      pass: 'ANx2VyQpy2dfcS14xe', // generated ethereal password
+      user: "meriembader1997@gmail.com",
+      pass: "aduriz689",
     },
   });
- 
-  const msg = {
-    from:'"meriem  👻" <meriembader8@gmail.com>',
-    to: `${email}`, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  }
-      // send mail with defined transport object
-   const info = await transporter.sendMail(msg);
-   console.log("Message sent: %s", info.messageId);
-   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-   
-   res.send('Email Sent!')
+
+  var mailOptions = {
+    from: "meriembader1997@gmail.com",
+    to: `${email}`,
+    subject: `Password Reset link`,
+          html: `
+                    <h1>Please use the following link to reset your password</h1>
+                    <a href="http://localhost:3001/resetpassword/${token}">Reset your password</a>
+                    <hr />
+                    <p>This email may contain sensetive information</p>
+                   <a href="http://localhost:3001">INDEX PAGE</a>
+                `
+        };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+      console.log("");
+      res.json(userr);
+    }
+  });
 }
 )
+  }
+})
 // this is the function i try to send an email ( forgot password ) look what it bo nhh 
 
 router.post('/resetpassword',async (req, res) => {
@@ -372,6 +403,13 @@ router.get('/count',(req,res)=>{
       }
  })
 })
+/*
+router.get('/stat',  async (req, res) =>{
+  const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
+  const users = user.aggregate(pipeline).then((data)=>{ return res.json(data);});
+ 
+  
+})*/
 
 router.get('/stat',  function  (req, res) {
   //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
@@ -391,10 +429,10 @@ router.get('/stat',  function  (req, res) {
 
 
 
+
 /*router.put('/user-profile/:id', async(req, res, next) => {
   const url = req.protocol + '://' + req.get('host')
     console.log(url);
-
   const userProfil = new userProfil({
       _id: new mongoose.Types.ObjectId(),
       username: req.body.username,
@@ -416,7 +454,6 @@ router.get('/stat',  function  (req, res) {
       });
   });
   const userToUpdate = await user.findByIdAndUpdate(req.params.id);
-
   await userToUpdate.save();
  
 })
@@ -436,7 +473,6 @@ MongoClient.connect(CONNECTION_URL,
     collection = database.collection("users");
     console.log("Connected to `" + DATABASE_NAME + "`!");
 });
-
 app.get("/stat", (request, response) => {
   collection.agregate([
     { "$group":{"_id":"$role","count": {"$sum": 1}}}
