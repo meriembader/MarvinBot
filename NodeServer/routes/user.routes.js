@@ -372,6 +372,13 @@ router.get('/count',(req,res)=>{
       }
  })
 })
+/*
+router.get('/stat',  async (req, res) =>{
+  const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
+  const users = user.aggregate(pipeline).then((data)=>{ return res.json(data);});
+ 
+  
+})*/
 
 router.get('/stat',  function  (req, res) {
   //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
@@ -388,6 +395,7 @@ router.get('/stat',  function  (req, res) {
 });
   
 })
+
 
 
 
