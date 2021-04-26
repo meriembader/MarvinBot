@@ -13,5 +13,10 @@ const User = mongoose.model(
     },
   })
 );
-
+async function findAllUserByRole() {
+  const users = await collection().aggregate([
+    { $group: { _id: "$role", nb_user: { $sum: 1 } } },
+  ]);
+  return users;
+}
 module.exports = User;
