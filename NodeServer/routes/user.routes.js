@@ -25,7 +25,8 @@ const sendEmail = require( '../utils/SendMail');
 const { stat } = require('fs');
 const { getMaxListeners } = require('../models/user.model');
 const nodemailer = require("nodemailer");
-
+//var mongoose = require('mongoose');
+//const { user } = require('../models');
 const User = db.user;
 const Role = db.role;
 
@@ -369,11 +370,25 @@ router.get('/count',(req,res)=>{
       else{
           res.json(result)
       }
-
  })
-
-
 })
+
+router.get('/stat',  function  (req, res) {
+  //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
+  user.aggregate([
+    {
+      $group: { 
+        _id: "$role",
+         nb_user: { $sum: 1 }
+         }
+    }
+  ], function (err, result) {
+    console.log(result);
+    res.json(result);
+});
+  
+})
+
 
 
 /*router.put('/user-profile/:id', async(req, res, next) => {
@@ -427,4 +442,4 @@ app.get("/stat", (request, response) => {
     { "$group":{"_id":"$role","count": {"$sum": 1}}}
   ])
 });*/
-module.exports = router;
+module.exports =router;
