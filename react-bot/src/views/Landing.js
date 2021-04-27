@@ -1,87 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
-import Axios from 'axios';
 
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
-
-
 export default function Landing() {
-
-  var msg = [];
-  var inputs=[];
-  const addToModel = () => {
-    Axios.post("http://localhost:3001/diagnostique",
-      {
-        input: inputs
-      });
-  };
-
-  
-  //////////////chat//////////////////
- 
- 
-  (function (d, m) {
-
-    var kommunicateSettings = {
-      "appId": "2cd393fcd95368ff194f58ccbb2b5ec7", "popupWidget": true, "automaticChatOpenOnNavigation": true,
-
-
-
-      "onInit": function () {
-        var events = {
-          'onMessageReceived': function (resp) {
-            //msg.push(resp);
-            if(resp.message.message=="thank you for answering")
-            {
-               addToModel();
-             console.log(msg);
-            }
-            //called when a new message is received
-          },
-          'onMessageSent': function (resp) {
-        if(resp.message.message=="yes"){
-
-      
-          
-            console.log(resp.message.message);
-            msg.push(resp.message.message);
-          }
-            //called when the message is sent
-          }
-        };
-
-        window.Kommunicate.subscribeToEvents(events);
-
-
-      }
-
-
-
-    };
-    var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-    s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-    var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-    window.kommunicate = m; m._globals = kommunicateSettings;
-  })(document, window.kommunicate || {});
-
-
-  ///////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-////////sensors//////////////////////////
   const socket = io("http://localhost:5000", {
     query: {
       "id": "browser"
@@ -114,7 +40,6 @@ export default function Landing() {
   function start_measure() {
     // document.getElementById("Info").style.display = "block";
     //socket.emit("measure", null);
-   
     document.getElementById("desc").style.display = "none";
     setTimeout(() => {
       document.getElementById("textTemp").innerHTML = "Your Body Temp is: " + ((Math.floor(Math.random() * (37 - 35)) + 35) + (Math.random() * (0.120 - 0.0200) + 0.0200).toFixed(2)) / 10 + " °C";
@@ -136,45 +61,16 @@ export default function Landing() {
   }
 
   function reset() {
-
-
+   
+ 
     document.getElementById("textHeart").style.display = "none";
     document.getElementById("textTemp").style.display = "none";
     document.getElementById("textOxy").style.display = "none";
-  
 
   }
 
-
-///////////////////////////////////////////  
-
-
-
-
-
-
-////////diagnostic////////////
-
-
-
-
-
-
-
-
-
-
-///////////////////////////
-
-
-
-
-
-
-
   return (
     <>
-
       <Navbar transparent />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
@@ -289,14 +185,13 @@ export default function Landing() {
                   will be assigned.
                 </p>
 
-
                
-      <button className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                    type="button" id="result" > 
-                    <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
-                      View Results
-                  </Link>
-                  </button>
+              <button   className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        type="button">
+                <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
+                View Results
+                </Link>
+                </button>
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "./assets/styles/tailwind.css"
+import "assets/styles/tailwind.css";
 
 // layouts
 
@@ -20,7 +20,7 @@ import VirtualConsultation from "views/VirtualConsultation";
 import KommunicateChat from "chat.js";
 ReactDOM.render(
   <BrowserRouter>
-    <Switch>    
+    <Switch>
       {/* add routes with layouts */}
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
@@ -35,7 +35,9 @@ ReactDOM.render(
       <Redirect from="*" to="/" />
     
     </Switch>
-   
+    <div>
+    <KommunicateChat/>
+    </div>
   </BrowserRouter>,
 
   document.getElementById("root")

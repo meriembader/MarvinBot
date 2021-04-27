@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
-import UpdatePopup from "components/UpdatePopup";
-import { FaStar } from 'react-icons/fa';
+import Popup from "components/Popup";
 
 export default function CardTableForum({ color }) {
 
-
+  
   const [ForumList, setForumList] = useState([]);
-  const [openPopup, setOpenPopup] = useState(false);
-  const stars = Array(5).fill(0)
-  // const { idd ,color } = props;
+  const [openPopup, setOpenPopup]= useState(false);
 
   useEffect(() => {
     Axios.get("http://localhost:3001/forum").then((response) => {
@@ -19,43 +16,12 @@ export default function CardTableForum({ color }) {
     });
   }, []);
 
-  const deleteForum = (id) => {
+  const deleteForum = (id)=> {
     Axios.delete(`http://localhost:3001/forum/${id}`);
     window.location.reload();
   };
 
-  const colors = {
-    orange: "#FFBA5A",
-    grey: "#a9a9a9"
-
-  };
-
-  const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
-    },
-    stars: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "center"
-    },
-    textarea: {
-      border: "1px solid #a9a9a9",
-      borderRadius: 5,
-      padding: 10,
-      margin: "20px 0",
-      minHeight: 100,
-      width: 300
-    },
-    button: {
-      border: "1px solid #a9a9a9",
-      borderRadius: 5,
-      width: 300,
-      padding: 10,
-    }
-  }
+  
 
   return (
     <>
@@ -90,15 +56,14 @@ export default function CardTableForum({ color }) {
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Username
                 </th>
-
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Title
+                </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Opinion
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
-                </th>
-                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Actions
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
@@ -135,67 +100,42 @@ export default function CardTableForum({ color }) {
 
                     </th>
 
+
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <div key={index}>
+
+                        <h3>{val.title}</h3>
+                      </div>
+                    </td>
+
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                       <div key={index}>
 
                         <h3>{val.description}</h3>
                       </div>
                     </td>
-
-
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-
-
-                      <div style={styles.stars}>
-                        {stars.map((_, index) => {
-                          return (
-                            <FaStar
-                              key={index}
-                              size={24}
-
-                              color={(val.starValue) > index ? colors.orange : colors.grey}
-                              style={{
-                                marginRight: 10,
-                                cursor: "pointer"
-                              }}
-
-
-                            />
-                          )
-                        })}
-                      </div>
-
-
-
-                    </td>
-
-
                     <td>
-
+                   
                       <button
-
-                        onClick={() => { setOpenPopup(true) }}
+                        onClick={ ()=>setOpenPopup(true)}
 
                         className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
                         text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
                         rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
                         type="button"
                       >
-
-                        <i class="fas fa-edit"></i>
-
+                        Modify
                       </button>
-
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                       <button
-                        onClick={() => deleteForum(val._id)}
+                      onClick={()=>deleteForum(val._id)}
                         className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
                         text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
                         rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
                         type="button"
                       >
-                        <i class="fas fa-trash"></i>
+                        Remove
                       </button>
                     </td>
                   </tr>
@@ -203,13 +143,12 @@ export default function CardTableForum({ color }) {
               })}
             </tbody>
           </table>
-          <UpdatePopup
-            openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
-          >
+          <Popup
+openPopup= {openPopup}
+setOpenPopup ={setOpenPopup}>
+  
 
-
-          </UpdatePopup>
+</Popup>
         </div>
       </div>
     </>
