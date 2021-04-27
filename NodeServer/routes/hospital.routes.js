@@ -31,7 +31,9 @@ router.get('/', function(req, res, next) {
   new hospital({
     name: req.body.name,
     address: req.body.address,
-    status: req.body.status
+    status: req.body.status,
+    Longitude: req.body.Longitude,
+    Latitude: req.body.Latitude
   }).save(
     (err, newuser) => {
       if (err)

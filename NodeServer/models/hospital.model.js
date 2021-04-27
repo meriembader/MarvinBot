@@ -23,6 +23,17 @@ var hospital = new Schema (
       trim: true,
       required: true
      },
+     Longitude: {
+      type: String,
+      trim: true,
+      required: true
+     },
+     Latitude: {
+      type: String,
+      trim: true,
+      required: true
+     },
+     
      
    
   },
