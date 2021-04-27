@@ -118,7 +118,9 @@ export default function Login() {
                       Sign In
                     </button>
                   </div>
+
                   <span className="noAcc">Don't have an account ?</span> <a href = "/auth/register" className = "authRef" style = {{color: 'white'}}>Register</a>
+
                 </form>
               </div>
             </div>
@@ -127,11 +129,9 @@ export default function Login() {
               
               <div className="w-1/2">
                 <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-blueGray-200"
+                  href="/auth/forgotpassword" style = {{color: 'white'}}
                 >
-                  <small>Forgot password?</small>
+                  <small>Forgot password? </small>
                 </a>
               </div>
               <div className="w-1/2 text-right">

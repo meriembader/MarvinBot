@@ -329,7 +329,7 @@ router.post('/forgotpassword', async(req, res) => {
 })
 // this is the function i try to send an email ( forgot password ) look what it bo nhh 
 
-router.post('/resetpassword',async (req, res) => {
+router.post('/resetpassword/:token',async (req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
 
   const errors = validationResult(req);
