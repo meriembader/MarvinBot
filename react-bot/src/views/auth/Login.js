@@ -118,7 +118,7 @@ export default function Login() {
                       Sign In
                     </button>
                   </div>
-                  <span className="noAcc">Don't have an account ?</span> <a href = "/user/register" className = "authRef" style = {{color: 'white'}}>Register</a>
+                  <span className="noAcc">Don't have an account ?</span> <a href = "/auth/register" className = "authRef" style = {{color: 'white'}}>Register</a>
                 </form>
               </div>
             </div>
