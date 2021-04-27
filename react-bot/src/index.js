@@ -16,7 +16,9 @@ import Landing from "views/Landing.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
-import VirtualConsultation from "views/VirtualConsultation";
+
+
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -28,8 +30,10 @@ ReactDOM.render(
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
-      <Route path="/VC" exact component={VirtualConsultation} />
-
+      
+      
+     
+   
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />

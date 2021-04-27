@@ -8,10 +8,10 @@ const saltRounds = 10;
 var Schema = mongoose.Schema;
 var forum = new Schema ( 
   {
-    title: {
+    starValue: {
       type: String,
-      trim: true,  
-      required: true,
+      trim: true,
+      required: true
      },
      description: {
       type: String,
