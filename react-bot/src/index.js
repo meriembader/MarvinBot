@@ -20,7 +20,7 @@ import VirtualConsultation from "views/VirtualConsultation";
 import KommunicateChat from "chat.js";
 ReactDOM.render(
   <BrowserRouter>
-    <Switch>
+    <Switch>    
       {/* add routes with layouts */}
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
