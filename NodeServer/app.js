@@ -3,14 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var app = express();
-//const data = require('../mylogreg.json');
+const app = express();
+const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
-app.use(cors());
 app.use(express.json());
-
+app.use(cors());
+//const pynode = require('@fridgerator/pynode')
+//const _ = require('lodash');
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
