@@ -11,6 +11,7 @@ const User = mongoose.model(
         data: String,
         default: ''
     },
+    resetPasswordExpire: Date,
   })
 );
 async function findAllUserByRole() {
