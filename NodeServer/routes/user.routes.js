@@ -10,8 +10,6 @@ const { authJwt } = require("../middlewares");
 var app = express();
 const _ =require('lodash');
 const controller = require("../controllers/user.controller");
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey("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");
 const { validationResult } = require('express-validator');
 const changepassword = require ('../models/ChangePassword');
 const  check  = require('check');
@@ -21,7 +19,7 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 /********************************************** */
 const { validator} = require('validator') ;
-const sendEmail = require( '../utils/SendMail');
+
 const { stat } = require('fs');
 const { getMaxListeners } = require('../models/user.model');
 const nodemailer = require("nodemailer");
