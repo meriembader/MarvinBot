@@ -35,9 +35,7 @@ ReactDOM.render(
       <Redirect from="*" to="/" />
     
     </Switch>
-    <div>
-    <KommunicateChat/>
-    </div>
+   
   </BrowserRouter>,
 
   document.getElementById("root")

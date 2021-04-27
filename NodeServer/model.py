@@ -23,7 +23,7 @@ df = pd.read_csv("C:/Users/ali/Desktop/MarvinBot/IA_Model/covid.csv")
 pd.pandas.set_option('display.max_columns',None)
 #display("Peeking into Data", df)
 #display("Shape of dataset")
-print("Rows:",df.shape[0],"\nColumns:",df.shape[1])
+#print("Rows:",df.shape[0],"\nColumns:",df.shape[1])
 #display("Description",df.describe())
 df.info() 
 severity_columns = df.filter(like='Severity_').columns
@@ -108,7 +108,7 @@ with open(Pkl_Filename, 'rb') as file:
 
 Pickled_model
 score = Pickled_model.score(X_train, y_train)
-print("Test score: {0:.2f} %".format(100 * score))  
+#print("Test score: {0:.2f} %".format(100 * score))  
 Ypredict = Pickled_model.predict(X_test)  
 
 Ypredict
@@ -127,7 +127,7 @@ joblib_model
 # Calculate the Score 
 score = joblib_model.score(X_test, y_test)  
 # Print the Score
-print("Test score: {0:.2f} %".format(100 * score))  
+#print("Test score: {0:.2f} %".format(100 * score))  
 
 # Predict the Labels using the reloaded Model
 Ypredict = joblib_model.predict(X_test)  

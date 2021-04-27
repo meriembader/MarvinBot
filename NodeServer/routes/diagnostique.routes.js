@@ -1,4 +1,5 @@
 var express = require('express');
+const {PythonShell} =require('python-shell');
 var router = express.Router();
 var diagnostique = require('../models/diagnostique.model');
 
@@ -24,7 +25,26 @@ router.get('/', function(req, res, next) {
 
 /* POST API diagnostique */
  router.post('/', function(req, res, next) {
-  new diagnostique({
+
+  let options = {
+    mode: 'text',
+    //pythonOptions: ['-u'], // get print results in real-time
+    pythonPath: 'C:/Users/ali/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
+    args: [req.body.input] //An argument which can be accessed in the script using sys.argv[1]
+  };
+  
+  PythonShell.run('model.py', options, function (err, result){
+    if (err) throw err;
+    // result is an array consisting of messages collected 
+    //during execution of script.
+    res.send(result.toString());
+    console.log(result.toString());
+   
+  });
+  
+
+
+  /*new diagnostique({
     title: req.body.title,
     result: req.body.result,
     score: req.body.score,
@@ -38,7 +58,9 @@ router.get('/', function(req, res, next) {
         res.send(" New diagnostique added "+ nesdiagnostique._id)
       }
     }
-  )
+  )*/
+  //console.log(req.body.input.toString());
+    
 });
 
 /* PUT API diagnostique */
