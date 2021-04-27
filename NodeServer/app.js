@@ -7,10 +7,37 @@ const app = express();
 const data = require('../mylogreg.json');
 const cors = require("cors");
 const bodyParser = require("body-parser");
-app.use(express.json());
-app.use(cors());
+
 //const pynode = require('@fridgerator/pynode')
 //const _ = require('lodash');
+app.use(express.json());
+app.use(cors());
+/*
+pynode.startInterpreter();
+
+pynode.appendSysPath('./');
+pynode.openFile('model');
+
+let regressionModel = {};
+
+app.get('/api/covid_predict', (req, res) => {
+  new Promise((resolve, reject) => {
+      try {
+        if (_.isEmpty(regressionModel)) {
+          console.log('calling python');
+          regressionModel = pynode.call('build_regression_model');
+        }
+        resolve(regressionModel);
+      } catch(err) {
+        console.log(err);
+        reject('failed to load covid variables');
+      }
+  })
+  .then(response => res.send(response))
+  .catch(err => res.err(err));
+});
+
+*/
 /*
 const trainingData = data.map(item => ({
   output: item.X_train
@@ -59,7 +86,7 @@ var chatRouter = require('./routes/chat.routes');
 var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
 var authRouter = require('./routes/auth.routes');
-
+var hospitalRouter = require('./routes/hospital.routes');
 
 
 
@@ -75,6 +102,7 @@ app.use('/forum', forumRouter);
 app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
+app.use('/hospital', hospitalRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -85,7 +113,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  //console.log(err);
   // render the error page
   res.status(err.status || 500);
   res.render('error');
@@ -162,40 +190,6 @@ io.on('connection', function(socket) {
 });
 });
 
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      new Role({
-        name: "patient"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
 
-        console.log("added 'patient' to roles collection");
-      });
-
-      new Role({
-        name: "doctor"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'doctor' to roles collection");
-      });
-
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
-}
 
 module.exports = app;

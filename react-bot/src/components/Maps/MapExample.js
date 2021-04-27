@@ -34,5 +34,4 @@ const Map = ({ location, zoomLevel }) => (
     </div>
   </div>
 )
-
 export default Map
