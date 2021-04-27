@@ -29,9 +29,10 @@ router.get('/', function(req, res, next) {
 /* POST API forum */
  router.post('/addForum', function(req, res, next) {
   new forum({
-    title: req.body.title,
+    starValue: req.body.starValue,
     description: req.body.description,
-    author: req.body.author
+    author: req.body.author,
+    
   }).save(
     (err, newuser) => {
       if (err)
@@ -45,7 +46,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* PUT API forum */
-router.put('update/:id', function(req, res, next) {
+router.put('/update', function(req, res, next) {
     forum.findByIdAndUpdate(
       req.params.id,
       req.body,
