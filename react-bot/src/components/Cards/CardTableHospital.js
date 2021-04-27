@@ -120,9 +120,8 @@ Actions
             text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
             rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
             type="button"
-           class="fa fa-trash"
           >
-            
+            Remove
           </button>
         </td>
       </tr>
