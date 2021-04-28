@@ -41,9 +41,13 @@ export default function Login() {
       		      "http://localhost:3001/user/login",
       		      loginUser
     		    );
-            alert("accepted ! welcome to our website !");
-            history.push("/landing");
-            window.location.reload();
+            if (recaptchaVerif === true) {
+     			   localStorage.setItem("auth-token", loginRes.data.token);
+     			   history.push("/user");
+     			   window.location.reload();
+					} else {
+						alert("Please verify that you are human.");
+					}
          
 					if (checked && username !== "" && password !== "") {
 						localStorage.username = username;
