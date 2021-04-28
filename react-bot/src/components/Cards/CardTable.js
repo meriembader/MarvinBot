@@ -55,10 +55,10 @@ export default function CardTable({ color }) {
       Username
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    email
+    Email
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    password
+    Role
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
@@ -109,7 +109,7 @@ export default function CardTable({ color }) {
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.password}</h3>
+            <h3>{val.role}</h3>
           </div>
         </td>
      
@@ -120,8 +120,9 @@ export default function CardTable({ color }) {
             text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
             rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
             type="button"
+            class="fas fa-trash"
           >
-            Remove
+            
           </button>
         </td>
       </tr>

@@ -51,6 +51,10 @@ const PagesDropdown = () => {
         >
           Dashboard
         </Link>
+        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+
+        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+
         <Link
           to="/admin/settings"
           className={
@@ -75,38 +79,10 @@ const PagesDropdown = () => {
         >
           Maps
         </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          Auth Layout
-        </span>
-        <Link
-          to="/auth/login"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Login
-        </Link>
-        <Link
-          to="/auth/register"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Register
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          No Layout
-        </span>
+        
+        
+       
+        
         <Link
           to="/landing"
           className={
@@ -131,6 +107,15 @@ const PagesDropdown = () => {
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Forum
+        </Link>
+        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+        <Link
+          to="/"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        ><i class="fas fa-sign-out-alt"></i>
+          Logout
         </Link>
 
       </div>

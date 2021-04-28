@@ -2990,7 +2990,7 @@ select {
   }
 
   .lg\:w-auto {
-    width: auto;
+    width: min-content;
   }
 
   .lg\:w-3\/12 {
