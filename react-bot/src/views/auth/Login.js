@@ -1,10 +1,22 @@
 import  React, { useState, useContext, useEffect  } from 'react';
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import Recaptcha from 'react-recaptcha';
 
 export default function Login() {
 
+
+let recaptchaVerif = false;
+
+function recaptchaLoaded() {
+	console.log("Recaptcha loaded successfully !");
+}
+
+function verifyCallback(response) {
+	if (response) {
+		recaptchaVerif = true;
+	}
+}
 	let [username, setUsername] = useState();
     let [password, setPassword] = useState();
     let [checked, setChecked] = useState();
@@ -42,7 +54,13 @@ export default function Login() {
       		      loginUser
     		    );
    			   
-         
+            if (recaptchaVerif === true) {
+     			   localStorage.setItem("auth-token", loginRes.data.token);
+     			   history.push("/user");
+     			   window.location.reload();
+					} else {
+						alert("Please verify that you are human.");
+					}
 					if (checked && username !== "" && password !== "") {
 						localStorage.username = username;
 						localStorage.password = password;
@@ -94,7 +112,9 @@ export default function Login() {
                       placeholder="Password"onChange={(e) =>  setPassword(e.target.value)}
                     />
                   </div>
-
+                  <Recaptcha sitekey="6Led9rwaAAAAAEX7aTBnvOnAj05VPlunviWpBPtZ" 
+						render = "explicit" onloadCallback={recaptchaLoaded}
+						verifyCallback={verifyCallback}/>
 
                   <div>
                   
@@ -134,7 +154,7 @@ export default function Login() {
               </div>
               <div className="w-1/2 text-right">
 
-              </div>
+              </div> 
             </div>
           </div>
         </div>
