@@ -13,6 +13,7 @@ export default function Navbar() {
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
             href="#pablo"
             onClick={(e) => e.preventDefault()}
+            
           >
             Dashboard
           </a>

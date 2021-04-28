@@ -58,10 +58,10 @@ export default function Navbar(props) {
              
                 
              <Link
-        to="/auth/login"
+        to="/"
         className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
-           <i class="fas fa-sign-in-alt" ></i> Login
+           <i class="fas fa-door-open"></i> Logout
       </Link>
                 </button>
               </li>

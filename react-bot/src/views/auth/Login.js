@@ -41,7 +41,9 @@ export default function Login() {
       		      "http://localhost:3001/user/login",
       		      loginUser
     		    );
-   			   
+            alert("accepted ! welcome to our website !");
+            history.push("/landing");
+            window.location.reload();
          
 					if (checked && username !== "" && password !== "") {
 						localStorage.username = username;

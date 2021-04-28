@@ -27,7 +27,7 @@ export default function Register() {
       );
      
       alert("Account created successfully ! Please check your email to verify your account !");
-      history.push("/user/login");
+      history.push("/auth/login");
       window.location.reload();
   } catch (err) {
      console.log("error");
