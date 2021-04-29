@@ -86,6 +86,40 @@ router.delete('/:id', function(req, res, next) {
   )
 });
 
+router.get('/statDiagnostic',  function  (req, res) {
+
+  diagnostique.aggregate([
+    {
+      $group: {
+        _id: "$result",
+        nb_user: { $sum: 1 }
+        }
+    }
+  ], function (err, result) {
+    console.log(result);
+    res.json(result);
+});
+  
+})
+
+
+router.get('/statDiagnostic',  function  (req, res) {
+
+  diagnostique.aggregate([
+    {
+      $group: {
+        _id: "$date",
+        nb_user: { $sum: 1 }
+        }
+      
+    }
+  ], function (err, result) {
+    console.log(result);
+    res.json(result);
+});
+  
+})
+
 
 
 module.exports = router;
