@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Axios from "axios";
 import Chart from "chart.js";
 
 export default function CardLineChart() {
+  const [StatList, setStatList] = useState([]);
+
   React.useEffect(() => {
+    Axios.get("http://localhost:3001/diagnostique/statDiagnosticDate").then((response) => {
+      setStatList(response.data);
+      console.log(response.data);
+  
+   
+   
     var config = {
       type: "line",
       data: {
@@ -23,13 +33,7 @@ export default function CardLineChart() {
             data: [65, 78, 66, 44, 56, 67, 75],
             fill: false,
           },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#fff",
-            borderColor: "#fff",
-            data: [40, 68, 86, 74, 56, 60, 87],
-          },
+         
         ],
       },
       options: {
@@ -106,6 +110,7 @@ export default function CardLineChart() {
     var ctx = document.getElementById("line-chart").getContext("2d");
     window.myLine = new Chart(ctx, config);
   }, []);
+});
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
