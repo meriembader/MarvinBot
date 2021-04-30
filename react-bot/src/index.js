@@ -13,6 +13,7 @@ import Auth from "layouts/Auth.js";
 // views without layouts
 
 import Landing from "views/Landing.js";
+import Contact from "views/Contact.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
@@ -27,6 +28,7 @@ ReactDOM.render(
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
+      <Route path="/contact" exact component={Contact} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
    
