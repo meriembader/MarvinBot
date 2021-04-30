@@ -4,8 +4,6 @@ var contact = require('../models/contact.model');
 const nodemailer = require("nodemailer");
 var app = express();
 
-
-
 /* GET API contact listing. */
 router.get('/', function(req, res, next) {
  
