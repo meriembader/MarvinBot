@@ -29,6 +29,7 @@ ReactDOM.render(
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
+   
       <Route path="/VC" exact component={VirtualConsultation} />
     
       <Route path="/" exact component={Index} />

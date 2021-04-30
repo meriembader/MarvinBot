@@ -103,7 +103,7 @@ router.get('/statDiagnostic',  function  (req, res) {
 })
 
 
-router.get('/statDiagnostic',  function  (req, res) {
+router.get('/statDiagnosticDate',  function  (req, res) {
 
   diagnostique.aggregate([
     {
