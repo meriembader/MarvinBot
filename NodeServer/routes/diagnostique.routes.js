@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
   let options = {
     mode: 'text',
     //pythonOptions: ['-u'], // get print results in real-time
-    pythonPath: 'C:/Users/ali/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
+    pythonPath: 'C:/Users/ali/Desktop/MarvinBot_deprecated/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
     args: [req.body.input] //An argument which can be accessed in the script using sys.argv[1]
   };
   
@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
     // result is an array consisting of messages collected 
     //during execution of script.
     res.send(result.toString());
-    console.log(result.toString());
+    console.log("success");
    
   });
   
@@ -85,40 +85,6 @@ router.delete('/:id', function(req, res, next) {
     }
   )
 });
-
-router.get('/statDiagnostic',  function  (req, res) {
-
-  diagnostique.aggregate([
-    {
-      $group: {
-        _id: "$result",
-        nb_user: { $sum: 1 }
-        }
-    }
-  ], function (err, result) {
-    console.log(result);
-    res.json(result);
-});
-  
-})
-
-
-router.get('/statDiagnosticDate',  function  (req, res) {
-
-  diagnostique.aggregate([
-    {
-      $group: {
-        _id: "$date",
-        nb_user: { $sum: 1 }
-        }
-      
-    }
-  ], function (err, result) {
-    console.log(result);
-    res.json(result);
-});
-  
-})
 
 
 
