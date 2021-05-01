@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
   let options = {
     mode: 'text',
     //pythonOptions: ['-u'], // get print results in real-time
-    pythonPath: 'C:/Users/ali/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
+    pythonPath: 'C:/Users/meriem/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
     args: [req.body.input] //An argument which can be accessed in the script using sys.argv[1]
   };
   
@@ -59,6 +59,27 @@ router.get('/', function(req, res, next) {
       }
     }
   )*/
+  //console.log(req.body.input.toString());
+    
+});
+
+/* POST API forum */
+router.post('/diagnose', function(req, res, next) {
+  new diagnostique({
+    title: req.body.title,
+    result: req.body.result,
+    score: req.body.score,
+    date: req.body.date
+  }).save(
+    (err, nesdiagnostique) => {
+      if (err)
+        console.log("Error message : "+err);
+      else{
+        console.log(nesdiagnostique);
+        res.send(" New diagnostique added "+ nesdiagnostique._id)
+      }
+    }
+  )
   //console.log(req.body.input.toString());
     
 });

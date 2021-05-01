@@ -5,112 +5,114 @@ import Chart from "chart.js";
 
 export default function CardLineChart() {
   const [StatList, setStatList] = useState([]);
-
   React.useEffect(() => {
-    Axios.get("http://localhost:3001/diagnostique/statDiagnosticDate").then((response) => {
-      setStatList(response.data);
+   let element1 = [];
+   let elements = [];
+    Axios
+    .get("http://localhost:3001/diagnostique/statDiagnosticDate")
+    .then((response) => {
       console.log(response.data);
-  
-   
-   
-    var config = {
-      type: "line",
-      data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
-        datasets: [
-          {
-            label: new Date().getFullYear(),
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67, 75],
-            fill: false,
-          },
-         
-        ],
+      for(const dataObj of response.data){
+        element1.push(parseInt(dataObj._id));
+        elements.push(parseInt(dataObj.nb_user));
+      }
+
+      
+  }).catch(err => {
+    console.log(err);
+  });
+ // console.log("hihiihihi:", elements, element1);
+  var config = {
+    type: "line",
+    data: {
+      labels:element1,
+      datasets: [
+        {
+          label: new Date().getFullYear(),
+          backgroundColor: "#4c51bf",
+          borderColor: "#4c51bf",
+         // data: this.element1,
+          fill: false,
+        },
+       
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      title: {
+        display: false,
+        text: "diagnostic Charts",
+        fontColor: "white",
       },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        title: {
-          display: false,
-          text: "diagnostic Charts",
+      legend: {
+        labels: {
           fontColor: "white",
         },
-        legend: {
-          labels: {
-            fontColor: "white",
-          },
-          align: "end",
-          position: "bottom",
-        },
-        tooltips: {
-          mode: "index",
-          intersect: false,
-        },
-        hover: {
-          mode: "nearest",
-          intersect: true,
-        },
-        scales: {
-          xAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Month",
-                fontColor: "white",
-              },
-              gridLines: {
-                display: false,
-                borderDash: [2],
-                borderDashOffset: [2],
-                color: "rgba(33, 37, 41, 0.3)",
-                zeroLineColor: "rgba(0, 0, 0, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Value",
-                fontColor: "white",
-              },
-              gridLines: {
-                borderDash: [3],
-                borderDashOffset: [3],
-                drawBorder: false,
-                color: "rgba(255, 255, 255, 0.15)",
-                zeroLineColor: "rgba(33, 37, 41, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-        },
+        align: "end",
+        position: "bottom",
       },
-    };
+      tooltips: {
+        mode: "index",
+        intersect: false,
+      },
+      hover: {
+        mode: "nearest",
+        intersect: true,
+      },
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+              fontColor: "rgba(255,255,255,.7)",
+            },
+            display: true,
+            scaleLabel: {
+              display: false,
+              labelString: "Month",
+              fontColor: "white",
+            },
+            gridLines: {
+              display: false,
+              borderDash: [2],
+              borderDashOffset: [2],
+              color: "rgba(33, 37, 41, 0.3)",
+              zeroLineColor: "rgba(0, 0, 0, 0)",
+              zeroLineBorderDash: [2],
+              zeroLineBorderDashOffset: [2],
+            },
+          },
+        ],
+        yAxes: [
+          {
+            ticks: {
+              fontColor: "rgba(255,255,255,.7)",
+            },
+            display: true,
+            scaleLabel: {
+              display: false,
+              labelString: "Value",
+              fontColor: "white",
+            },
+            gridLines: {
+              borderDash: [3],
+              borderDashOffset: [3],
+              drawBorder: false,
+              color: "rgba(255, 255, 255, 0.15)",
+              zeroLineColor: "rgba(33, 37, 41, 0)",
+              zeroLineBorderDash: [2],
+              zeroLineBorderDashOffset: [2],
+            },
+          },
+        ],
+      },
+    },
+  };
+  
     var ctx = document.getElementById("line-chart").getContext("2d");
     window.myLine = new Chart(ctx, config);
   }, []);
-});
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
