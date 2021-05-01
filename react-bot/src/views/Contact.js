@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // components
 
@@ -8,6 +8,34 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Contact() {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [message, setMessage] = useState();
+
+  const history = useHistory();
+  
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+    const contact = {
+        name,
+        email,
+        message,
+       
+    };
+    const ContactRes = await Axios.post(
+        "http://localhost:3001/contact/addcontact",
+        contact
+    );
+   
+    alert("email sent!, check you inbox please");
+    history.push("/user/forgotpassword");
+    window.location.reload();
+} catch (err) {
+   console.log("error");
+}
+};
+
 
   return (
     <>
@@ -83,13 +111,13 @@ export default function Contact() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-1-800x800.jpg").default}
+                    src={require("assets/img/meriem.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Ryan Tompson</h5>
+                    <h5 className="text-xl font-bold">Meriem BADER</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Web Developer
+                    Software Developer Engineer
                     </p>
                     <div className="mt-6">
                       <button
@@ -118,13 +146,13 @@ export default function Contact() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-2-800x800.jpg").default}
+                    src={require("assets/img/nihel.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Romina Hadid</h5>
+                    <h5 className="text-xl font-bold">Nihel Chraief</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Marketing Specialist
+                    Software Developer Engineer
                     </p>
                     <div className="mt-6">
                       <button
@@ -147,13 +175,13 @@ export default function Contact() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-3-800x800.jpg").default}
+                    src={require("assets/img/rafa.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Alexa Smith</h5>
+                    <h5 className="text-xl font-bold">Rafaa Lakhdhar</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      UI/UX Designer
+                    Software Developer Engineer
                     </p>
                     <div className="mt-6">
                       <button
@@ -182,13 +210,13 @@ export default function Contact() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-4-470x470.png").default}
+                    src={require("assets/img/ali.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Jenna Kardi</h5>
+                    <h5 className="text-xl font-bold"> Ali Bekir</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Founder and CEO
+                    Software Developer Engineer
                     </p>
                     <div className="mt-6">
                       <button
@@ -310,6 +338,7 @@ export default function Contact() {
                       Complete this form and we will get back to you in 24
                       hours.
                     </p>
+                    <form  onSubmit = {submit}>
                     <div className="relative w-full mb-3 mt-8">
                       <label
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -320,7 +349,7 @@ export default function Contact() {
                       <input
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Full Name"
+                        placeholder="Full Name"  onChange={(e) => setName(e.target.value)}
                       />
                     </div>
 
@@ -334,7 +363,7 @@ export default function Contact() {
                       <input
                         type="email"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Email"
+                        placeholder="Email" onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
 
@@ -349,17 +378,18 @@ export default function Contact() {
                         rows="4"
                         cols="80"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Type a message..."
+                        placeholder="Type a message..."  onChange={(e) => setMessage(e.target.value)}
                       />
                     </div>
                     <div className="text-center mt-6">
                       <button
                         className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
+                        type="submit"
                       >
                         Send Message
                       </button>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>
