@@ -19,7 +19,7 @@ import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import KommunicateChat from "chat.js";
-import pieChart from "pieChart.js";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -32,9 +32,9 @@ ReactDOM.render(
       <Route path="/contact" exact component={Contact} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
-      <Route path="/pieChart" exact component={pieChart} />
+      
       <Route path="/VC" exact component={VirtualConsultation} />
-    
+      
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
@@ -43,6 +43,7 @@ ReactDOM.render(
     <div>
     <KommunicateChat/>
     </div>
+
    
     
   </BrowserRouter>,

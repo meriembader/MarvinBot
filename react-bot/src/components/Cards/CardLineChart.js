@@ -8,15 +8,21 @@ export default function CardLineChart() {
   React.useEffect(() => {
    let element1 = [];
    let elements = [];
+   let Res1 = [];
+  
     Axios
     .get("http://localhost:3001/diagnostique/statDiagnosticDate")
     .then((response) => {
-      console.log(response.data);
-      for(const dataObj of response.data){
-        element1.push(parseInt(dataObj._id));
-        elements.push(parseInt(dataObj.nb_user));
+      Res1 = response.data;
+     // console.log( Res1)
+      
+      //console.log(response.data);
+      for(let i =0; i< Res1.length; i++){
+        element1.push(Res1[i]._id);
+        elements.push(Res1[i].nb_user);
       }
-
+console.log ( "element1 ", element1)
+console.log ("elements", elements)
       
   }).catch(err => {
     console.log(err);
@@ -31,7 +37,7 @@ export default function CardLineChart() {
           label: new Date().getFullYear(),
           backgroundColor: "#4c51bf",
           borderColor: "#4c51bf",
-         // data: this.element1,
+          data:elements,
           fill: false,
         },
        

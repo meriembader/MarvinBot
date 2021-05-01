@@ -1,41 +1,107 @@
-import React, { Component } from 'react';
-var CanvasJSReact = require('./canvasjs/canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import React, { Component } from 'react'  
+import axios from 'axios';  
+import { Pie } from 'react-chartjs-2';  
 
-class pieChart extends Component {
-	render() {
-		const options = {
-			animationEnabled: true,
-			exportEnabled: true,
-			theme: "dark2", // "light1", "dark1", "dark2"
-			title:{
-				text: "Trip Expenses"
-			},
-			data: [{
-				type: "pie",
-				indexLabel: "{label}: {y}%",		
-				startAngle: -90,
-				dataPoints: [
-					{ y: 20, label: "Airfare" },
-					{ y: 24, label: "Food & Drinks" },
-					{ y: 20, label: "Accomodation" },
-					{ y: 14, label: "Transportation" },
-					{ y: 12, label: "Activities" },
-					{ y: 10, label: "Misc" }	
-				]
-			}]
-		}
-		
-		return (
-		<div>
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
-		);
-	}
-}
+export class Piechart extends Component {  
 
-export default pieChart;
+        constructor(props) {  
+
+                super(props);  
+
+                this.state = { Data: {} };  
+
+        }  
+
+        componentDidMount() {  
+
+                axios.get(`http://localhost:3001/diagnostique/statDiagnosticDate`)  
+
+                        .then(res => {  
+
+                                console.log(res);  
+
+                                const ipl = res.data;  
+
+                                let element1 = [];  
+
+                                let element = [];  
+
+                                ipl.forEach(record => {  
+
+                                    element1.push(record.element1);  
+
+                                    element.push(record.element);  
+
+                                });  
+
+                                this.setState({  
+
+                                        Data: {  
+
+                                                labels: element1,  
+
+                                                datasets: [  
+
+                                                        {  
+
+                                                                label: 'IPL 2018/2019 Top Run Scorer',  
+
+                                                                data: runscore,  
+
+                                                                backgroundColor: [  
+
+                                                                        "#3cb371",  
+
+                                                                        "#0000FF",  
+
+                                                                        "#9966FF",  
+
+                                                                        "#4C4CFF",  
+
+                                                                        "#00FFFF",  
+
+                                                                        "#f990a7",  
+
+                                                                        "#aad2ed",  
+
+                                                                        "#FF00FF",  
+
+                                                                        "Blue",  
+
+                                                                        "Red"  
+
+                                                                ]  
+
+                                                        }  
+
+                                                ]  
+
+                                        }  
+
+                                });  
+
+                        })  
+
+        }  
+
+        render() {  
+
+                return (  
+
+                       <div>  
+
+                                <Pie  
+
+                                        data={this.state.Data}  
+
+                                        options={{ maintainAspectRatio: false }} />  
+
+                        </div>  
+
+                )  
+
+        }  
+
+}  
+
+export default Piechart
