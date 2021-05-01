@@ -25,7 +25,7 @@ pd.pandas.set_option('display.max_columns',None)
 #display("Shape of dataset")
 #print("Rows:",df.shape[0],"\nColumns:",df.shape[1])
 #display("Description",df.describe())
-df.info() 
+#df.info() 
 severity_columns = df.filter(like='Severity_').columns
 df['Severity_None'].replace({1:'None',0:'No'},inplace =True)
 df['Severity_Mild'].replace({1:'Mild',0:'No'},inplace =True)
