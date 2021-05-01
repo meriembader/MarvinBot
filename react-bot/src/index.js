@@ -16,6 +16,7 @@ import Landing from "views/Landing.js";
 import Contact from "views/Contact.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
+import CardLineChart from "views/CardLineChart";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import KommunicateChat from "chat.js";
@@ -32,7 +33,7 @@ ReactDOM.render(
       <Route path="/contact" exact component={Contact} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
-      
+      <Route path="/CardLineChart" exact component={CardLineChart} />
       <Route path="/VC" exact component={VirtualConsultation} />
       
       <Route path="/" exact component={Index} />

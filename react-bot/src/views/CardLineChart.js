@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
 import Chart from "chart.js";
-const [StatList, setStatList] = useState([]);
+
 export default function CardLineChart() {
+  const [StatList, setStatList] = useState([]);
   React.useEffect(() => {
    let element1 = [];
    let elements = [];

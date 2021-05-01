@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "canvasjs": "^1.8.3",
     "chart.js": "^1.1.1",
+    "chartjs": "^0.3.24",
     "cors": "^2.8.5",
     "google-map-react": "^2.1.0",
     "gulp": "4.0.2",

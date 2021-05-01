@@ -1,37 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Axios from "axios";
 import Chart from "chart.js";
 
+
 export default function CardBarChart() {
+ 
+    const [StatList, setStatList] = useState([]);
   React.useEffect(() => {
-    let config = {
+   let element1 = [];
+   let elements = [];
+   let Res1 = [];
+  
+    Axios
+    .get("http://localhost:3001/diagnostique/statDiagnosticDate")
+    .then((response) => {
+      Res1 = response.data;
+     // console.log( Res1)
+      
+      //console.log(response.data);
+      for(let i =0; i< Res1.length; i++){
+        element1.push(Res1[i]._id);
+        elements.push(Res1[i].nb_user);
+      }
+console.log ( "element1 ", element1)
+console.log ("elements", elements)
+      
+  }).catch(err => {
+    console.log(err);
+  });
+let config = {
       type: "bar",
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
+        labels: element1,
+       
         datasets: [
           {
             label: new Date().getFullYear(),
             backgroundColor: "#ed64a6",
             borderColor: "#ed64a6",
-            data: [30, 78, 56, 34, 100, 45, 13],
+            data: elements,
             fill: false,
             barThickness: 8,
           },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [27, 68, 86, 74, 10, 4, 87],
-            barThickness: 8,
-          },
+        
         ],
       },
       options: {
@@ -105,10 +117,10 @@ export default function CardBarChart() {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
               <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                COVID-19
+                Performance
               </h6>
               <h2 className="text-blueGray-700 text-xl font-semibold">
-                Total Cases
+                Total orders
               </h2>
             </div>
           </div>
@@ -122,4 +134,5 @@ export default function CardBarChart() {
       </div>
     </>
   );
+
 }
