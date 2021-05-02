@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { Link } from "react-router-dom";
-import back from "./../assets/img/online.jpg";
+import back from "./../assets/img/result.jpg";
 
 
-export default function Profile({ color }) {
+export default function UserProfile({ color }) {
 
   const [Event, setEvent] = useState(true);
+  const [Mail, setMail] = useState([]);
 
 
   var gapi = window.gapi
@@ -18,27 +19,30 @@ export default function Profile({ color }) {
   var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
-  const test = () => {
-    if (Event.length > 0) {
-      for (var i = 0; i < Event.length; i++) {
-        var event = Event[i];
-        var when = event.start.dateTime;
-        if (!when) {
-          when = event.start.date;
-        } console.log((event.summary + ' (' + when + ')'))
-
-        return (
-              <div>   {event.summary + ' (' + when + ')'}        </div>
-
-        ) 
-      }
-    } else {
-      return (
-        <div> No events </div>
-      )
-    }
-
-  }
+  /* const test = () => {
+       
+ 
+     if (Event.length > 0) {
+       for (var i = 0; i < Event.length; i++) {
+         var event = Event[i];
+         var when = event.start.dateTime;
+         if (!when) {
+           when = event.start.date;
+         } 
+ 
+         return (
+               <div> 
+                   {event.summary + ' (' + when + ')'}        </div>
+ 
+         ) 
+       }
+     } else {
+       return (
+         <div> No events </div>
+       )
+     }
+ 
+   }*/
 
   const handleClick = () => {
     gapi.load('client:auth2', () => {
@@ -97,6 +101,7 @@ export default function Profile({ color }) {
 
 
 
+
           // get events
 
 
@@ -108,21 +113,42 @@ export default function Profile({ color }) {
             'maxResults': 10,
             'orderBy': 'startTime'
           }).then(response => {
+
             setEvent(response.result.items)
 
+            if (Event.length > 0) {
+              for (var i = 0; i < Event.length; i++) {
+                var event = Event[i];
+                var when = event.start.dateTime;
+                if (!when) {
+                  when = event.start.date;
+                } //console.log((event.summary + ' (' + when + ')'))
+                // console.log((event.creator.email ))
+
+              }
+
+            }
 
           })
 
-          gapi.client.load('calendar', 'v3')
+
+
+
+          gapi.client.load('calendar', 'v3');
+
+
 
         })
     })
   }
-  
+
+
+
 
 
 
   return (
+
     <>
 
       <Navbar transparent />
@@ -170,7 +196,7 @@ export default function Profile({ color }) {
                     <div className="relative">
                       <img
                         alt="..."
-                        src={require("assets/img/doctor.png").default}
+                        src={require("assets/img/patient.png").default}
                         className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                       />
                     </div>
@@ -196,26 +222,33 @@ export default function Profile({ color }) {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          
-                                      </span>
+                          <button
+                            className="bg-Blue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                          >
+                            <i class="fas fa-file-download"></i> Download your medical test
+
+                                    </button>
+                        </span>
                         <span className="text-sm text-blueGray-400">
-                        
-                                      </span>
+
+                        </span>
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                         
+                          3
                                       </span>
                         <span className="text-sm text-blueGray-400">
-                      
+                          Tests
                                       </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          
+                          1
+
                                       </span>
                         <span className="text-sm text-blueGray-400">
-                          
+                          Positive
                                       </span>
                       </div>
                     </div>
@@ -223,87 +256,28 @@ export default function Profile({ color }) {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Dr.Fethi Nouira
+                    Salma Hadded
                                 </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                                  Sousse, Tunis
+                                  Ariana, Tunis
                                 </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                                  Doctor
+
+                    Patient
                                 </div>
 
-                  <div>
-                    <br></br>
-                   
-                    <button onClick={handleClick}
-                      className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <i className="fas fa-calendar-check"></i> Add appointment
 
-                                    </button>
-                  </div>
-                </div>
 
-                <br></br>
-                <br></br>
                 
-
-                <div
-                  className={
-                    "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-                    (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
-                  }
-                >
-
-
-                  <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="flex flex-wrap items-center">
-                      <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-
-                        <h3
-                          className={
-                            "font-semibold text-lg " +
-                            (color === "light" ? "text-blueGray-700" : "text-white")
-                          }
-                        >
- UPCOMING EVENTS
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="block w-full overflow-x-auto">
-
-                    <table className="items-center w-full bg-transparent border-collapse">
-
-                      <thead>
-                       
-                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
- 
-                          {test() }
-
-                              </th>
-                         
-                      
-                      </thead>
-
-                      <tbody>
-                        
-<th>
-                      
-                      </th>
-                   
-                      </tbody>
-                    </table>
-
-                  </div>
                 </div>
 
+                <br></br>
 
+                <iframe title="doctors" src="https://calendar.x.ai/nihelchraief-377" style={{width : '100%' , minHeight : '600px' , border : 'none'}} scrolling="auto"></iframe>
+ <br></br>
 
-
+              
 
 
 
@@ -311,8 +285,8 @@ export default function Profile({ color }) {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-              
-                                    </p>
+
+                      </p>
                       <a
                         href="#pablo"
                         className="font-normal text-lightBlue-500"
@@ -337,8 +311,8 @@ export default function Profile({ color }) {
 }
 
 
-Profile.defaultProps = {
-  color: "blue",
+UserProfile.defaultProps = {
+  color: "light",
 };
 
 

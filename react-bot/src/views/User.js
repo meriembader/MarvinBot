@@ -9,6 +9,7 @@ import Footer from "components/Footers/Footer.js";
 import comments from "./../assets/img/comments.jpg";
 import CardTablehHospital from "components/Cards/CardTableHospital";
 import Popup from '../components/Popup';
+import CardTable from "components/Cards/CardTable";
 export default function User() {
     const [openPopup, setOpenPopup]= useState(false);
    
