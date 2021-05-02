@@ -34,7 +34,7 @@ console.log ("elements", elements)
       labels:element1,
       datasets: [
         {
-          label: new Date().getFullYear(),
+          label:element1 ,
           backgroundColor: "#4c51bf",
           borderColor: "#4c51bf",
           data:elements,
@@ -128,7 +128,7 @@ console.log ("elements", elements)
               <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
                 Users
               </h6>
-              <h2 className="text-white text-xl font-semibold">self-diagnostic Test</h2>
+              <h2 className="text-white text-xl font-semibold"> Nombre of self-diagnostic Test</h2>
             </div>
           </div>
         </div>
