@@ -220,7 +220,32 @@ export default function CardTableForum({ color }) {
 
                     </td>
 
+                    <td>
+                   
+                   <button
+                     onClick={ ()=>setOpenPopup(true)}
 
+                     className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+                     text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+                     rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
+                     type="button"
+                     class="fas fa-edit"
+                   >
+                     
+                   </button>
+                 </td>
+                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                   <button
+                   onClick={()=>deleteForum(val._id)}
+                     className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+                     text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+                     rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
+                     type="button"
+                     class="fas fa-trash"
+                   >
+                     
+                   </button>
+                 </td>
 
                   </tr>
                 );
