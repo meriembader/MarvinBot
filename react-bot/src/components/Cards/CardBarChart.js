@@ -8,23 +8,29 @@ export default function CardBarChart() {
  
     const [StatList, setStatList] = useState([]);
   React.useEffect(() => {
-   let element1 = [];
-   let elements = [];
+   let element2 = [];
+   let element2s = [];
+   let element3 = [];
+   let element3s = [];
    let Res1 = [];
   
     Axios
-    .get("http://localhost:3001/diagnostique/statDiagnosticDate")
+    .get("http://localhost:3001/diagnostique/statDiagnostic")
     .then((response) => {
       Res1 = response.data;
      // console.log( Res1)
       
       //console.log(response.data);
-      for(let i =0; i< Res1.length; i++){
-        element1.push(Res1[i]._id);
-        elements.push(Res1[i].nb_user);
-      }
-console.log ( "element1 ", element1)
-console.log ("elements", elements)
+   
+        element2.push(Res1[0]._id);
+        element2s.push(Res1[0].nb_user);
+        element3.push(Res1[1]._id);
+        element3s.push(Res1[1].nb_user);
+    
+console.log ( "element2 ", element2)
+console.log ("element2s", element2s)
+console.log ( "element3 ", element3)
+console.log ("element3s", element3s)
       
   }).catch(err => {
     console.log(err);
@@ -32,18 +38,30 @@ console.log ("elements", elements)
 let config = {
       type: "bar",
       data: {
-        labels: element1,
+        labels:  [
+         element2,
+         element3,
+         
+          
+        ],
        
         datasets: [
           {
-            label: new Date().getFullYear(),
+            label: "positive",
             backgroundColor: "#ed64a6",
             borderColor: "#ed64a6",
-            data: elements,
+            data: element2s,
             fill: false,
             barThickness: 8,
           },
-        
+          {
+            label: "négative",
+            fill: false,
+            backgroundColor: "#4c51bf",
+            borderColor: "#4c51bf",
+            data: element3s,
+            barThickness: 8,
+          },
         ],
       },
       options: {
@@ -117,10 +135,10 @@ let config = {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
               <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                Performance
+                Covid 19
               </h6>
               <h2 className="text-blueGray-700 text-xl font-semibold">
-                Total orders
+                Number of test result
               </h2>
             </div>
           </div>
