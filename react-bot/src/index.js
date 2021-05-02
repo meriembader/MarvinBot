@@ -17,7 +17,7 @@ import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
-import KommunicateChat from "chat.js";
+
 
 
 ReactDOM.render(
@@ -32,16 +32,12 @@ ReactDOM.render(
       <Route path="/forum" exact component={Forum} />
       <Route path="/VC" exact component={VirtualConsultation} />
      
-      
-
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
     
     </Switch>
-    <div>
-    <KommunicateChat/>
-    </div>
+  
   </BrowserRouter>,
 
   document.getElementById("root")
