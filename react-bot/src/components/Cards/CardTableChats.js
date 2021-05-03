@@ -92,7 +92,7 @@ Actions
 
             <div key={index}>
 
-              <h3>{val.qurstion1}</h3>
+              <h3>{val.question1}</h3>
             </div>
           </span>
 

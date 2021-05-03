@@ -23,6 +23,8 @@ const { validator} = require('validator') ;
 const { stat } = require('fs');
 const { getMaxListeners } = require('../models/user.model');
 const nodemailer = require("nodemailer");
+
+const pagination = require('../middlewares/pagination');
 //var mongoose = require('mongoose');
 //const { user } = require('../models');
 const User = db.user;
@@ -45,6 +47,8 @@ router.get('/', function(req, res, next) {
     }
   )
 });
+
+
 
 /* POST API user */
 addUser: router.post('/', function(req, res, next) {
@@ -398,7 +402,17 @@ router.get('/stat',  function  (req, res) {
   
 })
 
-
+router.get('/listDoctor',  function  (req, res) {
+  //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
+  user.find(
+  
+       { $role : "Doctor"}
+    , function (err, result) {
+    console.log(result);
+    res.json(result);
+});
+  
+})
 
 
 
