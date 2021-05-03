@@ -4,18 +4,34 @@ const mongoose=require('mongoose');
 var Schema = mongoose.Schema;
 var dossierMedical = new Schema ( 
   {
-    userId: {
+    name: {
       type: String,
-      trim: true,
-      required: true
+      trim: true,  
+      required: true,
      },
      ResultDiagnostic: {
       type: String,
       trim: true,  
       required: true,
      },
+     email: {
+      type: String,
+      trim: true,
+      required: true
+     },
+     Vaccin: {
+      type: String,
+      trim: true,
+      required: true
+     },
+   
      mark: {
       type: String,
+      trim: true,
+      required: true
+     },
+     dateNaissance: {
+      type: Date,
       trim: true,
       required: true
      },
@@ -24,12 +40,7 @@ var dossierMedical = new Schema (
         trim: true,
         required: true
        },
-     username:{
-        type: String,
-      trim: true,
-      required: true
-     },
-   
+    
   },
    
   );
