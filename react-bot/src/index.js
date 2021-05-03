@@ -18,63 +18,30 @@ import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
-
-
-
+import UserProfile from "views/UserProfile";
+import DossierMedical from "views/DossierMedical";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       {/* add routes with layouts */}
-
-{/*get routes by role*/}
-      {
-        localStorage.role === 'admin' ?
-          <>
-            <Route path="/admin" component={Admin} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/diagnosis" exact component={Diagnosis} />
-            <Route path="/contact" exact component={Contact} />
-            <Route path="/profile" exact component={Profile} />
-            <Route path="/forum" exact component={Forum} />
-
-            <Route path="/VC" exact component={VirtualConsultation} />
-
-            <Route path="/" exact component={Index} />
-
-          </>
-          : 
-          <Route path="/" exact component={Index} />
-        }
-
-{
-        localStorage.role === 'patient' ?
-          <>
-           
-           
-            <Route path="/diagnosis" exact component={Diagnosis} />
-            <Route path="/contact" exact component={Contact} />
-            <Route path="/profile" exact component={Profile} />
-            <Route path="/forum" exact component={Forum} />
-
-            <Route path="/VC" exact component={VirtualConsultation} />
-
-            <Route path="/" exact component={Index} />
-
-          </>
-          : 
-          <Route path="/" exact component={Index} />
-        }
-
+      <Route path="/admin" component={Admin} />
+      <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-
-
-      
+      <Route path="/diagnosis" exact component={Diagnosis} />
+      <Route path="/contact" exact component={Contact} />
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/forum" exact component={Forum} />
+      <Route path="/UserProfile" exact component={UserProfile} />
+      <Route path="/DossierMedical" exact component={DossierMedical} />
+      <Route path="/VC" exact component={VirtualConsultation} />
+    
+      <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
-
+    
     </Switch>
-
+  
   </BrowserRouter>,
 
   document.getElementById("root")
