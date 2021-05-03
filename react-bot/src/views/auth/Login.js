@@ -48,19 +48,33 @@ function verifyCallback(response) {
             username,
             password
         };
-			
+        localStorage.clear();
       			  const loginRes = await Axios.post(
       		      "http://localhost:3001/user/login",
       		      loginUser
     		    );
-        
+           var role=loginRes.data.role;
+           var id=loginRes.data.id;
+           var t=loginRes.accessToken;
             alert("accepted ! welcome to our website !");
-            history.push("/landing");
+            if(role=="patient"){
+            history.push("/");
             window.location.reload()
+            }
+            else  if(role=="admin"){
+              history.push("/admin");
+              window.location.reload()
+              }
+          
 					if (checked && username !== "" && password !== "") {
 						localStorage.username = username;
 						localStorage.password = password;
 						localStorage.checkbox = checked;
+            localStorage.role=role;
+            localStorage.id=id;
+           
+
+           
 					}
     } catch (err) {
         console.log(" tayyy!")
