@@ -86,6 +86,18 @@ router.delete('/:id', function(req, res, next) {
   )
 });
 
+router.get('/count',(req,res)=>{
+
+  diagnostique.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+})
 
 router.get('/statDiagnostic',  function  (req, res) {
 
