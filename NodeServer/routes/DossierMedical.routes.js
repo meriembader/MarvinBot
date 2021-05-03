@@ -27,11 +27,14 @@ router.get('/', function(req, res, next) {
 /* POST API dossierMedical */
  router.post('/addDossierMedical', function(req, res, next) {
   new dossierMedical({
-    userId: req.body.userId,
+    name: req.body.name,
     ResultDiagnostic: req.body.ResultDiagnostic,
+    Vaccin: req.body.Vaccin,
+    email: req.body.email,
     mark: req.body.mark,
+    dateNaissance: req.body.dateNaissance,
     Date: req.body.Date,
-    username: req.body.username,
+    
     
   }).save(
     (err, newuser) => {
