@@ -69,6 +69,18 @@ router.delete('/:id', function(req, res, next) {
   )
 });
 
+router.get('/count',(req,res)=>{
+
+  hospital.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+})
 
 
 module.exports = router;
