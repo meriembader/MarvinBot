@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import Axios from 'axios';
 
+
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
@@ -11,7 +12,8 @@ import Footer from "components/Footers/Footer.js";
 
 
 export default function Diagnosis() {
-
+ 
+ 
   setTimeout(function () {
     document.getElementById("WaitGif").style.display = "none";
     document.getElementById("result1").style.display = "none";
@@ -43,7 +45,9 @@ export default function Diagnosis() {
     try {
       const resp = await Axios.post("http://localhost:3001/diagnostique",
         {
-          input: inputs
+          id_user:localStorage.id_user,
+          input: inputs,
+          date: Date().toLocaleString()
         });
 
 
@@ -123,9 +127,9 @@ export default function Diagnosis() {
         "onInit": function () {
           var events = {
             'onMessageReceived': function (resp) {
-
+                 msg.psuh(resp.message.message);
               if (resp.message.message == "thank you for answering") {
-
+                localStorage.answers=answers;
                 if (temp > 38) {
                   readings[0] = "1";
                 }
@@ -183,6 +187,7 @@ export default function Diagnosis() {
               //called when a new message is received
             },
             'onMessageSent': function (resp) {
+              msg.psuh(resp.message.message);
               if (resp.message.message == "yes" || resp.message.message == "no") {
                 answers.push(resp.message.message);
                 console.log(answers);
@@ -216,8 +221,10 @@ export default function Diagnosis() {
 
 
 
+
   ////////sensors//////////////////////////
-  const socket = io("http://localhost:5000", {
+  /*
+  const socket = io("http://localhost:3001", {
     query: {
       "id": "browser"
     }
@@ -226,7 +233,7 @@ export default function Diagnosis() {
     document.getElementById("Sstatus").innerHTML = "Connected"
     console.log(socket.id)
 
-  });*/
+  });
 
   socket.on("status", (arg) => {
     document.getElementById("Dstatus").innerHTML = arg
@@ -243,11 +250,14 @@ export default function Diagnosis() {
     document.getElementById("reset").style.display = "block";
   });
 
-
+*/
 
 
   function start_measure() {
  
+
+    
+    console.log(localStorage.log);
     document.getElementById("desc").style.display = "none";
     setTimeout(() => {
       temp = ((Math.floor(Math.random() * (37 - 35)) + 35) + (Math.random() * (0.120 - 0.0200) + 0.0200).toFixed(2)) / 10;
@@ -265,6 +275,10 @@ export default function Diagnosis() {
       document.getElementById("textOxy").innerHTML = "Your SpO2 level is: " + oxy + " %";
 
       chatbot();
+     console.log(Date().toLocaleString());
+
+
+   
     }, 3000);
     
 
@@ -280,7 +294,7 @@ export default function Diagnosis() {
 
   function start_temp() {
     document.getElementById("InfoTemp").style.display = "block";
-    socket.emit("measureTemp", null);
+    //socket.emit("measureTemp", null);
   }
 
   function reset() {
@@ -295,7 +309,6 @@ export default function Diagnosis() {
 
 
   ///////////////////////////////////////////  
-
 
 
 
