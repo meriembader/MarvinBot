@@ -90,6 +90,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 
+
 /* Login API*/
 router.post('/login', function (req, res) {
   user.findOne({
@@ -117,7 +118,7 @@ router.post('/login', function (req, res) {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ id: user.id}, config.secret, {
         expiresIn: 86400 // 24 hours
       });
 
@@ -148,6 +149,7 @@ router.post("/tokenIsValidUser", async (req, res) => {
       res.status(500).json({error: err.message});
   }
 });
+
 
 
 
