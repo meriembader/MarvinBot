@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Axios from "axios";
 import { FaStar } from 'react-icons/fa';
 
+
 export default function CardTableForum({ color }) {
 
 
@@ -12,14 +13,16 @@ export default function CardTableForum({ color }) {
   // const { idd ,color } = props;
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/forum").then((response) => {
+    axios.get("http://localhost:3001/forum").then((response) => {
       setForumList(response.data);
       console.log(response.data);
     });
   }, []);
 
   const deleteForum = (id) => {
+
     Axios.delete(`http://localhost:3001/forum/${id}`);
+
     window.location.reload();
   };
 
@@ -65,7 +68,7 @@ export default function CardTableForum({ color }) {
 
     }
     return (
-      <div> <h1>{sum / len} out of 5</h1>
+      <div> <h1>{(sum / len).toFixed(2) + " out of 5"} </h1>
 
       </div>
     )
@@ -115,7 +118,6 @@ export default function CardTableForum({ color }) {
                 }
               >
                 <FaStar
-
                   size={52}
 
                   color={colors.orange}
@@ -152,6 +154,9 @@ export default function CardTableForum({ color }) {
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
                 </th>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Action
+</th>
 
 
               </tr>
@@ -219,6 +224,18 @@ export default function CardTableForum({ color }) {
 
 
                     </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                      <button
+                        onClick={() => deleteForum(val._id)}
+                        className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+                        text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+                        rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
+                        type="button"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+
                   </tr>
                 );
               })}

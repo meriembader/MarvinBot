@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
 
+
 import Popup from '../PopupHospital';
 // components
 
@@ -13,13 +14,13 @@ export default function CardTableHospital({ color }) {
 
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/hospital").then((response) => {
+    axios.get("http://localhost:3001/hospital").then((response) => {
       setHospitalList(response.data);
       console.log(response.data);
     });
   }, []);
   const deleteHospital = (id)=> {
-    Axios.delete(`http://localhost:3001/hospital/${id}`);
+    axios.delete(`http://localhost:3001/hospital/${id}`);
     window.location.reload();
   };
 

@@ -5,6 +5,8 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 
 
+
+
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
@@ -358,7 +360,9 @@ console.log("questions saved");
 
 
   return (
+
     <>
+
 
       <Navbar transparent />
       <main>
@@ -427,6 +431,7 @@ console.log("questions saved");
                   </div>
                 </div>
               </div>
+
 
               <div className="w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">

@@ -389,7 +389,34 @@ router.post('/resetpassword',async (req, res) => {
   }
 });
 
+router.get('/count',(req,res)=>{
+
+  user.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+ 
+})
+router.get('/doctors',(req,res)=>{
+
+  user.find( {role: 'Doctor'}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+})
+
 /*
+
 router.get('/stat',  async (req, res) =>{
   const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
   const users = user.aggregate(pipeline).then((data)=>{ return res.json(data);});

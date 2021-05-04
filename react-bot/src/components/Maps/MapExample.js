@@ -5,20 +5,37 @@ import locationIcon from '@iconify-icons/mdi/hospital-building'
 
 import { Icon, InlineIcon } from '@iconify/react';
 
-import virusIcon from '@iconify-icons/mdi/virus';
-
-
+import virusIcon from '@iconify-icons/mdi/home-location';
 
 import './map.css'
-//const TN = [36.81897, 10.16579];
-const LocationPin = ({ text }) => (
-  <div className="pin">
-    <Icon icon={virusIcon} className="pin-icon2"/>
-    <InlineIcon icon={locationIcon} className="pin-icon" />
-    <p className="pin-text">{text}</p>
-  </div>
-)
-console.log('AIzaSyCxg9uuzEQ5Lzv-0QT0THxI_t3FOw2Zg9Q')
+
+const LocationPin = ({ text, customIcon }) => {
+  if (customIcon == 'me') {
+
+    return (
+      <div className="pin">
+        <Icon color="green" icon={virusIcon} className="pin-icon" />
+        <p className="pin-text">{text}</p>
+      </div>
+    )
+  } else if (customIcon == 'hospital') {
+    return (
+      <div className="pin">
+        <InlineIcon color="blue" icon={locationIcon} className="pin-icon" />
+        <p className="pin-text">{text}</p>
+      </div>
+    )
+  } else if (customIcon == 'nearH') {
+    return (
+      <div className="pin">
+        <InlineIcon color="red" icon={locationIcon} className="pin-icon3" />
+        <p className="pin-text2">{text}</p>
+      </div>
+      
+    )
+
+  }
+}
 
 
 class Map extends Component {
@@ -37,16 +54,6 @@ class Map extends Component {
     const { location, hospitals, zoomLevel } = this.state;
     console.log(hospitals);
     console.log(location);
-    const items = []
-    // for (const [index, value] of hospitals.entries()) {
-    //   items.push(<LocationPin
-    //     key={index}
-    //     lat={value.Latitude}
-    //     lng={value.Longitude}
-    //     text={value.address}
-    //   />)
-
-    // }
     return (
       <div className="map">
         <h2 className="map-h2"> See the nearst hospitals </h2>
@@ -60,21 +67,24 @@ class Map extends Component {
             yesIWantToUseGoogleMapApiInternals
           >
             <LocationPin
-          lat={location.lat}
-          lng={location.lng}
-          text={location.address}
-          
-        />
-            {hospitals.map(function (value, i) {
-              console.log('latitude => ', value.Latitude);
-              console.log('Longitude => ', value.Longitude);
-              console.log('address => ', value.address);
-              return <LocationPin 
-                lat={value.Latitude}
-                lng={value.Longitude}
-                text={value.address +" (" + value.status + ")"} key={i} />;
-            })}
-           
+              lat={location.lat}
+              lng={location.lng}
+              text={location.address}
+              customIcon="me"
+            />
+
+
+            {
+              hospitals.map(function (value, i) {
+
+
+                return <LocationPin
+                  lat={value.hospital.Latitude}
+                  lng={value.hospital.Longitude}
+                  customIcon={i == 0 ? "nearH" : "hospital"}
+                  text={value.hospital.name + " contains " + value.hospital.status + " Empty BEDS, Far from you " + value.distancekm + ".s Estimated time " + value.temp} key={i} />;
+              })}
+
 
 
           </GoogleMapReact>

@@ -55,6 +55,7 @@ function verifyCallback(response) {
       		      loginUser
     		    );
            
+
         
  
            
@@ -63,6 +64,7 @@ function verifyCallback(response) {
           
           history.push("/");
           window.location.reload();
+
     } catch (err) {
         console.log(" tayyy!")
     }

@@ -19,8 +19,10 @@ import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import UserProfile from "views/UserProfile";
+
 import DossierMedical from "views/DossierMedical";
 import ListeDossierMedical from "views/ListeDossierMedical";
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -36,6 +38,7 @@ ReactDOM.render(
       <Route path="/DossierMedical" exact component={DossierMedical} />
       <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
       <Route path="/VC" exact component={VirtualConsultation} />
+      <Route path="/test" exact component={Test} />
     
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
