@@ -37,30 +37,32 @@ router.get('/', function(req, res, next) {
     if (err) throw err;
     // result is an array consisting of messages collected 
     //during execution of script.
-    res.send(result.toString());
+    
     console.log("success");
    
-  });
-  
+ var r=result.toString();
 
-
-  /*new diagnostique({
-    title: req.body.title,
-    result: req.body.result,
-    score: req.body.score,
+  new diagnostique({
+    id_user:req.body.id_user,
+    result:r ,
     date: req.body.date
+  
+    
   }).save(
-    (err, nesdiagnostique) => {
+    (err, newdiag) => {
       if (err)
         console.log("Error message : "+err);
       else{
-        console.log(nesdiagnostique);
-        res.send(" New diagnostique added "+ nesdiagnostique._id)
+        console.log(newdiag);
+        res.send(r);
+        
       }
     }
-  )*/
-  //console.log(req.body.input.toString());
-    
+  )
+});
+
+
+
 });
 
 /* PUT API diagnostique */
@@ -86,6 +88,18 @@ router.delete('/:id', function(req, res, next) {
   )
 });
 
+router.get('/count',(req,res)=>{
+
+  diagnostique.count( {}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+})
 
 router.get('/statDiagnostic',  function  (req, res) {
 

@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
-import Popup from "components/Popup";
+
+
+import Popup from '../PopupHospital';
 // components
 
 
 export default function CardTableHospital({ color }) {
   
   const [HospitalList, setHospitalList] = useState([]);
+  const [openPopup, setOpenPopup]= useState(false);
 
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/hospital").then((response) => {
+    axios.get("http://localhost:3001/hospital").then((response) => {
       setHospitalList(response.data);
       console.log(response.data);
     });
   }, []);
   const deleteHospital = (id)=> {
-    Axios.delete(`http://localhost:3001/hospital/${id}`);
+    axios.delete(`http://localhost:3001/hospital/${id}`);
     window.location.reload();
   };
 
@@ -59,6 +62,12 @@ export default function CardTableHospital({ color }) {
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
     status
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    Longitude
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    Latitude
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 Actions
@@ -112,8 +121,31 @@ Actions
             <h3>{val.status}</h3>
           </div>
         </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.Longitude}</h3>
+          </div>
+        </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.Latitude}</h3>
+          </div>
+        </td>
      
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+         
+        <button
+                   onClick={ ()=>setOpenPopup(true)}
+                 className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+                 text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+                 rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150">
+               <i class="fas fa-plus-square"></i>
+                                       
+                   </button>
+                                
+            
           <button
           onClick={()=>deleteHospital(val._id)}
             className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
@@ -130,6 +162,12 @@ Actions
   })}
 </tbody>
 </table>
+<Popup
+openPopup= {openPopup}
+setOpenPopup ={setOpenPopup}>
+  
+
+</Popup>
         </div>
       </div>
     </>

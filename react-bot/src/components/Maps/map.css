@@ -18,12 +18,29 @@
   color: var(--main-blue);
 }
 
+.pinRed {
+  display: flex;
+  align-items: center;
+  width: 38px;
+  color: red;
+}
+
 .pin-icon {
-  font-size: 2rem;
+  font-size: 3rem;
+}
+
+.pin-text2 {
+  font-size: 1.8em;
+  color: red;
+  font-weight: bold;
 }
 
 .pin-text {
   font-size: 1.4em;
+  color: green;
+
+  font-weight: bold;
+
 }
 
 @media screen and (min-width: 799px) {
@@ -41,9 +58,12 @@
   }
 
   .pin-icon {
-    font-size: 2vw;
+    font-size: 3vw;
   }
   .pin-icon2 {
     font-size: 1vw;
+  }
+  .pin-icon3 {
+    font-size: 5vw;
   }
 }

@@ -19,8 +19,9 @@ import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import UserProfile from "views/UserProfile";
-import Test from "views/Test";
 
+import DossierMedical from "views/DossierMedical";
+import ListeDossierMedical from "views/ListeDossierMedical";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -34,6 +35,8 @@ ReactDOM.render(
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
       <Route path="/UserProfile" exact component={UserProfile} />
+      <Route path="/DossierMedical" exact component={DossierMedical} />
+      <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
       <Route path="/VC" exact component={VirtualConsultation} />
       <Route path="/test" exact component={Test} />
     

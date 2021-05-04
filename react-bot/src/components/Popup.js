@@ -41,7 +41,7 @@ export default function Popup(props) {
   
 
   const addToForum = () => {
-    Axios.post("http://localhost:3001/forum/addForum",
+    axios.post("http://localhost:3001/forum/addForum",
       {
         author: Author,
         starValue: starValue,

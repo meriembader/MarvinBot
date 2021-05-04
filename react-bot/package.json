@@ -12,6 +12,7 @@
     "chart.js": "^2.9.4",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "jwt-decode": "^3.1.2",
     "postcss": "8.2.8",
     "react": "17.0.1",
     "react-bootstrap": "^1.5.2",

@@ -1,6 +1,7 @@
 import React, { useState }  from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 export default function ForgotPassword() {
   
@@ -19,7 +20,7 @@ export default function ForgotPassword() {
           email,
          
       };
-      await Axios.post(
+      await axios.post(
           "http://localhost:3001/user/forgotpassword",
           forgotPswd
       );

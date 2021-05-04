@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
-import Axios from 'axios';
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
+
+
+
 
 // components
 
@@ -11,6 +15,12 @@ import Footer from "components/Footers/Footer.js";
 
 
 export default function Diagnosis() {
+
+  var token = localStorage.token;
+  var decoded = jwt_decode(token);
+
+
+  console.log(decoded);
 
   setTimeout(function () {
     document.getElementById("WaitGif").style.display = "none";
@@ -36,14 +46,20 @@ export default function Diagnosis() {
 
 
   ////////////////////////send to model///////////////////  
+
+
+
+
   const addToModel = async () => {
 
     document.getElementById("WaitGif").style.display = "block";
 
     try {
-      const resp = await Axios.post("http://localhost:3001/diagnostique",
+      const resp = await axios.post("http://localhost:3001/diagnostique",
         {
-          input: inputs
+          id_user: decoded.id,
+          input: inputs,
+          date: Date().toLocaleString()
         });
 
 
@@ -62,6 +78,34 @@ export default function Diagnosis() {
 
   ////////////////////////////////////
 
+
+//////////////save chat///////////////////////////////
+
+const SaveQuestions = async () => {
+
+  
+
+  try {
+    const resp = await axios.post("http://localhost:3001/chat",
+      {
+        id_user: decoded.id,
+        questions: msg,
+        date: Date().toLocaleString()
+      });
+
+console.log("questions saved");
+   
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+  }
+
+};
+
+
+
+
+////////////////////////////////////////////////////////
   //////////////////////Result////////////////
 
 
@@ -123,9 +167,11 @@ export default function Diagnosis() {
         "onInit": function () {
           var events = {
             'onMessageReceived': function (resp) {
-
+               msg.push(resp.message.message);
+           
               if (resp.message.message == "thank you for answering") {
-
+                SaveQuestions();
+                localStorage.answers = answers;
                 if (temp > 38) {
                   readings[0] = "1";
                 }
@@ -183,6 +229,7 @@ export default function Diagnosis() {
               //called when a new message is received
             },
             'onMessageSent': function (resp) {
+             
               if (resp.message.message == "yes" || resp.message.message == "no") {
                 answers.push(resp.message.message);
                 console.log(answers);
@@ -216,8 +263,10 @@ export default function Diagnosis() {
 
 
 
+
   ////////sensors//////////////////////////
-  const socket = io("http://localhost:5000", {
+  /*
+  const socket = io("http://localhost:3001", {
     query: {
       "id": "browser"
     }
@@ -226,7 +275,7 @@ export default function Diagnosis() {
     document.getElementById("Sstatus").innerHTML = "Connected"
     console.log(socket.id)
 
-  });*/
+  });
 
   socket.on("status", (arg) => {
     document.getElementById("Dstatus").innerHTML = arg
@@ -243,11 +292,14 @@ export default function Diagnosis() {
     document.getElementById("reset").style.display = "block";
   });
 
-
+*/
 
 
   function start_measure() {
- 
+
+
+
+
     document.getElementById("desc").style.display = "none";
     setTimeout(() => {
       temp = ((Math.floor(Math.random() * (37 - 35)) + 35) + (Math.random() * (0.120 - 0.0200) + 0.0200).toFixed(2)) / 10;
@@ -265,8 +317,12 @@ export default function Diagnosis() {
       document.getElementById("textOxy").innerHTML = "Your SpO2 level is: " + oxy + " %";
 
       chatbot();
+      console.log(Date().toLocaleString());
+
+
+
     }, 3000);
-    
+
 
 
 
@@ -280,7 +336,7 @@ export default function Diagnosis() {
 
   function start_temp() {
     document.getElementById("InfoTemp").style.display = "block";
-    socket.emit("measureTemp", null);
+    //socket.emit("measureTemp", null);
   }
 
   function reset() {
@@ -303,9 +359,10 @@ export default function Diagnosis() {
 
 
 
-
   return (
+
     <>
+
 
       <Navbar transparent />
       <main>
@@ -374,6 +431,7 @@ export default function Diagnosis() {
                   </div>
                 </div>
               </div>
+
 
               <div className="w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -466,14 +524,14 @@ export default function Diagnosis() {
                     <h1 className="text-xl font-bold text-white">
                       Diagnosis
                     </h1>
-                     <br></br>
+                    <br></br>
 
 
                     <p className="text-md font-light mt-2 text-white">
 
 
-                     
-                      
+
+
                       <br></br>
                       <i class="fas fa-temperature-high"></i>
                       <div id="textHeart">  </div>
@@ -490,11 +548,11 @@ export default function Diagnosis() {
 
 
                       <div id="desc">Please put your finger firmly on the device sensor and then click Start </div>
-                       <br></br>
+                      <br></br>
 
 
-                      
-                      
+
+
                       <script src="socket.js"></script>
 
 
@@ -504,12 +562,12 @@ export default function Diagnosis() {
 
 
 
-                 
+
                       <button
                         className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                         onClick={start_measure}>
-                       <i class="fas fa-play"></i>
+                        <i class="fas fa-play"></i>
                       </button>
                       <button
                         className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"

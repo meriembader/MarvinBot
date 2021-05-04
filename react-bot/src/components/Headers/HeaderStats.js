@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Axios from "axios";
 
 // components
 
 import CardStats from "components/Cards/CardStats.js";
 
 export default function HeaderStats() {
+  const [CountList, setCountList] = useState([]);
+  const [CountDiagnoseList, setCountiagnoseList] = useState([]);
+  const [CountHospitalList, setCountHospitalList] = useState([]);
+  const [CountDoctorList, setCountDoctorList] = useState([]);
+  
+  useEffect(() => {
+    Axios.get("http://localhost:3001/user/count").then((response) => {
+      setCountList(response.data);
+      console.log(response.data);
+    });
+  
+  Axios.get("http://localhost:3001/diagnostique/count").then((response) => {
+    setCountiagnoseList(response.data);
+    console.log(response.data);
+  });
+  Axios.get("http://localhost:3001/hospital/count").then((response) => {
+    setCountHospitalList(response.data);
+    console.log(response.data);
+  });
+  Axios.get("http://localhost:3001/user/stat").then((response) => {
+    setCountDoctorList(response.data);
+    console.log(response.data);
+  });
+}, []);
+
+
   return (
     <>
       {/* Header */}
@@ -15,8 +43,8 @@ export default function HeaderStats() {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Total Cases"
-                  statTitle="3352"
+                  statSubtitle="Total User"
+                  statTitle={CountList}
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
@@ -27,8 +55,8 @@ export default function HeaderStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="NEW Patient"
-                  statTitle="28"
+                  statSubtitle="Total Test"
+                  statTitle={CountDiagnoseList}
                   statArrow="down"
                   statPercent="3.48"
                   statPercentColor="text-red-500"
@@ -39,8 +67,8 @@ export default function HeaderStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Self-diagnostic"
-                  statTitle="92"
+                  statSubtitle="Total Admin"
+                  statTitle={CountHospitalList}
                   statArrow="down"
                   statPercent="1.10"
                   statPercentColor="text-orange-500"
@@ -51,8 +79,8 @@ export default function HeaderStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="diagnostic efficiency"
-                  statTitle="49,65%"
+                  statSubtitle="Total Hospital"
+                  statTitle={CountHospitalList}
                   statArrow="up"
                   statPercent="12"
                   statPercentColor="text-emerald-500"
