@@ -68,7 +68,7 @@ export default function CardTableForum({ color }) {
 
     }
     return (
-      <div> <h1>{sum / len} out of 5</h1>
+      <div> <h1>{(sum / len).toFixed(2) + " out of 5"} </h1>
 
       </div>
     )
@@ -118,7 +118,6 @@ export default function CardTableForum({ color }) {
                 }
               >
                 <FaStar
-
                   size={52}
 
                   color={colors.orange}
@@ -155,6 +154,9 @@ export default function CardTableForum({ color }) {
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 
                 </th>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Action
+</th>
 
 
               </tr>
@@ -222,6 +224,18 @@ export default function CardTableForum({ color }) {
 
 
                     </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                      <button
+                        onClick={() => deleteForum(val._id)}
+                        className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+                        text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+                        rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
+                        type="button"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+
                   </tr>
                 );
               })}
