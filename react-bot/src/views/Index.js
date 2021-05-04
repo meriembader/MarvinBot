@@ -6,6 +6,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import medical from "./../assets/img/medical.jpg";
 import doctor from "./../assets/img/doctor.jpg";
+import CardStats from "components/Cards/CardOpinion";
 export default function Index() {
   return (
     <>
@@ -113,8 +114,8 @@ Lowering Costs. Improving Health.                  </h1>
                         <i className="fas fa-stethoscope"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                        Diagnoses     
-                      </h6>   
+                        Diagnoses
+                      </h6>
                       <p className="mb-4 text-blueGray-500">
                         After finishing collecting data, Marvin provides diagnoses and offers you various solutions and actionable steps to take.
                       </p>
@@ -342,8 +343,11 @@ Lowering Costs. Improving Health.                  </h1>
                   Dashboards draw on current data, providing immediate, real-time insights into users and their behaviors.
                 </p>
 
+
               </div>
             </div>
+
+
 
             <div className="w-full md:w-6/12 mr-auto px-4 pt-24 md:pt-0">
               <img
@@ -364,11 +368,9 @@ Lowering Costs. Improving Health.                  </h1>
 
           </div>
         </div>
+
       </section>
 
-    
-
-      
 
       <section className="pb-16 bg-blueGray-200 relative pt-32">
         <div
@@ -384,14 +386,14 @@ Lowering Costs. Improving Health.                  </h1>
             x="0"
             y="0"
           >
-          <polygon
+            <polygon
               className="text-blueGray-200 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
 
-        
+
       </section>
       <Footer />
     </>

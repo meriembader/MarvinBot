@@ -9,6 +9,7 @@ import Footer from "components/Footers/Footer.js";
 import comments from "./../assets/img/comments.jpg";
 import CardTableForum from "components/Cards/CardTableForum";
 import Popup from '../components/Popup';
+import Test from "./Test";
 export default function Forum() {
     const [openPopup, setOpenPopup]= useState(false);
    
@@ -87,7 +88,7 @@ export default function Forum() {
 
 
                             <div className="w-full mb-12 px-4">
-                                <CardTableForum />
+                                <Test></Test>
                             </div>
 
                             
