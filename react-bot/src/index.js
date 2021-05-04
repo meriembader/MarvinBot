@@ -18,30 +18,80 @@ import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
-import UserProfile from "views/UserProfile";
-import DossierMedical from "views/DossierMedical";
+import jwt_decode from "jwt-decode";
+
+
+
+var token = localStorage.token;
+if (token) {
+  var decoded = jwt_decode(token);
+}
+else var decoded = "";
+
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       {/* add routes with layouts */}
-      <Route path="/admin" component={Admin} />
-      <Route path="/auth" component={Auth} />
-      {/* add routes without layouts */}
-      <Route path="/diagnosis" exact component={Diagnosis} />
-      <Route path="/contact" exact component={Contact} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/forum" exact component={Forum} />
-      <Route path="/UserProfile" exact component={UserProfile} />
-      <Route path="/DossierMedical" exact component={DossierMedical} />
-      <Route path="/VC" exact component={VirtualConsultation} />
-    
-      <Route path="/" exact component={Index} />
-      {/* add redirect for first page */}
+
+      {/*get routes by role*/}
+      {
+        decoded.role === 'admin' ?
+          <>
+            <Route path="/admin" component={Admin} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/diagnosis" exact component={Diagnosis} />
+            <Route path="/contact" exact component={Contact} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/forum" exact component={Forum} />
+
+            <Route path="/VC" exact component={VirtualConsultation} />
+
+            <Route path="/" exact component={Index} />
+
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+
+{
+        decoded.role === 'patient' ?
+          <>
+           
+            <Route path="/auth" component={Auth} />
+            <Route path="/diagnosis" exact component={Diagnosis} />
+            <Route path="/contact" exact component={Contact} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/forum" exact component={Forum} />
+
+            <Route path="/VC" exact component={VirtualConsultation} />
+
+            <Route path="/" exact component={Index} />
+
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+ 
+ {
+        decoded.role != "patient" ?
+          <>
+           
+            <Route path="/auth" component={Auth} />
+            
+
+            <Route path="/" exact component={Index} />
+
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+ 
+
       <Redirect from="*" to="/" />
-    
+
     </Switch>
-  
+
   </BrowserRouter>,
 
   document.getElementById("root")
