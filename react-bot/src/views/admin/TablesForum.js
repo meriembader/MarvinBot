@@ -1,16 +1,21 @@
 import React from "react";
 
 
+import CardTableForum from "components/Cards/CardTableForum";
 
-import CardTableChats from "components/Cards/CardTableChats";
-
-export default function TablesChats() {
+export default function TablesForum() {
   return (
     <>
  
       <div className="flex flex-wrap mt-4">
+
+    
+
+      
+
         <div className="w-full mb-12 px-4">
-          <CardTableChats />
+          
+          <CardTableForum />
         </div>
 
       </div>

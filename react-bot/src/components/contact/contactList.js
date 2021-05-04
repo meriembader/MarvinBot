@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
-
-
-import Popup from '../PopupHospital';
+import Popup from "components/Popup";
 // components
 
 
-export default function CardTableHospital({ color }) {
+export default function CardTableChats({ color }) {
   
-  const [HospitalList, setHospitalList] = useState([]);
-  const [openPopup, setOpenPopup]= useState(false);
+  const [ChatList, setChatList] = useState([]);
 
 
   useEffect(() => {
-    axios.get("http://localhost:3001/hospital").then((response) => {
-      setHospitalList(response.data);
+    Axios.get("http://localhost:3001/Chat").then((response) => {
+      setChatList(response.data);
       console.log(response.data);
     });
   }, []);
-  const deleteHospital = (id)=> {
-    axios.delete(`http://localhost:3001/hospital/${id}`);
+  const deleteChat = (id)=> {
+    Axios.delete(`http://localhost:3001/Chat/${id}`);
     window.location.reload();
   };
 
@@ -43,7 +40,7 @@ export default function CardTableHospital({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Hospital list
+                Chat list
               </h3>
             </div>
           </div>
@@ -55,25 +52,19 @@ export default function CardTableHospital({ color }) {
 <thead>
   <tr>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-      name
+      question1 
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    address
+    question2
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    status
+    question3
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    Longitude
-    </th>
-    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-    Latitude
+    question4
     </th>
     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 Actions
-    </th>
-    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-
     </th>
   </tr>
 </thead>
@@ -82,7 +73,7 @@ Actions
 
 
 
-  {HospitalList.map((val, index) => {
+  {ChatList.map((val, index) => {
     return (
       <tr>
 
@@ -101,7 +92,7 @@ Actions
 
             <div key={index}>
 
-              <h3>{val.name}</h3>
+              <h3>{val.qurstion1}</h3>
             </div>
           </span>
 
@@ -111,50 +102,33 @@ Actions
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.address}</h3>
+            <h3>{val.question2}</h3>
           </div>
         </td>
 
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.status}</h3>
+            <h3>{val.question3}</h3>
           </div>
         </td>
+        
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
           <div key={index}>
 
-            <h3>{val.Longitude}</h3>
-          </div>
-        </td>
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          <div key={index}>
-
-            <h3>{val.Latitude}</h3>
+            <h3>{val.question4}</h3>
           </div>
         </td>
      
-        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-         
-        <button
-                   onClick={ ()=>setOpenPopup(true)}
-                 className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
-                 text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
-                 rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150">
-               <i class="fas fa-plus-square"></i>
-                                       
-                   </button>
-                                
-            
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
           <button
-          onClick={()=>deleteHospital(val._id)}
+          onClick={()=>deleteChat(val._id)}
             className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
             text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
             rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
             type="button"
-            class="fas fa-trash"
           >
-            
+            Remove
           </button>
         </td>
       </tr>
@@ -162,22 +136,16 @@ Actions
   })}
 </tbody>
 </table>
-<Popup
-openPopup= {openPopup}
-setOpenPopup ={setOpenPopup}>
-  
-
-</Popup>
         </div>
       </div>
     </>
   );
 }
 
-CardTableHospital.defaultProps = {
+CardTableChats.defaultProps = {
   color: "light",
 };
 
-CardTableHospital.propTypes = {
+CardTableChats.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

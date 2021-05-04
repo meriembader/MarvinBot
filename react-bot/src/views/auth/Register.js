@@ -28,7 +28,7 @@ export default function Register() {
       );
      
       alert("Account created successfully ! Please check your email to verify your account !");
-      history.push("/auth/login");
+      history.push("/user/login");
       window.location.reload();
   } catch (err) {
      console.log("error");
@@ -146,7 +146,7 @@ export default function Register() {
             </div>
           </div>
         </div>
-  
+
   
       </div>
     </>

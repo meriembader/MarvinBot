@@ -87,7 +87,8 @@ var diagnostiqueRouter = require('./routes/diagnostique.routes');
 
 var authRouter = require('./routes/auth.routes');
 var hospitalRouter = require('./routes/hospital.routes');
-
+var dossierMedicalRouter = require('./routes/DossierMedical.routes');
+var ContactRouter = require('./routes/contact.routes');
 
 
 app.use(logger('dev'));
@@ -103,6 +104,8 @@ app.use('/chat', chatRouter);
 app.use('/diagnostique', diagnostiqueRouter);
 app.use('/haha', authRouter);
 app.use('/hospital', hospitalRouter);
+app.use('/dossierMedical', dossierMedicalRouter);
+app.use('/contact', ContactRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -115,7 +118,6 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   console.log(err);
   // render the error page
-  // res.status(err.status || 500);
  // res.render('error');
 });
 

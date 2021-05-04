@@ -15,6 +15,8 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 import TablesHospital from "views/admin/TablesHospital.js";
+import TablesChats from "views/admin/TablesChats.js";
+import TablesForum from "views/admin/TablesForum";
 export default function Admin() {
   return (
     <>
@@ -30,6 +32,8 @@ export default function Admin() {
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
             <Route path="/admin/TablesHospital" exact component={TablesHospital} />
+            <Route path="/admin/TablesChats" exact component={TablesChats} />
+            <Route path="/admin/tablesReview" exact component={TablesForum} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />

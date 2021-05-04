@@ -25,11 +25,10 @@ router.get('/', function(req, res, next) {
 /* POST API chat */
  router.post('/', function(req, res, next) {
   new chat({
-    question1: req.body.question1,
-    question2: req.body.question2,
-    question3: req.body.question3,
-    question4: req.body.question4,
-
+   
+    id_user: req.body.id_user,
+    questions: req.body.msg,
+    date: req.body.date
    
   }).save(
     (err, newuser) => {

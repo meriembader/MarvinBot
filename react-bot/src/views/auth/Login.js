@@ -55,10 +55,16 @@ function verifyCallback(response) {
       		      loginUser
     		    );
            
-            localStorage.token = loginRes.data.accessToken;
+
+        
+ 
+           
           
-            history.push("/");
-            window.location.reload();
+          localStorage.token = loginRes.data.accessToken;
+          
+          history.push("/");
+          window.location.reload();
+
     } catch (err) {
         console.log(" tayyy!")
     }

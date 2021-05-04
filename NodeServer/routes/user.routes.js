@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var user = require('../models/user.model');
@@ -259,9 +260,6 @@ app.post('/send', async (req, res) => {
   
   res.send('email sent!');
 
-
-
-  
   });
 
 
@@ -289,11 +287,14 @@ router.post('/forgotpassword', async(req, res) => {
             var token = jwt.sign({ id: user.id }, "0123456789", {
         expiresIn: 31536000  // 24 hours
       });
-      const resetUrl = `http://localhost:3000/auth/resetpassword/${token}`;
+      const resetUrl =` http://localhost:3001/user/resetpassword/${token}`;
       const message = `
-      <h1>You have requested a password reset</h1>
-      <p>Please make a put request to the following link:</p>
-      <a href=${resetUrl}</a>
+      You have requested a password reset
+      Please make a put request to the following link:
+      <a href=${resetUrl}> click here</a>
+      <a href="http://localhost:3000/auth/login">INDEX PAGE</a>
+
+    
     `;
   var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -400,7 +401,7 @@ router.get('/stat',  function  (req, res) {
 
 
 
-/*router.put('/user-profile/:id', async(req, res, next) => {
+router.put('/user-profile/:id', async(req, res, next) => {
   const url = req.protocol + '://' + req.get('host')
     console.log(url);
   const userProfil = new userProfil({
@@ -427,7 +428,7 @@ router.get('/stat',  function  (req, res) {
   await userToUpdate.save();
  
 })
-*/
+
 /*
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
@@ -441,7 +442,7 @@ MongoClient.connect(CONNECTION_URL,
     }
     database = client.db(DATABASE_NAME);
     collection = database.collection("users");
-    console.log("Connected to `" + DATABASE_NAME + "`!");
+    console.log("Connected to " + DATABASE_NAME + "!");
 });
 app.get("/stat", (request, response) => {
   collection.agregate([
