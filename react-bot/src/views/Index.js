@@ -38,7 +38,7 @@ Lowering Costs. Improving Health.                  </h1>
  </strong>  </p>
                 <div className="mt-12">
                   <a
-                    href="http://localhost:3000/diagnosis"
+                    href="http://localhost:3000/auth/login"
                     target="_blank"
                     className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >

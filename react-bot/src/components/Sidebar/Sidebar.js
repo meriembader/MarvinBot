@@ -22,7 +22,7 @@ export default function Sidebar() {
           {/* Brand */}
           <Link
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/landing"
+            
           >
             Self Diagnostic
           </Link>
@@ -235,7 +235,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  dossiermedicale
+                  Medical files
                 </Link>
               </li>
               
@@ -265,34 +265,6 @@ export default function Sidebar() {
             </ul>
 
           
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
-                >
-                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Diagnostic
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
-                >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Profile Page
-                </Link>
-              </li>
-
-              
-
-           
-
-            </ul>
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
