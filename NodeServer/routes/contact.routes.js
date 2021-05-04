@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
  service: "gmail",
  auth: {
    user: "meriembader1997@gmail.com",
-   pass: "aduriz689",
+   pass: "@duriz689",
  },
  });
  
