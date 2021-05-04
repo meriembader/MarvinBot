@@ -1,6 +1,7 @@
 import React, { useState }  from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
   
@@ -21,7 +22,7 @@ export default function Register() {
           password,
           role
       };
-      await Axios.post(
+      await axios.post(
           "http://localhost:3001/user/register",
           newUser
       );

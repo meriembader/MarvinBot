@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
 import Popup from "components/Popup";
+import axios from "axios";
 // components
 
 
@@ -11,13 +12,13 @@ export default function CardTableChats({ color }) {
 
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/Chat").then((response) => {
+    axios.get("http://localhost:3001/Chat").then((response) => {
       setChatList(response.data);
       console.log(response.data);
     });
   }, []);
   const deleteChat = (id)=> {
-    Axios.delete(`http://localhost:3001/Chat/${id}`);
+    axios.delete(`http://localhost:3001/Chat/${id}`);
     window.location.reload();
   };
 

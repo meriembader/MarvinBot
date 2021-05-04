@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Axios from "axios";
 import { FaStar } from 'react-icons/fa';
 
+
 export default function CardTableForum({ color }) {
 
 
@@ -12,14 +13,16 @@ export default function CardTableForum({ color }) {
   // const { idd ,color } = props;
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/forum").then((response) => {
+    axios.get("http://localhost:3001/forum").then((response) => {
       setForumList(response.data);
       console.log(response.data);
     });
   }, []);
 
   const deleteForum = (id) => {
+
     Axios.delete(`http://localhost:3001/forum/${id}`);
+
     window.location.reload();
   };
 
