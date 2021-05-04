@@ -29,7 +29,7 @@ const User = db.user;
 const Role = db.role;
 
 /* GET API user listing. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
   user.find(
     (err, user )=>{
       if(err)
@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST API user */
-addUser: router.post('/', function(req, res, next) {
+addUser: router.post('/',auth, function(req, res, next) {
   new user({
     name: req.body.name,
     username: req.body.username,
@@ -67,7 +67,7 @@ addUser: router.post('/', function(req, res, next) {
 });
 
 /* PUT API user */
-router.put('/:id', function(req, res, next) {
+router.put('/:id',auth, function(req, res, next) {
     user.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -117,7 +117,7 @@ router.post('/login', function (req, res) {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: 86400 // 24 hours
       });
 
@@ -217,7 +217,6 @@ router.put('/ChangePassword/:userId', async (req, res, next) => {
      //validate
      if (!old_password
          || !new_password
-         || !confirm_new_password
          ) {
          return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
      }
@@ -300,7 +299,7 @@ router.post('/forgotpassword', async(req, res) => {
     service: "gmail",
     auth: {
       user: "meriembader1997@gmail.com",
-      pass: "aduriz689",
+      pass: "@duriz689",
     },
   });
 

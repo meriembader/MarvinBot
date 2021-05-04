@@ -1,6 +1,6 @@
 import { Dialog, Button} from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios'
+import axios from 'axios';
 
 export default function Popup(props) {
   const { openPopup, setOpenPopup } = props;
@@ -14,7 +14,7 @@ export default function Popup(props) {
 
 
   const addToForum = () => {
-    Axios.post("http://localhost:3001/forum/addForum",
+    axios.post("http://localhost:3001/forum/addForum",
       {
         author: Author,
         title: Title,
@@ -23,7 +23,7 @@ export default function Popup(props) {
   };
 
   const updateForum = (id) => {
-    Axios.put("http://localhost:3001/forum/update/:id",
+    axios.put("http://localhost:3001/forum/update/:id",
 
       {
         id: id,

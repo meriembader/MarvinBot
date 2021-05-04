@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Axios from "axios";
 import Popup from "components/Popup";
+import axios from "axios";
 
 export default function CardTableForum({ color }) {
 
@@ -10,14 +11,14 @@ export default function CardTableForum({ color }) {
   const [openPopup, setOpenPopup]= useState(false);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/forum").then((response) => {
+    axios.get("http://localhost:3001/forum").then((response) => {
       setForumList(response.data);
       console.log(response.data);
     });
   }, []);
 
   const deleteForum = (id)=> {
-    Axios.delete(`http://localhost:3001/forum/${id}`);
+    axios.delete(`http://localhost:3001/forum/${id}`);
     window.location.reload();
   };
 

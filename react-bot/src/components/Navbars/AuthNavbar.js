@@ -8,6 +8,7 @@ import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -59,6 +60,7 @@ export default function Navbar(props) {
                 
              <Link
         to="/"
+        onClick={() => localStorage.clear()}
         className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
            <i class="fas fa-door-open"></i> Logout

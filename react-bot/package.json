@@ -14,6 +14,7 @@
     "canvasjs": "^1.8.3",
     "chart.js": "2.9.4",
     "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.4",
     "google-map-react": "^2.1.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",

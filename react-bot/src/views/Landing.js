@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
+import KommunicateChat from "chat.js";
+import Maps from "./admin/Maps.js";
 
 // components
 
@@ -70,7 +72,9 @@ export default function Landing() {
   }
 
   return (
-    <>
+    <> <div>
+    <KommunicateChat/>
+    </div>
       <Navbar transparent />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
@@ -139,6 +143,7 @@ export default function Landing() {
                 </div>
               </div>
 
+
               <div className="w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
@@ -185,7 +190,8 @@ export default function Landing() {
                   will be assigned.
                 </p>
 
-               
+                <Maps/>
+
               <button   className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button">
                 <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">

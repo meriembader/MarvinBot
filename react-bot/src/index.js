@@ -18,6 +18,21 @@ import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import KommunicateChat from "chat.js";
+import axios from "axios";
+
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers['x-auth-token'] = "Bearer " + token;
+    }
+
+    return config;
+  },
+  error => {
+    Promise.reject(error)
+  }
+);
 
 ReactDOM.render(
   <BrowserRouter>
@@ -36,9 +51,7 @@ ReactDOM.render(
       <Redirect from="*" to="/" />
     
     </Switch>
-    <div>
-    <KommunicateChat/>
-    </div>
+   
   </BrowserRouter>,
 
   document.getElementById("root")

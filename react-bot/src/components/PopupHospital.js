@@ -1,6 +1,7 @@
 import { Dialog, Button} from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
+import axios from 'axios';
 
 export default function Popup(props) {
   const { openPopup, setOpenPopup } = props;
@@ -14,7 +15,7 @@ export default function Popup(props) {
 
 
   const addTohospital = () => {
-    Axios.post("http://localhost:3001/Hodpital/",
+    axios.post("http://localhost:3001/Hodpital/",
       {
         name: Name,
         address: Address,
@@ -23,7 +24,7 @@ export default function Popup(props) {
   };
 
   const updateHospital = (id) => {
-    Axios.put("http://localhost:3001/hospital/update/:id",
+    axios.put("http://localhost:3001/hospital/update/:id",
 
       {
         id: id,

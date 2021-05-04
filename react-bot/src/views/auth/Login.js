@@ -2,6 +2,7 @@ import  React, { useState, useContext, useEffect  } from 'react';
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Recaptcha from 'react-recaptcha';
+import axios from 'axios';
 
 export default function Login() {
 
@@ -49,23 +50,23 @@ function verifyCallback(response) {
             password
         };
 			
-      			  const loginRes = await Axios.post(
+      			  const loginRes = await axios.post(
       		      "http://localhost:3001/user/login",
       		      loginUser
     		    );
-   			   
-            if (recaptchaVerif === true) {
-     			   localStorage.setItem("auth-token", loginRes.data.token);
-     			   history.push("/user");
-     			   window.location.reload();
-					} else {
-						alert("Please verify that you are human.");
-					}
-					if (checked && username !== "" && password !== "") {
-						localStorage.username = username;
-						localStorage.password = password;
-						localStorage.checkbox = checked;
-					}
+           
+          
+          console.log('Username: ', username);
+          console.log('Password: ', password);
+
+          console.log('Result: ', loginRes);
+           
+          localStorage.username = username;
+          localStorage.role = loginRes.data.role;
+          localStorage.token = loginRes.data.accessToken;
+          localStorage.email = loginRes.data.email;
+          history.push("/landing");
+          //window.location.reload()
     } catch (err) {
         console.log(" tayyy!")
     }
