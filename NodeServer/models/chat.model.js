@@ -8,26 +8,22 @@ const saltRounds = 10;
 var Schema = mongoose.Schema;
 var chat = new Schema ( 
   {
-    question1: {
+    id_user: {
       type: String,
       trim: true,  
       required: true,
      },
-     question2: {
-      type: String,
+     questions: {
+      type: Array,
       trim: true,  
       required: true,
      },
-     question3: {
+     date: {
       type: String,
       trim: true,
       required: true
      },
-     question4: {
-        type: String,
-        trim: true,
-        required: true
-       },
+  
    
   },
    
