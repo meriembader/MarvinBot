@@ -123,12 +123,11 @@ app.use(function(err, req, res, next) {
 
 
 const connect = mongoose.connect(
-  configDB.mongo.uri,
-  {
-    useNewUrlParser: true ,
-    useUnifiedTopology: true
-  }
-)
+  process.env.CUSTOMER_MyConnectionString,{  useNewUrlParser: true ,useUnifiedTopology: true})
+  
+    
+  
+
 .then( () => console.log('Connected to db '))
 .catch((err)=> console.log('catched error '+ err));
 // port, listen for requests

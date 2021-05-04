@@ -328,38 +328,65 @@ router.post('/forgotpassword', async(req, res) => {
 })
 // this is the function i try to send an email ( forgot password ) look what it bo nhh 
 
-router.post('/resetpassword/:token',async (req, res) => {
-  
-  const resetPasswordLink = crypto
-    .createHash("sha256")
-    .update(req.params.resetToken)
-    .digest("hex");
+router.post('/resetpassword',async (req, res) => {
+  const { resetPasswordLink, newPassword } = req.body;
+  const errors = validationResult(req);
 
-  try {
-    const user = await user.findOne({
-      resetPasswordLink,
-      resetPasswordExpire: { $gt: Date.now() },
+  if (!errors.isEmpty()) {
+    const firstError = errors.array().map(error => error.msg)[0];
+    return res.status(422).json({
+      errors: firstError
     });
+  } else {
+    if (resetPasswordLink) {
+      jwt.verify(resetPasswordLink, config.secret, function(
+        err,
+        decoded
+      ) {
+        if (err) {
+          return res.status(400).json({
+            error: 'Expired link. Try again'
+          });
+        }
 
-    if (!user) {
-      return next(new ErrorResponse("Invalid Token", 400));
+       user.findOne(
+          {
+            resetPasswordLink
+          },
+          (err, user) => {
+            if (err || !user) {
+              return res.status(400).json({
+                error: 'Something went wrong. Try later'
+              });
+            }
+
+            const salt = bcrypt.genSalt();
+            const passwordHash = bcrypt.hashSync(newPassword,8);
+
+            const updatedFields = {
+              password: passwordHash,
+              resetPasswordLink: ''
+
+            };
+
+            user = _.extend(user, updatedFields);
+
+            user.save((err, result) => {
+              if (err) {
+                return res.status(400).json({
+                  error: 'Error resetting user password'
+                });
+              }
+              res.json({
+                message: `Great! Now you can login with your new password`
+              });
+            });
+          }
+        );
+
+      });
     }
-
-    user.password = req.body.password;
-    user.resetPasswordLink = undefined;
-    user.resetPasswordExpire = undefined;
-
-    await user.save();
-
-    res.status(201).json({
-      success: true,
-      data: "Password Updated Success",
-      token: user.getSignedJwtToken(),
-    });
-  } catch (err) {
-    next(err);
   }
-
 });
 
 router.get('/count',(req,res)=>{
@@ -387,6 +414,7 @@ router.get('/doctors',(req,res)=>{
       }
  })
 })
+
 /*
 
 router.get('/stat',  async (req, res) =>{
