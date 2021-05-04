@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Axios from "axios";
-import Popup from "components/Popup";
 import axios from "axios";
-
+import { FaStar } from 'react-icons/fa';
 export default function CardTableForum({ color }) {
 
   
@@ -17,7 +15,7 @@ export default function CardTableForum({ color }) {
     });
   }, []);
 
-  const deleteForum = (id)=> {
+  const deleteForum = (id) => {
     axios.delete(`http://localhost:3001/forum/${id}`);
     window.location.reload();
   };

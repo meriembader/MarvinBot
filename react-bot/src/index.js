@@ -12,28 +12,15 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 
-import Landing from "views/Landing.js";
+import Diagnosis from "views/Landing.js";
+import Contact from "views/Contact.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
-import KommunicateChat from "chat.js";
-import axios from "axios";
-
-axios.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers['x-auth-token'] = "Bearer " + token;
-    }
-
-    return config;
-  },
-  error => {
-    Promise.reject(error)
-  }
-);
-
+import UserProfile from "views/UserProfile";
+import DossierMedical from "views/DossierMedical";
+import ListeDossierMedical from "views/ListeDossierMedical";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -41,9 +28,13 @@ ReactDOM.render(
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-      <Route path="/landing" exact component={Landing} />
+      <Route path="/diagnosis" exact component={Diagnosis} />
+      <Route path="/contact" exact component={Contact} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/forum" exact component={Forum} />
+      <Route path="/UserProfile" exact component={UserProfile} />
+      <Route path="/DossierMedical" exact component={DossierMedical} />
+      <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
       <Route path="/VC" exact component={VirtualConsultation} />
     
       <Route path="/" exact component={Index} />
@@ -51,7 +42,7 @@ ReactDOM.render(
       <Redirect from="*" to="/" />
     
     </Switch>
-   
+  
   </BrowserRouter>,
 
   document.getElementById("root")

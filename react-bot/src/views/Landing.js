@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import io from 'socket.io-client';
-import KommunicateChat from "chat.js";
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
 import Maps from "./admin/Maps.js";
 
 // components
@@ -72,9 +73,7 @@ export default function Landing() {
   }
 
   return (
-    <> <div>
-    <KommunicateChat/>
-    </div>
+    <> 
       <Navbar transparent />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
@@ -190,13 +189,11 @@ export default function Landing() {
                   will be assigned.
                 </p>
 
-                <Maps/>
-
-              <button   className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                        type="button">
-                <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
-                View Results
-                </Link>
+                <button className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                  type="button" id="result2" >
+                  <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
+                    Schedule Appointement
+                  </Link>
                 </button>
               </div>
 

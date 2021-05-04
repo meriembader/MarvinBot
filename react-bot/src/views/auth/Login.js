@@ -3,7 +3,7 @@ import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Recaptcha from 'react-recaptcha';
 import axios from 'axios';
-
+import jwt_decode from "jwt-decode";
 export default function Login() {
 
 
@@ -55,18 +55,10 @@ function verifyCallback(response) {
       		      loginUser
     		    );
            
+            localStorage.token = loginRes.data.accessToken;
           
-          console.log('Username: ', username);
-          console.log('Password: ', password);
-
-          console.log('Result: ', loginRes);
-           
-          localStorage.username = username;
-          localStorage.role = loginRes.data.role;
-          localStorage.token = loginRes.data.accessToken;
-          localStorage.email = loginRes.data.email;
-          history.push("/landing");
-          //window.location.reload()
+            history.push("/");
+            window.location.reload();
     } catch (err) {
         console.log(" tayyy!")
     }

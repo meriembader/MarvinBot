@@ -117,7 +117,7 @@ router.post('/login', function (req, res) {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      var token = jwt.sign({ id: user.id ,role:user.role,username:user.username,password:user.password,email:user.email}, process.env.JWT_SECRET, {
         expiresIn: 86400 // 24 hours
       });
 

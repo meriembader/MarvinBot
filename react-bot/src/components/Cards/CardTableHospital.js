@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Axios from "axios";
-import Popup from "components/Popup";
 import axios from "axios";
+import Popup from '../PopupHospital';
 // components
 
 

@@ -1,6 +1,7 @@
 import { Dialog, Button} from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 
 export default function Popup(props) {
   const { openPopup, setOpenPopup } = props;
@@ -22,16 +23,7 @@ export default function Popup(props) {
       });
   };
 
-  const updateForum = (id) => {
-    axios.put("http://localhost:3001/forum/update/:id",
 
-      {
-        id: id,
-        author: newAuthor,
-        title: newTitle,
-        description: newDescription
-      });
-  };
 
   function add() {
 
