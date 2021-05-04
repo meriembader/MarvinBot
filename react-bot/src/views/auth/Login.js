@@ -2,7 +2,8 @@ import  React, { useState, useContext, useEffect  } from 'react';
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Recaptcha from 'react-recaptcha';
-
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
 export default function Login() {
 
 
@@ -48,34 +49,20 @@ function verifyCallback(response) {
             username,
             password
         };
-        localStorage.clear();
-      			  const loginRes = await Axios.post(
+			
+      			  const loginRes = await axios.post(
       		      "http://localhost:3001/user/login",
       		      loginUser
     		    );
-           var role=loginRes.data.role;
-           var id=loginRes.data.id;
-           var t=loginRes.accessToken;
-            alert("accepted ! welcome to our website !");
-            if(role=="patient"){
-            history.push("/");
-            window.location.reload()
-            }
-            else  if(role=="admin"){
-              history.push("/admin");
-              window.location.reload()
-              }
+           
+        
+ 
+           
           
-					if (checked && username !== "" && password !== "") {
-						localStorage.username = username;
-						localStorage.password = password;
-						localStorage.checkbox = checked;
-            localStorage.role=role;
-            localStorage.id=id;
-           
-
-           
-					}
+          localStorage.token = loginRes.data.accessToken;
+          
+          history.push("/");
+          window.location.reload();
     } catch (err) {
         console.log(" tayyy!")
     }

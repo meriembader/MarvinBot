@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var user = require('../models/user.model');
@@ -23,15 +24,13 @@ const { validator} = require('validator') ;
 const { stat } = require('fs');
 const { getMaxListeners } = require('../models/user.model');
 const nodemailer = require("nodemailer");
-
-const pagination = require('../middlewares/pagination');
 //var mongoose = require('mongoose');
 //const { user } = require('../models');
 const User = db.user;
 const Role = db.role;
 
 /* GET API user listing. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
   user.find(
     (err, user )=>{
       if(err)
@@ -48,10 +47,8 @@ router.get('/', function(req, res, next) {
   )
 });
 
-
-
 /* POST API user */
-addUser: router.post('/', function(req, res, next) {
+addUser: router.post('/',auth, function(req, res, next) {
   new user({
     name: req.body.name,
     username: req.body.username,
@@ -71,7 +68,7 @@ addUser: router.post('/', function(req, res, next) {
 });
 
 /* PUT API user */
-router.put('/:id', function(req, res, next) {
+router.put('/:id',auth, function(req, res, next) {
     user.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -92,7 +89,6 @@ router.delete('/:id', function(req, res, next) {
     }
   )
 });
-
 
 
 /* Login API*/
@@ -122,7 +118,7 @@ router.post('/login', function (req, res) {
         });
       }
 
-      var token = jwt.sign({ id: user.id}, config.secret, {
+      var token = jwt.sign({ id: user.id ,role:user.role,username:user.username,password:user.password,email:user.email}, process.env.JWT_SECRET, {
         expiresIn: 86400 // 24 hours
       });
 
@@ -153,7 +149,6 @@ router.post("/tokenIsValidUser", async (req, res) => {
       res.status(500).json({error: err.message});
   }
 });
-
 
 
 
@@ -223,7 +218,6 @@ router.put('/ChangePassword/:userId', async (req, res, next) => {
      //validate
      if (!old_password
          || !new_password
-         || !confirm_new_password
          ) {
          return res.status(400).json({msg: "Not all fields have been entered"}); //bad request
      }
@@ -296,7 +290,7 @@ router.post('/forgotpassword', async(req, res) => {
             var token = jwt.sign({ id: user.id }, "0123456789", {
         expiresIn: 31536000  // 24 hours
       });
-      const resetUrl = `http://localhost:3000/auth/resetpassword/${token}`;
+      const resetUrl =` http://localhost:3000/auth/resetpassword/${token}`;
       const message = `
       <h1>You have requested a password reset</h1>
       <p>Please make a put request to the following link:</p>
@@ -404,20 +398,6 @@ router.get('/stat',  function  (req, res) {
   
 })
 
-router.get('/listDoctor',  function  (req, res) {
-  //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
-  user.find(
-  
-       { $role : "Doctor"}
-    , function (err, result) {
-    console.log(result);
-    res.json(result);
-});
-  
-})
-
-
-
 
 
 
@@ -462,7 +442,7 @@ MongoClient.connect(CONNECTION_URL,
     }
     database = client.db(DATABASE_NAME);
     collection = database.collection("users");
-    console.log("Connected to `" + DATABASE_NAME + "`!");
+    console.log("Connected to " + DATABASE_NAME + "!");
 });
 app.get("/stat", (request, response) => {
   collection.agregate([

@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // components
 
@@ -9,9 +10,6 @@ import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
-function logout(){
-  localStorage.clear();
-}
 
   return (
     <>
@@ -56,7 +54,7 @@ function logout(){
 
               <li className="flex items-center">
               <button 
-                onClick={logout()}
+               onClick={localStorage.clear()}
                 className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                 type="button"
               >

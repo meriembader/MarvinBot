@@ -38,7 +38,7 @@ Lowering Costs. Improving Health.                  </h1>
  </strong>  </p>
                 <div className="mt-12">
                   <a
-                    href="http://localhost:3000/auth/login"
+                    href="http://localhost:3000/diagnosis"
                     target="_blank"
                     className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >
@@ -113,8 +113,8 @@ Lowering Costs. Improving Health.                  </h1>
                         <i className="fas fa-stethoscope"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                        Diagnoses     
-                      </h6>   
+                        Diagnoses
+                      </h6>
                       <p className="mb-4 text-blueGray-500">
                         After finishing collecting data, Marvin provides diagnoses and offers you various solutions and actionable steps to take.
                       </p>
@@ -366,9 +366,9 @@ Lowering Costs. Improving Health.                  </h1>
         </div>
       </section>
 
-    
 
-      
+
+
 
       <section className="pb-16 bg-blueGray-200 relative pt-32">
         <div
@@ -384,14 +384,14 @@ Lowering Costs. Improving Health.                  </h1>
             x="0"
             y="0"
           >
-          <polygon
+            <polygon
               className="text-blueGray-200 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
 
-        
+
       </section>
       <Footer />
     </>
