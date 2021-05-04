@@ -261,7 +261,7 @@ export default function Profile({ color }) {
                       className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
-                      <i className="fas fa-plus-square"></i>  <a href = "/DossierMedicalList" >List Dossier Medicale</a>
+                      <i className="fas fa-plus-square"></i>  <a href = "/ListeDossierMedical" >List Dossier Medicale</a>
 
                                     </button>
                  

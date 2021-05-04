@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import back from "./../assets/img/online.jpg";
 
 
-export default function ListeDossierMedical() {
+export default function ListeDossierMedical({ color }) {
 
   const [DossierMedicalList, setDossierMedicaltList] = useState([]);
   
@@ -20,7 +20,7 @@ export default function ListeDossierMedical() {
     });
   }, []);
   const deleteDossierMedical = (id)=> {
-    Axios.delete(`http://localhost:3001/contact/${id}`);
+    Axios.delete(`http://localhost:3001/dossierMedical/${id}`);
     window.location.reload();
   };
 
@@ -150,165 +150,149 @@ export default function ListeDossierMedical() {
 
                 <br></br>
                 <br></br>
-     <div className="rounded-t bg-white mb-0 px-6 py-6">
-          <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Admin account</h6>
-            <button
-              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Settings
-            </button>
+                <div
+        className={
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
+          (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
+        }
+      >
+        <div className="rounded-t mb-0 px-4 py-3 border-0">
+          <div className="flex flex-wrap items-center">
+            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3
+                className={
+                  "font-semibold text-lg " +
+                  (color === "light" ? "text-blueGray-700" : "text-white")
+                }
+              >
+                Hospital list
+              </h3>
+            </div>
           </div>
         </div>
-        <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-          <form onSubmit = {submit}>
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Patient Information
-            </h6>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Patient Name
-                  </label>
-                  <input
-                    type="text" onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                   email
-                  </label>
-                  <input
-                    type="email"  onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    ResultDiagnostic
-                  </label>
-                  <input
-                    type="text" onChange={(e) => {
-                      setResultDiagnostic(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Vacciné
-                  </label>
-                  <input
-                    type="text" onChange={(e) => {
-                      setVaccin(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Date de naissance 
-                  </label>
-                  <input
-                    type="date"onChange={(e) => {
-                      setDateNaissance(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    date
-                  </label>
-                  <input
-                    type="date"onChange={(e) => {
-                      setDate(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                  />
-                </div>
-              </div>
-            </div>
+        <div className="block w-full overflow-x-auto">
+          {/* Projects table */}
+          <table className="items-center w-full bg-transparent border-collapse">
 
-           
+<thead>
+  <tr>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+      name
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    ResultDiagnostic
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    email
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    mark
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    Vacciné
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    dateNaissance
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+    Date
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+Actions
+    </th>
+    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+
+    </th>
+  </tr>
+</thead>
+
+<tbody>
+
+
+
+  {DossierMedicalList.map((val, index) => {
+    return (
+      <tr>
+
+        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+
+          <span
+            className={
+              "ml-3 font-bold " +
+              +(color === "light" ? "text-blueGray-600" : "text-white")
+            }
+          >
+
+            <div key={index}>
+
+              <h3>{val.name}</h3>
+            </div>
+          </span>
+
+        </th>
+
+
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.ResultDiagnostic}</h3>
+          </div>
+        </td>
+
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.email}</h3>
+          </div>
+        </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.mark}</h3>
+          </div>
+        </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.Vaccin}</h3>
+          </div>
+        </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.dateNaissance}</h3>
+          </div>
+        </td>
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+          <div key={index}>
+
+            <h3>{val.Date}</h3>
+          </div>
+        </td>
+     
+        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+ 
+                                
             
-
-            <hr className="mt-6 border-b-1 border-blueGray-300" />
-
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Notes
-            </h6>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Bilan
-                  </label>
-                  <textarea
-                    type="text"onChange={(e) => {
-                      setMark(e.target.value);
-                    }}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   
-                    rows="2"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <button  
-              className="bg-bluelight-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-              type="submit" 
-            >
-              Valider
-            </button>
-          </form>
+          <button
+          onClick={()=>deleteDossierMedical(val._id)}
+            className="bg-lightGrey-500 active:bg-lightBlue-600 uppercase 
+            text-white font-bold hover:shadow-md shadow text-xs px-3 py-1 
+            rounded outline-none focus:outline-none sm:mr-1 mb-1  transition-all duration-150"
+            type="button"
+            class="fas fa-trash"
+          >
+            
+          </button>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
+</table>
+</div>
         </div>
-                
-              </div>
+      </div>
             </div>
           </div>
         </section>
@@ -322,7 +306,7 @@ export default function ListeDossierMedical() {
 }
 
 
-DossierMedical.defaultProps = {
+ListeDossierMedical.defaultProps = {
   color: "blue",
 };
 
