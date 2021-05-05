@@ -46,7 +46,22 @@ router.get('/', auth, function(req, res, next) {
     }
   )
 });
-
+router.get('/getAll', function(req, res, next) {
+  user.find(
+    (err, user )=>{
+      if(err)
+        console.log(err);
+      else
+        res.json(user);
+        /*res.render('form.twig',
+          {
+            title : "user list",
+            cont : user
+          }
+        )*/
+    }
+  )
+});
 /* POST API user */
 addUser: router.post('/',auth, function(req, res, next) {
   new user({
