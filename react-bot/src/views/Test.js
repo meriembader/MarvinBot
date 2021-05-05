@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import Axios from "axios";
 import { FaStar } from 'react-icons/fa';
 
-
-  
   export default function Test() {
     const [ForumList, setForumList] = useState([]);
     const stars = Array(5).fill(0)

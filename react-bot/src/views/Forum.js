@@ -89,7 +89,8 @@ export default function Forum() {
 
 
                             <div className="w-full mb-12 px-4">
-                                <Test> </Test>
+                                <Test></Test>
+
                             </div>
 
                             

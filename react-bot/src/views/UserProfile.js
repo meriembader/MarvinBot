@@ -5,7 +5,6 @@ import Footer from "components/Footers/Footer.js";
 import { Link } from "react-router-dom";
 import back from "./../assets/img/result.jpg";
 import CardTableDoctors from "components/Cards/CardTableDoctors";
-import jwt_decode from "jwt-decode";
 
 
 export default function UserProfile({ color }) {
