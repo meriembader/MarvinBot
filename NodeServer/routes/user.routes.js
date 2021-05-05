@@ -402,11 +402,7 @@ router.get('/count',(req,res)=>{
  })
  
 })
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 8d2928711c8b12930d802b4e21cbb9b005ea2aee
 router.get('/doctors',(req,res)=>{
 
   user.find( {role: 'Doctor'}, function(err, result){
@@ -419,10 +415,6 @@ router.get('/doctors',(req,res)=>{
       }
  })
 })
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d2928711c8b12930d802b4e21cbb9b005ea2aee
 /*
 
 router.get('/stat',  async (req, res) =>{
