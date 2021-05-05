@@ -300,7 +300,7 @@ router.post('/forgotpassword', async(req, res) => {
     service: "gmail",
     auth: {
       user: "meriembader1997@gmail.com",
-      pass: "@duriz689",
+      pass: "@SSENSIO689",
     },
   });
 

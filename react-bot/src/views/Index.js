@@ -6,7 +6,6 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import medical from "./../assets/img/medical.jpg";
 import doctor from "./../assets/img/doctor.jpg";
-import CardStats from "components/Cards/CardOpinion";
 export default function Index() {
   return (
     <>
@@ -343,11 +342,8 @@ Lowering Costs. Improving Health.                  </h1>
                   Dashboards draw on current data, providing immediate, real-time insights into users and their behaviors.
                 </p>
 
-
               </div>
             </div>
-
-
 
             <div className="w-full md:w-6/12 mr-auto px-4 pt-24 md:pt-0">
               <img
@@ -368,7 +364,7 @@ Lowering Costs. Improving Health.                  </h1>
 
           </div>
         </div>
-
+      </section>
 
 
 

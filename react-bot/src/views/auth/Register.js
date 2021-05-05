@@ -28,8 +28,8 @@ export default function Register() {
       );
      
       alert("Account created successfully ! Please check your email to verify your account !");
-      history.push("/user/login");
-      window.location.reload();
+      history.push("/auth/login");
+    
   } catch (err) {
      console.log("error");
   }
