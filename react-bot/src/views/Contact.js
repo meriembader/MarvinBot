@@ -29,8 +29,8 @@ export default function Contact() {
     );
    
     alert("email sent!, check you inbox please");
-    history.push("/user/forgotpassword");
-    window.location.reload();
+    history.push("/contact");
+    
 } catch (err) {
    console.log("error");
 }

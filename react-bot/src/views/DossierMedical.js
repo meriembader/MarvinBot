@@ -6,10 +6,12 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { Link } from "react-router-dom";
 import back from "./../assets/img/online.jpg";
-
-
+import jwt_decode from "jwt-decode";
+ 
 export default function DossierMedical() {
-
+  var token = localStorage.token;
+  var decoded = jwt_decode(token);
+  const [Event, setEvent] = useState(true);
   const [name, setName] = useState();
   const [ResultDiagnostic, setResultDiagnostic] = useState();
   const [email, setEmail] = useState();
@@ -39,14 +41,12 @@ export default function DossierMedical() {
   );
  
   alert(" created successfully  !");
-  history.push("/user/profile");
+  history.push("/profile");
   window.location.reload();
 } catch (err) {
  console.log("error");
 }
 };
-
-
 
 
   return (
@@ -105,18 +105,7 @@ export default function DossierMedical() {
 
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
-                      <button
-                        className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      >
-                        <Link
-                          to="/landing"
-                          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                        >
-                          <i class="fas fa-sign-in-alt" ></i> Start diagnosis
-                                        </Link>
-
-                      </button>
+                      
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -150,7 +139,7 @@ export default function DossierMedical() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Dr.Fethi Nouira
+                  { "Dr."+ decoded.username}
                                 </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
@@ -173,13 +162,8 @@ export default function DossierMedical() {
                 <br></br>
      <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Admin account</h6>
-            <button
-              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Settings
-            </button>
+            <h6 className="text-blueGray-700 text-xl font-bold">Medical File</h6>
+           
           </div>
         </div>
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">

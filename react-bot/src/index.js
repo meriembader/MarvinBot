@@ -19,9 +19,15 @@ import Index from "views/Index.js";
 import Forum from "views/Forum";
 import VirtualConsultation from "views/VirtualConsultation";
 import UserProfile from "views/UserProfile";
-
 import DossierMedical from "views/DossierMedical";
 import ListeDossierMedical from "views/ListeDossierMedical";
+import jwt_decode from "jwt-decode";
+var token = localStorage.token;
+if (token) {
+  var decoded = jwt_decode(token);
+}
+else var decoded = "";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -101,21 +107,8 @@ ReactDOM.render(
 
       <Route path="/auth" component={Auth} />
 
-      {/* add routes without layouts */}
-      <Route path="/diagnosis" exact component={Diagnosis} />
-      <Route path="/contact" exact component={Contact} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/forum" exact component={Forum} />
-      <Route path="/UserProfile" exact component={UserProfile} />
-      <Route path="/DossierMedical" exact component={DossierMedical} />
-      <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
-      <Route path="/VC" exact component={VirtualConsultation} />
-      <Route path="/test" exact component={Test} />
-    
-      <Route path="/" exact component={Index} />
-      {/* add redirect for first page */}
-      <Redirect from="*" to="/" />
-    
+
+
 
     </Switch>
 

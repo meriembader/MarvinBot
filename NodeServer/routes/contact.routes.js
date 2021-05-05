@@ -46,13 +46,13 @@ router.get('/', function(req, res, next) {
  var transporter = nodemailer.createTransport({
  service: "gmail",
  auth: {
-   user: "meriembader1997@gmail.com",
+   user: "badermeriem13@gmail.com",
    pass: "@duriz689",
  },
  });
  
  var mailOptions = {
- from: "meriembader1997@gmail.com",
+ from: "badermeriem13@gmail.com",
  to: Contact.email,
  subject: `Requette recu`,
  text: texte,
