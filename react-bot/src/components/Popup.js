@@ -1,6 +1,6 @@
 import { Dialog, Button } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios';
+import axios from 'axios';
 import { FaStar } from 'react-icons/fa';
 
 export default function Popup(props) {

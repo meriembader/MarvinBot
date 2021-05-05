@@ -1,8 +1,13 @@
 import React from "react";
+import jwt_decode from "jwt-decode";
+
 
 // components
 
 export default function CardProfile() {
+  var token = localStorage.token;
+  var decoded = jwt_decode(token);
+  console.log("decoded  ", decoded)
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -12,7 +17,7 @@ export default function CardProfile() {
               <div className="relative">
                 <img
                   alt="..."
-                  src={require("assets/img/patients.jpg").default}
+                  src={require("assets/img/user.png").default}
                   className="shadow-md rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-100-px"
                 />
               </div>
@@ -42,7 +47,7 @@ export default function CardProfile() {
           </div>
           <div className="text-center mt-12">
             <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-              Rafaa Lakhdhar
+              {decoded.username}
             </h3>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
@@ -50,14 +55,14 @@ export default function CardProfile() {
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">
               <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-              Super Admin - foxward project
+              {decoded.role} - foxward project
             </div>
-           
+
           </div>
           <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-9/12 px-4">
-               
+
                 <a
                   href="#pablo"
                   className="font-normal text-lightBlue-500"

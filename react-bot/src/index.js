@@ -26,9 +26,81 @@ import ListeDossierMedical from "views/ListeDossierMedical";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      {/* add routes with layouts */}
-      <Route path="/admin" component={Admin} />
+
+{/*admin routes*/}
+      {
+        decoded.role === 'Admin' ?
+          <>
+
+            <Route path="/admin" component={Admin} />
+
+          
+
+            <Route path="/contact" exact component={Contact} />
+
+            <Route path="/forum" exact component={Forum} />
+            <Route path="/UserProfile" exact component={UserProfile} />
+            <Route path="/DossierMedical" exact component={DossierMedical} />
+            <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
+            <Route path="/VC" exact component={VirtualConsultation} />
+
+            <Route path="/" exact component={Index} />
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+
+
+{/*doctor routes*/}
+
+      {
+        decoded.role === 'Doctor' ?
+          <>
+
+
+
+
+
+            <Route path="/contact" exact component={Contact} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/forum" exact component={Forum} />
+            <Route path="/DossierMedical" exact component={DossierMedical} />
+            <Route path="/ListeDossierMedical" exact component={ListeDossierMedical} />
+            <Route path="/VC" exact component={VirtualConsultation} />
+
+            <Route path="/" exact component={Index} />
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+
+
+{/*patient routes*/}
+      {
+        decoded.role === 'patient' ?
+          <>
+
+
+
+
+
+            <Route path="/contact" exact component={Contact} />
+            <Route path="/forum" exact component={Forum} />
+            <Route path="/diagnosis" exact component={Diagnosis} />
+            <Route path="/VC" exact component={VirtualConsultation} />
+            <Route path="/UserProfile" exact component={UserProfile} />
+
+            <Route path="/" exact component={Index} />
+          </>
+          :
+          <Route path="/" exact component={Index} />
+      }
+
+
+
+
       <Route path="/auth" component={Auth} />
+
       {/* add routes without layouts */}
       <Route path="/diagnosis" exact component={Diagnosis} />
       <Route path="/contact" exact component={Contact} />
@@ -44,8 +116,9 @@ ReactDOM.render(
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
     
+
     </Switch>
-  
+
   </BrowserRouter>,
 
   document.getElementById("root")

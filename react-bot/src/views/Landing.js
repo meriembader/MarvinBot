@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import io from 'socket.io-client';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import Maps from "./admin/Maps.js";
+
 
 
 
@@ -23,8 +25,9 @@ export default function Diagnosis() {
   console.log(decoded);
 
   setTimeout(function () {
+    document.getElementById("map").style.display = "none";
     document.getElementById("WaitGif").style.display = "none";
-    document.getElementById("result1").style.display = "none";
+   
     document.getElementById("result2").style.display = "none";
   }, 100)
 
@@ -129,8 +132,9 @@ console.log("questions saved");
 
       else if (r == "2") {
         document.getElementById("WaitGif").style.display = "none";
-        document.getElementById("ResultText").innerHTML = "Your symptoms are related to COVID-19. You and people you live with should isolate at home until your symptoms improve.If your condition worsens,to prevent others from getting sick, wear a mask if contact with others is necessary.If your temperature goes up,or you feel more unwell, please stay at home and take a new diagnosis. ";
-        document.getElementById("result1").style.display = "block";
+        document.getElementById("ResultText").innerHTML = "Your symptoms are related to COVID-19.Check the map  to view the nearest hospitals and make a test to confirm the diagnosis.";
+     
+        document.getElementById("map").style.display = "block";
 
       }
       else if (r == "3") {
@@ -484,21 +488,16 @@ console.log("questions saved");
                 </p>
                   <img id="WaitGif" src="https://i.gifer.com/YCZH.gif" alt="alternatetext"></img>
                 </div>
+               <div id="map"> <Maps/></div>
 
 
                 <button className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                   type="button" id="result2" >
-                  <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
+                  <Link to="/userprofile" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
                     Schedule Appointement
                   </Link>
                 </button>
 
-                <button className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                  type="button" id="result1" >
-                  <Link to="/chatbot" className="font-bold text-blueGray-700 mt-8" class="fas fa-user-md-chat">
-                    View Hospitals
-                  </Link>
-                </button>
 
               </div>
 

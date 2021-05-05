@@ -36,15 +36,16 @@ const IndexDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        
+
         <Link
+                  onClick={() => { localStorage.clear(); window.location.href = '/'; }}
+
           to="/"
-          onClick={() => localStorage.clear()}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Logout
         </Link>
-       
+
         <Link
           to="/admin"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
@@ -58,7 +59,7 @@ const IndexDropdown = () => {
         >
           Online Consultation
         </Link>
-<Link
+        <Link
           to="/forum"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
@@ -71,7 +72,7 @@ const IndexDropdown = () => {
           Contact
         </Link>
 
-       
+
       </div>
     </>
   );

@@ -8,7 +8,8 @@ import CardTableDoctors from "components/Cards/CardTableDoctors";
 
 
 export default function UserProfile({ color }) {
-
+  var token = localStorage.token;
+  var decoded = jwt_decode(token);
   const [Event, setEvent] = useState(true);
 
 
@@ -209,7 +210,7 @@ export default function UserProfile({ color }) {
                         type="button"
                       >
                         <Link
-                          to="/landing"
+                          to="/diagnosis"
                           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                         >
                           <i class="fas fa-sign-in-alt" ></i> Start diagnosis
@@ -249,7 +250,7 @@ export default function UserProfile({ color }) {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Salma Hadded
+                  {decoded.username}
                                 </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
@@ -257,7 +258,7 @@ export default function UserProfile({ color }) {
                                 </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
 
-                    Patient
+                  {decoded.role}
                                 </div>
 
 

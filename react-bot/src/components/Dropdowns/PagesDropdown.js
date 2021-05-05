@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPopper } from "@popperjs/core";
-
+import jwt_decode from "jwt-decode";
 const PagesDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -15,7 +15,19 @@ const PagesDropdown = () => {
   };
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
-  };
+  }; var token = localStorage.token;
+  var decoded = jwt_decode(token);
+  setTimeout(function () {
+    if (decoded.role == "Doctor") {
+      document.getElementById("diagnosis").style.display = "none";
+      document.getElementById("userprofile").style.display = "none";
+
+    } else if (decoded.role == "patient") {
+      document.getElementById("docprofile").style.display = "none";
+
+
+    }
+  }, 100)
   return (
     <>
       <a
@@ -36,66 +48,36 @@ const PagesDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          Admin Layout
-        </span>
+
         <Link
-          to="/admin/dashboard"
+          to="/diagnosis" id="diagnosis"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
-          Dashboard
+          Diagnostic
         </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+
+        <Link
+          to="/userprofile" id="userprofile"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        >
+          Profile
+        </Link>
 
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
 
-        <Link
-          to="/admin/settings"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Settings
-        </Link>
-        <Link
-          to="/admin/tables"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Doctors
-        </Link>
-        <Link
-          to="/admin/maps"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Maps
-        </Link>
-        
-        
-       
-        
-        <Link
-          to="/landing"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-           Diagnostic
-        </Link>
 
-       
+
+
+
+
+
 
         <Link
-          to="/profile"
+          to="/profile" id="docprofile"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
@@ -112,19 +94,28 @@ const PagesDropdown = () => {
           to="/contact"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
-          Contact 
+          Contact
         </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <Link
-          to="/"
-          onClick={() => localStorage.clear()}
+        <div className="h-0 my-2 border border-solid border-blueGray-100" />
+        <a
+          href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-        ><i class="fas fa-sign-out-alt"></i>
-          Logout
+          onClick={(e) => e.preventDefault()}
+        >
+          <Link
+
+            onClick={() => { localStorage.clear(); window.location.href = '/'; }}
+            to="/"
+            className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+          >
+            Logout
         </Link>
 
+        </a>
       </div>
     </>
   );

@@ -402,6 +402,7 @@ router.get('/count',(req,res)=>{
  })
  
 })
+
 router.get('/doctors',(req,res)=>{
 
   user.find( {role: 'Doctor'}, function(err, result){
@@ -414,7 +415,6 @@ router.get('/doctors',(req,res)=>{
       }
  })
 })
-
 /*
 
 router.get('/stat',  async (req, res) =>{
