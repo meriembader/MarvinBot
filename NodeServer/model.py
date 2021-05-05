@@ -18,7 +18,7 @@ import json
 
 #from sklearn.externals import joblib
 import joblib
-df = pd.read_csv("C:/Users/ali/Desktop/MarvinBot/IA_Model/covid.csv")
+df = pd.read_csv("D:/telechargements/pi covid/MarvinBot/IA_Model/covid.csv")
 
 pd.pandas.set_option('display.max_columns',None)
 #display("Peeking into Data", df)

@@ -4,12 +4,14 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { Link } from "react-router-dom";
 import back from "./../assets/img/result.jpg";
+import CardTableDoctors from "components/Cards/CardTableDoctors";
+import jwt_decode from "jwt-decode";
 
 
 export default function UserProfile({ color }) {
-
+  var token = localStorage.token;
+  var decoded = jwt_decode(token);
   const [Event, setEvent] = useState(true);
-  const [Mail, setMail] = useState([]);
 
 
   var gapi = window.gapi
@@ -209,7 +211,7 @@ export default function UserProfile({ color }) {
                         type="button"
                       >
                         <Link
-                          to="/landing"
+                          to="/diagnosis"
                           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                         >
                           <i class="fas fa-sign-in-alt" ></i> Start diagnosis
@@ -222,13 +224,7 @@ export default function UserProfile({ color }) {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          <button
-                            className="bg-Blue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                          >
-                            <i class="fas fa-file-download"></i> Download your medical test
-
-                                    </button>
+                          
                         </span>
                         <span className="text-sm text-blueGray-400">
 
@@ -236,19 +232,18 @@ export default function UserProfile({ color }) {
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          3
+                          
                                       </span>
                         <span className="text-sm text-blueGray-400">
-                          Tests
+                          
                                       </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          1
+                          
 
                                       </span>
                         <span className="text-sm text-blueGray-400">
-                          Positive
                                       </span>
                       </div>
                     </div>
@@ -256,7 +251,7 @@ export default function UserProfile({ color }) {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Salma Hadded
+                  {decoded.username}
                                 </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
@@ -264,7 +259,7 @@ export default function UserProfile({ color }) {
                                 </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
 
-                    Patient
+                  {decoded.role}
                                 </div>
 
 
@@ -272,9 +267,13 @@ export default function UserProfile({ color }) {
                 
                 </div>
 
+                <CardTableDoctors></CardTableDoctors>
+
                 <br></br>
 
-                <iframe title="doctors" src="https://calendar.x.ai/nihelchraief-377" style={{width : '100%' , minHeight : '600px' , border : 'none'}} scrolling="auto"></iframe>
+                <div><strong>The available doctor calendar:</strong> </div>
+
+                <iframe title="doctors" src="https://calendar.x.ai/nihelchraief-377/drsalwa" style={{width : '100%' , minHeight : '800px' , border : 'none'}} scrolling="auto"></iframe>
  <br></br>
 
               

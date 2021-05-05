@@ -374,6 +374,20 @@ router.get('/count',(req,res)=>{
       }
  })
 })
+
+
+router.get('/doctors',(req,res)=>{
+
+  user.find( {role: 'Doctor'}, function(err, result){
+
+      if(err){
+          res.send(err)
+      }
+      else{
+          res.json(result)
+      }
+ })
+})
 /*
 router.get('/stat',  async (req, res) =>{
   const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
