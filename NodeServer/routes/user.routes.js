@@ -191,24 +191,7 @@ router.post('/register', async (req, res) => {
       console.log("hi there");
   }
 });
-/*
-router.post('/mail',async(req, res) => {
-const msg = {
-  to: 'meriembader8@gmail.com', // Change to your recipient
-  from: 'meriem.bader1@esprit.tn', // Change to your verified sender
-  subject: 'Sending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-}
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
-})*/
+
 /* forgot password */
 
 router.put('/ChangePassword/:userId', async (req, res, next) => {
@@ -388,16 +371,10 @@ router.get('/doctors',(req,res)=>{
       }
  })
 })
-/*
-router.get('/stat',  async (req, res) =>{
-  const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
-  const users = user.aggregate(pipeline).then((data)=>{ return res.json(data);});
- 
-  
-})*/
+
 
 router.get('/stat',  function  (req, res) {
-  //const pipeline = [ { $group: { _id: "$role", nb_user: { $sum: 1 } } },];
+
   user.aggregate([
     {
       $group: { 
