@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import Axios from 'axios';
@@ -78,7 +77,7 @@ export default function Forum() {
                                         <i class="fas fa-plus-square"></i>
                                        
                                     </button>
-                                    <h6 className="text-xl font-semibold">Add Discussion</h6>
+                                    <h6 className="text-xl font-semibold">Add Review</h6>
 
                                 </div>
                             </div>
@@ -89,8 +88,7 @@ export default function Forum() {
 
 
                             <div className="w-full mb-12 px-4">
-                                <Test></Test>
-
+                                <Test> </Test>
                             </div>
 
                             

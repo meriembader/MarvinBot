@@ -177,4 +177,3 @@ const styles = {
     padding: 10,
   }
 }
-

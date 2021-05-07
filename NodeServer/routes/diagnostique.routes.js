@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
     mode: 'text',
     //pythonOptions: ['-u'], // get print results in real-time
    
-    pythonPath: 'D:/telechargements/pi covid/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
+    pythonPath: 'C:/Users/Meriem/Desktop/MarvinBot/NodeServer/venv/Scripts/python', //If you are having python_test.py script in same folder, then it's optional.
     args: [req.body.input] //An argument which can be accessed in the script using sys.argv[1]
   };
   

@@ -1,4 +1,4 @@
-const PROXY_URL = "http://localhost:9001/";
+const PROXY_URL = "http://localhost:3004/";
 
 export async function fetchNearestPlacesFromGoogle(latitude, longitude) {
     const key = 'AIzaSyCxg9uuzEQ5Lzv-0QT0THxI_t3FOw2Zg9Q';
@@ -43,4 +43,3 @@ export async function fetchNearestPlacesFromGoogle(latitude, longitude) {
 
 
 }
-

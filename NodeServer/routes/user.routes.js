@@ -314,13 +314,13 @@ router.post('/forgotpassword', async(req, res) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "meriembader1997@gmail.com",
-      pass: "@SSENSIO689",
+      user: "badermeriem13@gmail.com",
+      pass:"@duriz689",
     },
   });
 
   var mailOptions = {
-    from: "meriembader1997@gmail.com",
+    from: "badermeriem13@gmail.com",
     to: `${email}`,
     subject: `Password Reset link`,
     text: message,
