@@ -1,4 +1,4 @@
-const PROXY_URL = "http://localhost:9001/";
+const PROXY_URL = "http://localhost:3004/";
 
 export async function redirectTohospital(myLat, myLng, myHospitals) {
 
@@ -8,12 +8,14 @@ export async function redirectTohospital(myLat, myLng, myHospitals) {
         const url = PROXY_URL + 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + myLat + ',' + myLng + '&destinations=side_of_road:' + hospital.Latitude + ',' + hospital.Longitude + '&key=' + key;
         let res = await fetch(url);
         let response = await res.json();
-        if (response.rows[0].elements[0].status !== 'ZERO_RESULTS') {
+        console.log("hehe",response)
+        if (response.rows[0].elements[0].status !== 'ZERO_RESULTS' && response.rows[0].elements[0].status !== "NOT_FOUND") {
             filtredhospitals.push({ hospital: hospital,
                  distance: response.rows[0].elements[0].distance.value,
                  temp: response.rows[0].elements[0].duration.text,
                  distancekm : response.rows[0].elements[0].distance.text});
         }
+        
     }
     console.log(filtredhospitals);
     let returned = filtredhospitals.filter(hospital => +hospital.hospital.status > 0);
@@ -22,5 +24,3 @@ export async function redirectTohospital(myLat, myLng, myHospitals) {
     
     ;
 }
-
-

@@ -4,14 +4,13 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { Link } from "react-router-dom";
 import back from "./../assets/img/online.jpg";
+import PropTypes from "prop-types";
 import jwt_decode from "jwt-decode";
-
-
-
 export default function Profile({ color }) {
+
+  const [Event, setEvent] = useState(true);
   var token = localStorage.token;
   var decoded = jwt_decode(token);
-  const [Event, setEvent] = useState(true);
 
 
   var gapi = window.gapi
@@ -21,27 +20,7 @@ export default function Profile({ color }) {
   var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
-  const test = () => {
-    if (Event.length > 0) {
-      for (var i = 0; i < Event.length; i++) {
-        var event = Event[i];
-        var when = event.start.dateTime;
-        if (!when) {
-          when = event.start.date;
-        } console.log((event.summary + ' (' + when + ')'))
 
-        return (
-              <div>   {event.summary + ' (' + when + ')'}        </div>
-
-        ) 
-      }
-    } else {
-      return (
-        <div> No events </div>
-      )
-    }
-
-  }
 
   const handleClick = () => {
     gapi.load('client:auth2', () => {
@@ -112,7 +91,16 @@ export default function Profile({ color }) {
             'orderBy': 'startTime'
           }).then(response => {
             setEvent(response.result.items)
-
+            //  if (Event.length > 0) {
+            for (var i = 0; i < Event.length; i++) {
+              var event = Event[i];
+              var when = event.start.dateTime;
+              if (!when) {
+                when = event.start.date;
+              } console.log((event.summary + ' (' + when + ')'))
+              console.log(Event.length)
+              // }
+            }
 
           })
 
@@ -121,7 +109,10 @@ export default function Profile({ color }) {
         })
     })
   }
-  
+
+
+
+
 
 
 
@@ -180,87 +171,86 @@ export default function Profile({ color }) {
                   </div>
 
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                   
+                    <div className="py-6 px-3 mt-32 sm:mt-0">
+                     
+                    </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          
-                                      </span>
+
+                        </span>
                         <span className="text-sm text-blueGray-400">
-                        
-                                      </span>
+
+                        </span>
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                         
-                                      </span>
+
+                        </span>
                         <span className="text-sm text-blueGray-400">
-                      
-                                      </span>
+
+                        </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          
-                                      </span>
+
+                        </span>
                         <span className="text-sm text-blueGray-400">
-                          
-                                      </span>
+
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    {"Dr. "+decoded.username}
+                  {"Dr. "+ decoded.username}
                                 </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                                  Sousse, Tunis
-                                </div>
+                 
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                                  {decoded.role}
+                    {decoded.role}
                                 </div>
 
                   <div>
                     <br></br>
-                   
+
                     <button onClick={handleClick}
                       className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
-                     
+
                       <i className="fas fa-calendar-check"></i> Add appointment
 
                                     </button>
-                                      
-                    <button 
+
+                    <button
                       className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
-                      <i className="fas fa-plus-square"></i>  <a href = "/DossierMedical" >Add Medical File</a>
+                      <i className="fas fa-plus-square"></i>  <a href="/DossierMedical" >Add Medical File</a>
 
-                                    </button>
+                    </button>
                   </div>
-                  
+
                   <div>
                     <br></br>
-                    <button 
+                    <button
                       className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
-                      <i className="fas fa-plus-square"></i>  <a href = "/ListeDossierMedical" >List Dossier Medicale</a>
+                      <i className="fas fa-plus-square"></i>  <a href="/ListeDossierMedical" >List Dossier Medicale</a>
 
-                                    </button>
-                 
+                    </button>
+
                   </div>
                 </div>
 
                 <br></br>
                 <br></br>
-                
+
 
                 <div
                   className={
@@ -280,36 +270,75 @@ export default function Profile({ color }) {
                             (color === "light" ? "text-blueGray-700" : "text-white")
                           }
                         >
- UPCOMING EVENTS
+                          UPCOMING EVENTS
                         </h3>
                       </div>
                     </div>
                   </div>
-                  <div className="block w-full overflow-x-auto">
 
+                  <div className="block w-full overflow-x-auto">
+                    {/* Projects table */}
                     <table className="items-center w-full bg-transparent border-collapse">
 
-                      <thead>
-                       
-                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
- 
-                          {test() }
 
-                              </th>
-                         
-                      
-                      </thead>
 
                       <tbody>
-                        
-<th>
-                      
-                      </th>
-                   
+
+
+
+                        {Event.length >= 0 ? (Event.map((event) => {
+                          return (
+                            <tr>
+
+                              <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                  src={require("assets/img/Events.jpg").default}
+                                  className="h-12 w-12 bg-white rounded-full border"
+                                  alt="..."
+                                ></img>{" "}
+                                <span
+                                  className={
+                                    "ml-3 font-bold " +
+                                    +(color === "light" ? "text-blueGray-600" : "text-white")
+                                  }
+                                >
+
+                                  <div >
+
+                                    <h3> {event.summary + ' (' + event.start.dateTime + ')'}</h3>
+                                  </div>
+                                </span>
+
+                              </th>
+
+
+
+
+                            </tr>
+
+                          );
+                        })) : (
+                          <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-x whitespace-nowrap p-4 text-left flex items-center">
+                            <span
+                              className={
+                                "ml-3 font-bold " +
+                                +(color === "light" ? "text-blueGray-600" : "text-white")
+                              }
+                            >
+
+                              <div >
+
+                                <h2> No events </h2>
+                              </div>
+                            </span>
+                          </th>)}
+
                       </tbody>
                     </table>
 
                   </div>
+
+
                 </div>
 
 
@@ -322,8 +351,8 @@ export default function Profile({ color }) {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-              
-                                    </p>
+
+                      </p>
                       <a
                         href="#pablo"
                         className="font-normal text-lightBlue-500"
@@ -349,8 +378,11 @@ export default function Profile({ color }) {
 
 
 Profile.defaultProps = {
-  color: "blue",
+  color: "light",
 };
 
+Profile.propTypes = {
+  color: PropTypes.oneOf(["light", "dark"]),
+};
 
 

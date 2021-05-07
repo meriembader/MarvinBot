@@ -46,7 +46,22 @@ router.get('/', auth, function(req, res, next) {
     }
   )
 });
-
+router.get('/getAll', function(req, res, next) {
+  user.find(
+    (err, user )=>{
+      if(err)
+        console.log(err);
+      else
+        res.json(user);
+        /*res.render('form.twig',
+          {
+            title : "user list",
+            cont : user
+          }
+        )*/
+    }
+  )
+});
 /* POST API user */
 addUser: router.post('/',auth, function(req, res, next) {
   new user({
@@ -299,13 +314,13 @@ router.post('/forgotpassword', async(req, res) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "meriembader1997@gmail.com",
-      pass: "@SSENSIO689",
+      user: "badermeriem13@gmail.com",
+      pass:"@duriz689",
     },
   });
 
   var mailOptions = {
-    from: "meriembader1997@gmail.com",
+    from: "badermeriem13@gmail.com",
     to: `${email}`,
     subject: `Password Reset link`,
     text: message,

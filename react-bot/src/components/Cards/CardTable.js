@@ -11,7 +11,7 @@ export default function CardTable({ color }) {
 
 
   useEffect(() => {
-    axios.get("http://localhost:3001/user").then((response) => {
+    axios.get("http://localhost:3001/user/getAll").then((response) => {
       setUserList(response.data);
       console.log(response.data);
     });
